@@ -1,8 +1,8 @@
 import { Model, Sequelize, DataTypes } from "sequelize"
 
-import { Sender, Receiver, PayloadDimensions } from "@interfaces/Delivery"
+import { Sender, Receiver, PayloadDimensions } from "@interfaces/DeliveryPayload"
 
-class Delivery extends Model {
+class DeliveryPayload extends Model {
 	id: number
 	created_at: Date
 	updated_at: Date
@@ -45,7 +45,7 @@ class Delivery extends Model {
 			}
 		}, {
 			sequelize,
-			tableName: "delivery",
+			tableName: "delivery_payload",
 			indexes: [
 				{ unique: true, fields: ["tracking_code"] },
 			]
@@ -53,4 +53,4 @@ class Delivery extends Model {
 	}
 }
 
-export default Delivery
+export default DeliveryPayload

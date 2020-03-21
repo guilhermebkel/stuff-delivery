@@ -1,5 +1,5 @@
-import Delivery from "@models/Delivery"
+import DeliveryPayload from "@models/DeliveryPayload"
 
-const models = [Delivery]
+const models = [DeliveryPayload]
 
 export default models
