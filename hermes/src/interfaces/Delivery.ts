@@ -10,3 +10,10 @@ export interface Sender {
 export interface Receiver extends Sender {
 
 }
+
+export interface PayloadDimensions {
+	weight: number
+	length: number
+	width: number
+	height: number
+}

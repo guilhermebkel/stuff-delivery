@@ -1,6 +1,6 @@
 import { Model, Sequelize, DataTypes } from "sequelize"
 
-import { Sender, Receiver } from "@interfaces/Delivery"
+import { Sender, Receiver, PayloadDimensions } from "@interfaces/Delivery"
 
 class Delivery extends Model {
 	id: number
@@ -9,6 +9,7 @@ class Delivery extends Model {
 	deleted_at: Date
 	sender: Sender
 	receiver: Receiver
+	payload_dimensions: PayloadDimensions
 
 	static define(sequelize: Sequelize) {
 		this.init({
@@ -35,6 +36,10 @@ class Delivery extends Model {
 				allowNull: false
 			},
 			receiver: {
+				type: DataTypes.JSONB,
+				allowNull: false
+			},
+			payload_dimensions: {
 				type: DataTypes.JSONB,
 				allowNull: false
 			}
