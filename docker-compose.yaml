@@ -55,12 +55,12 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - ./data/nginx:/etc/nginx/conf.d
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
+      - ./ingress/nginx:/etc/nginx/conf.d
+      - ./ingress/certbot/conf:/etc/letsencrypt
+      - ./ingress/certbot/www:/var/www/certbot
 
   ingress-certificate:
     image: certbot/certbot
     volumes:
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
+      - ./ingress/certbot/conf:/etc/letsencrypt
+      - ./ingress/certbot/www:/var/www/certbot
