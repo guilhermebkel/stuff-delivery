@@ -6,7 +6,7 @@ services:
     ports:
       - "2181:2181"
 
-  pub-sub:
+  pub-sub-worker:
     image: wurstmeister/kafka:2.11-1.1.0
     ports:
       - "9092:9092"
@@ -15,6 +15,18 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+
+  pub-sub-dashboard:
+    image: sheepkiller/kafka-manager:latest
+    ports:
+      - "9000:9000"
+    links:
+      - pub-sub-manager
+      - pub-sub-worker
+    environment:
+      ZK_HOSTS: zookeeper:2181
+      APPLICATION_SECRET: letmein
+      KM_ARGS: -Djava.net.preferIPv4Stack=true
 
   database:
     image: postgres
@@ -35,20 +47,20 @@ services:
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
     volumes:
-			- /data:/data
-			
+      - /data:/data
+
   ingress-controller: 
-		image: nginx:latest
-		ports:
-			- 80:80
-			- 443:443
+    image: nginx:latest
+    ports:
+      - 80:80
+      - 443:443
     volumes:
-			- ./data/nginx:/etc/nginx/conf.d
-			- ./data/certbot/conf:/etc/letsencrypt
-			- ./data/certbot/www:/var/www/certbot
-	
-	ingress-certificate:
-		image: certbot/certbot
-		volumes:
-		  -	./data/certbot/conf:/etc/letsencrypt
+      - ./data/nginx:/etc/nginx/conf.d
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+
+  ingress-certificate:
+    image: certbot/certbot
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
