@@ -26,6 +26,7 @@
       "@jobs/*": ["jobs/*"],
       "@core/*": ["core/*"],
       "@models/*": ["models/*"],
+      "@interfaces/*": ["interfaces/*"],
       "~/*": ["./*"]
     }
   },

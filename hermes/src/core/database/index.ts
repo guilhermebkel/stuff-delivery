@@ -29,7 +29,7 @@ class Database {
 				}
 			)
 		} catch (error) {
-			console.error("Failed to init postgres!", error.message)
+			console.error("Failed to init database!", error.message)
 			process.exit(1)
 		}
 	}
@@ -37,9 +37,9 @@ class Database {
 	async testConnection() {
 		try {
 			await this.postgres.authenticate()
-			console.log(`Connected to Postgres... [${process.env.POSTGRES_HOST}]`)
+			console.log(`Database is connected... [${process.env.POSTGRES_HOST}]`)
 		} catch (error) {
-			console.error("Failed to connect to postgres!", error.message)
+			console.error("Failed to connect to database!", error.message)
 			process.exit(1)
 		}
 	}

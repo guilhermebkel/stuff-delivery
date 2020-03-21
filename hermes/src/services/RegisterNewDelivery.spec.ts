@@ -1,13 +1,19 @@
 import RegisterNewDelivery from "@services/RegisterNewDelivery"
 
+import Delivery from "@models/Delivery"
+
 describe('Register new delivery', () => {
   it('should create a new delivery', async () => {
-    // RegisterNewDelivery.run({
+    const newDelivery = RegisterNewDelivery.run({
 
-		// })
+		})
 
-		// const delivery = 
+		const delivery = await Delivery.findOne({
+			attributes: ["id"],
+			where: { id: newDelivery.id },
+			raw: true
+		})
 
-		// expect(message).toBeTruthy()
+		expect(delivery).toBeTruthy()
   });
 });
