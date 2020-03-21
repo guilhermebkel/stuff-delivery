@@ -16,11 +16,11 @@ class Delivery extends Model {
 			}
 		}, {
 			sequelize,
-			tableName: "checkout_coupons",
-			indexes: [
-				{ unique: true, fields: ["name"] },
-				{ fields: ["customer_id"] },
-			]
+			tableName: "delivery",
+			// indexes: [
+			// 	{ unique: true, fields: ["name"] },
+			// 	{ fields: ["customer_id"] },
+			// ]
 		})
 	}
 }

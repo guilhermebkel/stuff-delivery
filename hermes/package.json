@@ -7,9 +7,9 @@
     "start": "node dist/index.js",
     "dev": "nodemon src/index.ts",
     "test": "jest",
-    "database:migrate:make": "knex --knexfile src/core/database/knex.ts -x ts migrate:make",
-    "database:migrate:latest": "knex --knexfile src/core/database/knex.ts migrate:latest",
-    "database:migrate:rollback": "knex --knexfile src/core/database/knex.ts migrate:rollback",
+    "database:migrate:make": "npx sequelize-cli db:migrate",
+    "database:migrate:generate": "npx sequelize-cli migration:generate --name",
+    "database:migrate:rollback": "npx sequelize-cli db:migrate:undo",
     "build": "tsc"
   },
   "keywords": [],

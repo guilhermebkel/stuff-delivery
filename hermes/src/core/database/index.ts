@@ -52,7 +52,7 @@ class Database {
 			},
 			migrations: {
 				params: [this.postgres.getQueryInterface(), Sequelize],
-				path: `${this.rootDir}/src/core/database/migrations`
+				path: `${this.rootDir}/migrations`
 			}
 		})
 
