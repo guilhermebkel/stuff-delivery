@@ -24,7 +24,9 @@
       "@config/*": ["config/*"],
       "@services/*": ["services/*"],
       "@jobs/*": ["jobs/*"],
-      "@core/*": ["core/*"]
+      "@core/*": ["core/*"],
+      "@models/*": ["models/*"],
+      "~/*": ["./*"]
     }
   },
   "include": ["src", "__tests__", "boot"]
