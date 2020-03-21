@@ -25,7 +25,7 @@ services:
       - pub-sub-worker
     environment:
       ZK_HOSTS: pub-sub-manager:2181
-      APPLICATION_SECRET: letmein
+      APPLICATION_SECRET: h3rm3s
       KM_ARGS: -Djava.net.preferIPv4Stack=true
 
   # database:
