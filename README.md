@@ -61,16 +61,6 @@
 
 ## Business Rules
 
-### Heimdall (Authentication Microservice)
-
-- Services - (trigger)
-	- **login** - POST /auth/login ({ email, password })
-		1. gRPC Asgardian.getUserLoginTokenData(email, password)
-		2. Heimdall.generateToken(userLoginTokenData)
-
-	- **isAuthenticated** - gRPC Heimdall.isAuthenticated(token)
-		1. Heimdall.decodeToken(token)
-
 ### Hermes (Tracking Microservice)
 
 - Events - (payload)
@@ -135,3 +125,10 @@
 
 	- **resetPassword** - PUT /user/recover (password, token)
 		1. Asgardian.resetPassword(token, password)
+
+	- **login** - POST /auth/login ({ email, password })
+		1. Asgardian.getUserLoginTokenData(email, password)
+		2. Asgardian.generateUserAuthToken(userLoginTokenData)
+
+	- **isAuthenticated** - gRPC Asgardian.isAuthenticated(token)
+		1. Asgardian.decodeToken(token)
