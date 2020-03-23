@@ -58,3 +58,80 @@
 	- Uses **ElasticSearch** to store all logs;
 	- Uses **Kibana** to show logs;
 	- Uses **Grafana** to show current status of every microservice system usage.
+
+## Business Rules
+
+### Heimdall (Authentication Microservice)
+
+- Services - (trigger)
+	- **login** - POST /auth/login ({ email, password })
+		1. gRPC Asgardian.getUserLoginTokenData(email, password)
+		2. Heimdall.generateToken(userLoginTokenData)
+
+	- **isAuthenticated** - gRPC Heimdall.isAuthenticated(token)
+		1. Heimdall.decodeToken(token)
+
+### Hermes (Tracking Microservice)
+
+- Events - (payload)
+	- **DeliveryPayloadChangedLocation** - (user_id, delivery_payload_id, location)
+		1. Hermes.setDeliveryPayloadLocation(delivery_payload_id, location)
+		2. gRPC Asgardian.getUserData(user_id)
+		3. Hermes.buildNewPayloadLocationNotificationData(delivery_payload_id, userData)
+		4. gRPC Iris.sendPushNotification(newPayloadLocationNotificationData)
+		5. Hermes.buildNewPayloadLocationMailData(delivery_payload_id, userData)
+		6. gRPC Iris.sendMail(newPayloadLocationMailData)
+
+	- **DeliveryPayloadRegistered** - (delivery_payload_id)
+		1. Hermes.getDeliveryPayloadData(delivery_payload_id)
+		2. Hermes.generateDeliveryPayloadReceipt(deliveryPayloadData)
+		3. Hermes.sendToBucket(deliveryPayloadReceiptData)
+
+- Services - (trigger)
+	- **createNewPayloadSubscription** - POST /tracking/payload/:payload_tracking_code (title)
+		1. Hermes.createNewPayloadSubscription(title, payload_tracking_code, user_id)
+
+	- **removePayloadSubscription** - DELETE /tracking/payload/:payload_tracking_code
+		1. Hermes.removePayloadSubscription(user_id)
+	
+	- **getAllPayloadSubscriptions** - GET /tracking/payload
+		1. Hermes.getAllPayloadSubscriptions(user_id)
+
+### Iris (Notification Microservice)
+
+- Services - (trigger)
+	- **sendPushNotification** - gRPC Iris.sendPushNotification(pushNotificationData)
+		1. Iris.sendPushNotification(pushNotificationData)
+
+	- **sendMail** - gRPC Iris.sendMail(mailData)
+		1. Iris.sendMail(mailData)
+
+### Asgardian (User Microservice)
+
+- Events - (payload)
+	- **UserCreated** - (user_id, delivery_payload_id, location)
+		1. Asgardian.getUserData(user_id)
+		2. Asgardian.buildSelfWelcomeMailData(userData)
+		3. gRPC Iris.sendMail(selfWelcomeMailData)
+
+- Services - (trigger)
+	- **getUserData** - gRPC Asgardian.getUserData(user_id)
+		1. Asgardian.getUserData(user_id)
+
+	- **getUserLoginTokenData** - gRPC Asgardian.getUserLoginTokenData(email, password)
+		1. Asgardian.getUserLoginTokenData(email)
+
+	- **getProfileData** - GET /user/profile
+		1. Asgardian.getProfileData(user_id)
+
+	- **updateProfileData** - PUT /user/profile (data)
+		1. Asgardian.updateProfileData(user_id, data)
+
+	- **requestPasswordRecover** - POST /user/recover ({ email })
+		1. Asgardian.getUserData(email)
+		2. Asgardian.generateResetToken(user_id)
+		3. Asgardian.buildRecoverPasswordMail(userData)
+		4. gRPC Iris.sendMail(recoveryPasswordMail) 
+
+	- **resetPassword** - PUT /user/recover (password, token)
+		1. Asgardian.resetPassword(token, password)
