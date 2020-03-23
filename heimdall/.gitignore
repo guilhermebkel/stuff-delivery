@@ -1,0 +1,8 @@
+# libs
+node_modules
+
+# production data
+dist
+
+# environmental variables
+.env
