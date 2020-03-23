@@ -2,10 +2,12 @@ import * as jwt from "jsonwebtoken"
 
 import ErrorUtil from "@utils/Error"
 
+import { UserAuthTokenData } from "@interfaces/UserAuth"
+
 import jwtConfig from "@config/jwt"
 
-class GenerateTokenService {
-	run(data: object) {
+class GenerateUserAuthTokenService {
+	run(data: UserAuthTokenData) {
 		try {
 			const token = jwt.sign(data, jwtConfig.userAuth.secret, jwtConfig.userAuth.options)
 
@@ -14,7 +16,7 @@ class GenerateTokenService {
 			ErrorUtil.handle(error)
 			return null
 		}
-	}	
+	}
 }
 
-export default new GenerateTokenService()
+export default new GenerateUserAuthTokenService()

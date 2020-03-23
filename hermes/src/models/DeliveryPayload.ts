@@ -45,7 +45,7 @@ class DeliveryPayload extends Model {
 			}
 		}, {
 			sequelize,
-			tableName: "delivery_payload",
+			tableName: "delivery_payloads",
 			indexes: [
 				{ unique: true, fields: ["tracking_code"] },
 			]
