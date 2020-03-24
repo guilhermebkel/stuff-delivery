@@ -1,0 +1,8 @@
+node_modules/
+
+apps/**/dist
+!apps/protos/dist
+
+package-lock.json
+
+.env
