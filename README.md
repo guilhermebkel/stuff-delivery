@@ -41,23 +41,17 @@ My advice is not to use this repo as the absolute path/truth to build a microser
 
 We have currently 3 main microservices:
 
-<br />
-
 <img src="./assets/asgardian.png" align="left" width="70">
 
 ### Asgardian
 
 This microservice is responsible for making all related User business rules, per example: User Authentication, Profile Update, Authentication Token Verification and so on.
 
-<br />
-
 <img src="./assets/hermes.png" align="left" width="70">
 
 ### Hermes
 
 This microservice owns the responsability of Tracking Packages and Delivery Mans.
-
-<br />
 
 <img src="./assets/iris.png" align="left" width="70">
 
