@@ -1,7 +1,27 @@
-# stuff-delivery
-:mailbox: An example of a delivery service application based on an event driven microservices architecture
+<p align="center">
+  <img src="./assets/box.png" height="150" width="150" alt="Unform" />
+</p>
 
-## Technologies
+<h3 align="center">
+  A Delivery Service with monorepo event driven microservices architecture 📨
+</h3>
+
+<p align="center">
+	<a href="https://lerna.js.org/">
+		<img src="https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg" alt="maintained with lerna"/>
+	</a>
+	<a href="https://github.com/guilhermebkel/stuff-delivery">
+		<img alt="mit license" src="https://img.shields.io/github/license/guilhermebkel/stuff-delivery?color=0051ff">
+	</a>
+</p>
+
+## 📌 Overview
+
+Stuff Delivery is a simple study of a microservice architecture using the most famous (and some new ones as well) technologies.
+
+My advice is not to use this repo as the absolute path/truth to build a microservice architecture, since it depends on the business gaps you're living with.
+
+## 🔧 Technologies
 
 - Kafka
 - Node.js
@@ -15,6 +35,36 @@
 - Grafana
 - Redis
 - Postgres
+- Nginx
+
+## 🛸 Microservices
+
+We have currently 3 main microservices:
+
+<br />
+
+<img src="./assets/asgardian.png" align="left" width="70">
+
+### Asgardian
+
+This microservice is responsible for making all related User business rules, per example: User Authentication, Profile Update, Authentication Token Verification and so on.
+
+<br />
+
+<img src="./assets/hermes.png" align="left" width="70">
+
+### Hermes
+
+This microservice owns the responsability of Tracking Packages and Delivery Mans.
+
+<br />
+
+<img src="./assets/iris.png" align="left" width="70">
+
+### Iris
+
+This microservice is used to control all notification that needs to be sent, per example: Emails and Push Notifications.
+
 
 ## CI Flow
 
