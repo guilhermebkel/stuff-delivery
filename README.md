@@ -59,120 +59,58 @@ Owns the responsability of Tracking Packages and Delivery Mans.
 
 Controls all notification that needs to be sent, per example: Emails and Push Notifications.
 
+## 🌆 Architecture
 
-## CI Flow
+We have three basic ways to make communication with/between the microservices:
 
-- Merge branch into master
-- Run tests
-- Create docker image
-- Generate a new container for this image
-- Container gets up and visible into production after 30s
-- Old container gets down
+1. **REST:** In case someone outside needs to use a resource from some microservice. Ex: Someone tries to log in.
+2. **RPC:** In case a microservice needs to use a resource from another that does not need to be processed in background. Ex: The microservice(1) needs to know if a user is authenticated, but this method is owned by microservice(2).
+3. **Pub/Sub:** In case a microservice requests a resource from another that needs to be processed in background. Ex: An action ocurred and an email needs to be sent.
 
-## Architecture
+The **REST Requests** relies on **Nginx** since we use it as a Ingress Controller and Load Balancer. Below you can see an example:
 
-- Event Source
-	- With help of **Apache Kafka** stores and delivers all real-time events responsible for driving the microservices/microfronts actions;
-	- Saves all events on a **Postgres Database** and mark them with 'Processed = true' when it gets processed.
+```
+A user attempts to log in
+> POST /asgardian/login
 
-- Microservices
-	- Tracking:
-		- Publishes the actual position of delivers (using coordinates);
-		- Uses the **Notification Microservice** to send a mail/notification to people subscribed to the current stuff being delivered.
-	- Authentication:
-		- Uses the **User Microservice** to get the necessary information to log users in.
-	- User:
-		- Makes CRUD actions on related user tables.
-	- Notification:
-		- Sends push notifications/mail to people that are subscribed to some stuff being delivered.
+The request goes first to Nginx, the path is verified and forwarded to the needed microservice
+> PROXY_PASS asgardian:3040
+```
 
-- Microfronts
-	- User Client:
-		- Shows to user current status of stuff he is watching;
-		- Makes him able to update profile data.
-	- Admin Client:
-		- Shows current tracking position of delivers;
-		- Makes the admin able to register new stuffs and delivers.
+The **RPC System** relies on **gRPC** in order to make fast communication between microservices. Below you can see an example:
+```
+A user tries to get his current list of packages being tracked
+> GET /hermes/deliveries { token }
 
-- Ingress Controller:
-	- With help of **Nginx**, creates a gateway between the internet and the microservices/microfronts, what makes them accessible by exposed routes.
+The Hermes Microservice uses Asgardian Microservice to verify if user is authenticated
+> RPC Asgardian.isAuthenticated { token }
+```
 
-- Monitoring:
-	- Uses **Fluentd** on every microservice to track logs;
-	- Uses **ElasticSearch** to store all logs;
-	- Uses **Kibana** to show logs;
-	- Uses **Grafana** to show current status of every microservice system usage.
+The **Pub/Sub System** relies on **Kafka** and every message send there comes in the format of an event. Below you can see an example:
 
-## Business Rules
+```
+A user signs up
+> POST /asgardian/signup { email, password }
 
-### Hermes (Tracking Microservice)
+The Asgardian Microservice publishes a message to Kafka
+> PUBLISH CustomerSignedUp { email, password }
 
-- Events - (payload)
-	- **DeliveryPayloadChangedLocation** - (user_id, delivery_payload_id, location)
-		1. Hermes.setDeliveryPayloadLocation(delivery_payload_id, location)
-		2. gRPC Asgardian.getUserData(user_id)
-		3. Hermes.buildNewPayloadLocationNotificationData(delivery_payload_id, userData)
-		4. gRPC Iris.sendPushNotification(newPayloadLocationNotificationData)
-		5. Hermes.buildNewPayloadLocationMailData(delivery_payload_id, userData)
-		6. gRPC Iris.sendMail(newPayloadLocationMailData)
+The Iris Microservice is subscribed to CustomerSignedUp event and makes the action of sending a email to new user
+> SERVICE Iris.sendWelcomeMail { email, password }
+```
 
-	- **DeliveryPayloadRegistered** - (delivery_payload_id)
-		1. Hermes.getDeliveryPayloadData(delivery_payload_id)
-		2. Hermes.generateDeliveryPayloadReceipt(deliveryPayloadData)
-		3. Hermes.sendToBucket(deliveryPayloadReceiptData)
+## 🚀 Getting started (Currently not available)
 
-- Services - (trigger)
-	- **createNewPayloadSubscription** - POST /tracking/payload/:payload_tracking_code (title)
-		1. Hermes.createNewPayloadSubscription(title, payload_tracking_code, user_id)
-
-	- **removePayloadSubscription** - DELETE /tracking/payload/:payload_tracking_code
-		1. Hermes.removePayloadSubscription(user_id)
-	
-	- **getAllPayloadSubscriptions** - GET /tracking/payload
-		1. Hermes.getAllPayloadSubscriptions(user_id)
-
-### Iris (Notification Microservice)
-
-- Services - (trigger)
-	- **sendPushNotification** - gRPC Iris.sendPushNotification(pushNotificationData)
-		1. Iris.sendPushNotification(pushNotificationData)
-
-	- **sendMail** - gRPC Iris.sendMail(mailData)
-		1. Iris.sendMail(mailData)
-
-### Asgardian (User Microservice)
-
-- Events - (payload)
-	- **UserCreated** - (user_id, delivery_payload_id, location)
-		1. Asgardian.getUserData(user_id)
-		2. Asgardian.buildSelfWelcomeMailData(userData)
-		3. gRPC Iris.sendMail(selfWelcomeMailData)
-
-- Services - (trigger)
-	- **getUserData** - gRPC Asgardian.getUserData(user_id)
-		1. Asgardian.getUserData(user_id)
-
-	- **getUserLoginTokenData** - gRPC Asgardian.getUserLoginTokenData(email, password)
-		1. Asgardian.getUserLoginTokenData(email)
-
-	- **getProfileData** - GET /user/profile
-		1. Asgardian.getProfileData(user_id)
-
-	- **updateProfileData** - PUT /user/profile (data)
-		1. Asgardian.updateProfileData(user_id, data)
-
-	- **requestPasswordRecover** - POST /user/recover ({ email })
-		1. Asgardian.getUserData(email)
-		2. Asgardian.generateResetToken(user_id)
-		3. Asgardian.buildRecoverPasswordMail(userData)
-		4. gRPC Iris.sendMail(recoveryPasswordMail) 
-
-	- **resetPassword** - PUT /user/recover (password, token)
-		1. Asgardian.resetPassword(token, password)
-
-	- **login** - POST /auth/login ({ email, password })
-		1. Asgardian.getUserLoginTokenData(email, password)
-		2. Asgardian.generateUserAuthToken(userLoginTokenData)
-
-	- **isAuthenticated** - gRPC Asgardian.isAuthenticated(token)
-		1. Asgardian.decodeToken(token)
+1. Clone this repository
+2. Open root directory and run the following command:
+```sh
+docker-compose up # Inits all needed resources
+```
+3. Install all dependencies:
+```sh
+npm run bootstrap # Will use lerna to install every repo dependency
+```
+4. Goes inside every repo inside apps folder, duplicate .env.example, change its name to .env, add the needed environmental variables and run:
+```sh
+npm run dev # Will start the microservice
+```
