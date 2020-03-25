@@ -5,6 +5,7 @@ class User extends Model {
 	name: Date
 	email: Date
 	admin: boolean
+	password: string
 	created_at: Date
 	updated_at: Date
 	deleted_at: Date
@@ -22,6 +23,10 @@ class User extends Model {
 				allowNull: false
 			},
 			email: {
+				type: DataTypes.STRING,
+				allowNull: false
+			},
+			password: {
 				type: DataTypes.STRING,
 				allowNull: false
 			},

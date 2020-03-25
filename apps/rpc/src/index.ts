@@ -12,7 +12,6 @@ interface IGRPCMethod {
 
 interface ILoadServiceDTO {
   serviceName: Service
-  fileName: string
   address: string
   credentials?: grpc.ChannelCredentials
 }
@@ -41,12 +40,13 @@ class RpcService {
     credentials = grpc.credentials.createInsecure(),
   }: ILoadServiceDTO) {
     const proto = this.loadProto(serviceName)
-  
+
     const client = new (proto[serviceName] as any)(address, credentials) as any
-  
+
     // Promisify all client methods
-    (Object.entries(client.__proto__) as [[string, IGRPCMethod]]).map(
-      ([prop, value]) => {
+    const methods = Object.entries(client.__proto__) as [[string, IGRPCMethod]]
+    
+    methods.map(([prop, value]) => {
         if (value.originalName !== undefined) {
           client[prop] = promisify(value)
         }

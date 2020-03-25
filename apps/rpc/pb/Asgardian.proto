@@ -1,41 +1,31 @@
 syntax = "proto3";
 
-message User {
-  string id = 1;
+message AuthTokenData {
+  int32 id = 1;
   string email = 2;
-  string username = 3;
-  string password = 4;
+  bool admin = 3;
 }
 
-message GetUserByIdRequest {
-  string id = 1;
-}
-
-message RegisterUserRequest {
-  User user = 1;
-}
-
-message AuthenticationRequest {
+message IsAuthenticatedRequest {
   string token = 1;
 }
 
-message UserResponse {
-  User user = 1;
+message IsAuthenticatedResponse {
+  bool success = 1;
   string error = 2;
 }
 
-message LoginUserRequest {
-  User user = 1;
-}
-
-message LoginResponse {
+message ParseAuthTokenRequest {
   string token = 1;
-  string error = 2;
 }
 
-service UserService {
-  rpc GetUserById(GetUserByIdRequest) returns (UserResponse);
-  rpc RegisterUser(RegisterUserRequest) returns (UserResponse);
-  rpc Authenticate(AuthenticationRequest) returns (UserResponse);
-  rpc LoginUser(LoginUserRequest) returns (LoginResponse);
+message ParseAuthTokenResponse {
+  AuthTokenData tokenData = 1;
+  bool success = 2;
+  string error = 3;
+}
+
+service Asgardian {
+  rpc isAuthenticated(IsAuthenticatedRequest) returns (IsAuthenticatedResponse);
+  rpc parseAuthToken(ParseAuthTokenRequest) returns (ParseAuthTokenResponse);
 }

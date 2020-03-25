@@ -13,6 +13,7 @@ class Database {
 		this.setupConnection()
 		await this.testConnection()
 		this.setupModels()
+		await this.runMigrations()
 		// await this.syncModels()
 	}
 

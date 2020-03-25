@@ -1,3 +1,3 @@
 export default {
-	port: process.env.RPC_PORT
+	address: process.env.RPC_ADDRESS
 }

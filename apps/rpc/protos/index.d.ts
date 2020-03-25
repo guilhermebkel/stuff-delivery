@@ -1,669 +1,489 @@
 import * as $protobuf from "protobufjs";
-/** Properties of a User. */
-export interface IUser {
+/** Properties of an AuthTokenData. */
+export interface IAuthTokenData {
 
-    /** User id */
-    id?: (string|null);
+    /** AuthTokenData id */
+    id?: (number|null);
 
-    /** User email */
+    /** AuthTokenData email */
     email?: (string|null);
 
-    /** User username */
-    username?: (string|null);
-
-    /** User password */
-    password?: (string|null);
+    /** AuthTokenData admin */
+    admin?: (boolean|null);
 }
 
-/** Represents a User. */
-export class User implements IUser {
+/** Represents an AuthTokenData. */
+export class AuthTokenData implements IAuthTokenData {
 
     /**
-     * Constructs a new User.
+     * Constructs a new AuthTokenData.
      * @param [properties] Properties to set
      */
-    constructor(properties?: IUser);
+    constructor(properties?: IAuthTokenData);
 
-    /** User id. */
-    public id: string;
+    /** AuthTokenData id. */
+    public id: number;
 
-    /** User email. */
+    /** AuthTokenData email. */
     public email: string;
 
-    /** User username. */
-    public username: string;
-
-    /** User password. */
-    public password: string;
+    /** AuthTokenData admin. */
+    public admin: boolean;
 
     /**
-     * Creates a new User instance using the specified properties.
+     * Creates a new AuthTokenData instance using the specified properties.
      * @param [properties] Properties to set
-     * @returns User instance
+     * @returns AuthTokenData instance
      */
-    public static create(properties?: IUser): User;
+    public static create(properties?: IAuthTokenData): AuthTokenData;
 
     /**
-     * Encodes the specified User message. Does not implicitly {@link User.verify|verify} messages.
-     * @param message User message or plain object to encode
+     * Encodes the specified AuthTokenData message. Does not implicitly {@link AuthTokenData.verify|verify} messages.
+     * @param message AuthTokenData message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
      */
-    public static encode(message: IUser, writer?: $protobuf.Writer): $protobuf.Writer;
+    public static encode(message: IAuthTokenData, writer?: $protobuf.Writer): $protobuf.Writer;
 
     /**
-     * Encodes the specified User message, length delimited. Does not implicitly {@link User.verify|verify} messages.
-     * @param message User message or plain object to encode
+     * Encodes the specified AuthTokenData message, length delimited. Does not implicitly {@link AuthTokenData.verify|verify} messages.
+     * @param message AuthTokenData message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
      */
-    public static encodeDelimited(message: IUser, writer?: $protobuf.Writer): $protobuf.Writer;
+    public static encodeDelimited(message: IAuthTokenData, writer?: $protobuf.Writer): $protobuf.Writer;
 
     /**
-     * Decodes a User message from the specified reader or buffer.
+     * Decodes an AuthTokenData message from the specified reader or buffer.
      * @param reader Reader or buffer to decode from
      * @param [length] Message length if known beforehand
-     * @returns User
+     * @returns AuthTokenData
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): User;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): AuthTokenData;
 
     /**
-     * Decodes a User message from the specified reader or buffer, length delimited.
+     * Decodes an AuthTokenData message from the specified reader or buffer, length delimited.
      * @param reader Reader or buffer to decode from
-     * @returns User
+     * @returns AuthTokenData
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): User;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): AuthTokenData;
 
     /**
-     * Verifies a User message.
+     * Verifies an AuthTokenData message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
     public static verify(message: { [k: string]: any }): (string|null);
 
     /**
-     * Creates a User message from a plain object. Also converts values to their respective internal types.
+     * Creates an AuthTokenData message from a plain object. Also converts values to their respective internal types.
      * @param object Plain object
-     * @returns User
+     * @returns AuthTokenData
      */
-    public static fromObject(object: { [k: string]: any }): User;
+    public static fromObject(object: { [k: string]: any }): AuthTokenData;
 
     /**
-     * Creates a plain object from a User message. Also converts values to other types if specified.
-     * @param message User
+     * Creates a plain object from an AuthTokenData message. Also converts values to other types if specified.
+     * @param message AuthTokenData
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(message: User, options?: $protobuf.IConversionOptions): { [k: string]: any };
+    public static toObject(message: AuthTokenData, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
-     * Converts this User to JSON.
+     * Converts this AuthTokenData to JSON.
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a GetUserByIdRequest. */
-export interface IGetUserByIdRequest {
+/** Properties of an IsAuthenticatedRequest. */
+export interface IIsAuthenticatedRequest {
 
-    /** GetUserByIdRequest id */
-    id?: (string|null);
-}
-
-/** Represents a GetUserByIdRequest. */
-export class GetUserByIdRequest implements IGetUserByIdRequest {
-
-    /**
-     * Constructs a new GetUserByIdRequest.
-     * @param [properties] Properties to set
-     */
-    constructor(properties?: IGetUserByIdRequest);
-
-    /** GetUserByIdRequest id. */
-    public id: string;
-
-    /**
-     * Creates a new GetUserByIdRequest instance using the specified properties.
-     * @param [properties] Properties to set
-     * @returns GetUserByIdRequest instance
-     */
-    public static create(properties?: IGetUserByIdRequest): GetUserByIdRequest;
-
-    /**
-     * Encodes the specified GetUserByIdRequest message. Does not implicitly {@link GetUserByIdRequest.verify|verify} messages.
-     * @param message GetUserByIdRequest message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encode(message: IGetUserByIdRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Encodes the specified GetUserByIdRequest message, length delimited. Does not implicitly {@link GetUserByIdRequest.verify|verify} messages.
-     * @param message GetUserByIdRequest message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encodeDelimited(message: IGetUserByIdRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Decodes a GetUserByIdRequest message from the specified reader or buffer.
-     * @param reader Reader or buffer to decode from
-     * @param [length] Message length if known beforehand
-     * @returns GetUserByIdRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): GetUserByIdRequest;
-
-    /**
-     * Decodes a GetUserByIdRequest message from the specified reader or buffer, length delimited.
-     * @param reader Reader or buffer to decode from
-     * @returns GetUserByIdRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): GetUserByIdRequest;
-
-    /**
-     * Verifies a GetUserByIdRequest message.
-     * @param message Plain object to verify
-     * @returns `null` if valid, otherwise the reason why it is not
-     */
-    public static verify(message: { [k: string]: any }): (string|null);
-
-    /**
-     * Creates a GetUserByIdRequest message from a plain object. Also converts values to their respective internal types.
-     * @param object Plain object
-     * @returns GetUserByIdRequest
-     */
-    public static fromObject(object: { [k: string]: any }): GetUserByIdRequest;
-
-    /**
-     * Creates a plain object from a GetUserByIdRequest message. Also converts values to other types if specified.
-     * @param message GetUserByIdRequest
-     * @param [options] Conversion options
-     * @returns Plain object
-     */
-    public static toObject(message: GetUserByIdRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-    /**
-     * Converts this GetUserByIdRequest to JSON.
-     * @returns JSON object
-     */
-    public toJSON(): { [k: string]: any };
-}
-
-/** Properties of a RegisterUserRequest. */
-export interface IRegisterUserRequest {
-
-    /** RegisterUserRequest user */
-    user?: (IUser|null);
-}
-
-/** Represents a RegisterUserRequest. */
-export class RegisterUserRequest implements IRegisterUserRequest {
-
-    /**
-     * Constructs a new RegisterUserRequest.
-     * @param [properties] Properties to set
-     */
-    constructor(properties?: IRegisterUserRequest);
-
-    /** RegisterUserRequest user. */
-    public user?: (IUser|null);
-
-    /**
-     * Creates a new RegisterUserRequest instance using the specified properties.
-     * @param [properties] Properties to set
-     * @returns RegisterUserRequest instance
-     */
-    public static create(properties?: IRegisterUserRequest): RegisterUserRequest;
-
-    /**
-     * Encodes the specified RegisterUserRequest message. Does not implicitly {@link RegisterUserRequest.verify|verify} messages.
-     * @param message RegisterUserRequest message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encode(message: IRegisterUserRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Encodes the specified RegisterUserRequest message, length delimited. Does not implicitly {@link RegisterUserRequest.verify|verify} messages.
-     * @param message RegisterUserRequest message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encodeDelimited(message: IRegisterUserRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Decodes a RegisterUserRequest message from the specified reader or buffer.
-     * @param reader Reader or buffer to decode from
-     * @param [length] Message length if known beforehand
-     * @returns RegisterUserRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): RegisterUserRequest;
-
-    /**
-     * Decodes a RegisterUserRequest message from the specified reader or buffer, length delimited.
-     * @param reader Reader or buffer to decode from
-     * @returns RegisterUserRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): RegisterUserRequest;
-
-    /**
-     * Verifies a RegisterUserRequest message.
-     * @param message Plain object to verify
-     * @returns `null` if valid, otherwise the reason why it is not
-     */
-    public static verify(message: { [k: string]: any }): (string|null);
-
-    /**
-     * Creates a RegisterUserRequest message from a plain object. Also converts values to their respective internal types.
-     * @param object Plain object
-     * @returns RegisterUserRequest
-     */
-    public static fromObject(object: { [k: string]: any }): RegisterUserRequest;
-
-    /**
-     * Creates a plain object from a RegisterUserRequest message. Also converts values to other types if specified.
-     * @param message RegisterUserRequest
-     * @param [options] Conversion options
-     * @returns Plain object
-     */
-    public static toObject(message: RegisterUserRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-    /**
-     * Converts this RegisterUserRequest to JSON.
-     * @returns JSON object
-     */
-    public toJSON(): { [k: string]: any };
-}
-
-/** Properties of an AuthenticationRequest. */
-export interface IAuthenticationRequest {
-
-    /** AuthenticationRequest token */
+    /** IsAuthenticatedRequest token */
     token?: (string|null);
 }
 
-/** Represents an AuthenticationRequest. */
-export class AuthenticationRequest implements IAuthenticationRequest {
+/** Represents an IsAuthenticatedRequest. */
+export class IsAuthenticatedRequest implements IIsAuthenticatedRequest {
 
     /**
-     * Constructs a new AuthenticationRequest.
+     * Constructs a new IsAuthenticatedRequest.
      * @param [properties] Properties to set
      */
-    constructor(properties?: IAuthenticationRequest);
+    constructor(properties?: IIsAuthenticatedRequest);
 
-    /** AuthenticationRequest token. */
+    /** IsAuthenticatedRequest token. */
     public token: string;
 
     /**
-     * Creates a new AuthenticationRequest instance using the specified properties.
+     * Creates a new IsAuthenticatedRequest instance using the specified properties.
      * @param [properties] Properties to set
-     * @returns AuthenticationRequest instance
+     * @returns IsAuthenticatedRequest instance
      */
-    public static create(properties?: IAuthenticationRequest): AuthenticationRequest;
+    public static create(properties?: IIsAuthenticatedRequest): IsAuthenticatedRequest;
 
     /**
-     * Encodes the specified AuthenticationRequest message. Does not implicitly {@link AuthenticationRequest.verify|verify} messages.
-     * @param message AuthenticationRequest message or plain object to encode
+     * Encodes the specified IsAuthenticatedRequest message. Does not implicitly {@link IsAuthenticatedRequest.verify|verify} messages.
+     * @param message IsAuthenticatedRequest message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
      */
-    public static encode(message: IAuthenticationRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+    public static encode(message: IIsAuthenticatedRequest, writer?: $protobuf.Writer): $protobuf.Writer;
 
     /**
-     * Encodes the specified AuthenticationRequest message, length delimited. Does not implicitly {@link AuthenticationRequest.verify|verify} messages.
-     * @param message AuthenticationRequest message or plain object to encode
+     * Encodes the specified IsAuthenticatedRequest message, length delimited. Does not implicitly {@link IsAuthenticatedRequest.verify|verify} messages.
+     * @param message IsAuthenticatedRequest message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
      */
-    public static encodeDelimited(message: IAuthenticationRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+    public static encodeDelimited(message: IIsAuthenticatedRequest, writer?: $protobuf.Writer): $protobuf.Writer;
 
     /**
-     * Decodes an AuthenticationRequest message from the specified reader or buffer.
+     * Decodes an IsAuthenticatedRequest message from the specified reader or buffer.
      * @param reader Reader or buffer to decode from
      * @param [length] Message length if known beforehand
-     * @returns AuthenticationRequest
+     * @returns IsAuthenticatedRequest
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): AuthenticationRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IsAuthenticatedRequest;
 
     /**
-     * Decodes an AuthenticationRequest message from the specified reader or buffer, length delimited.
+     * Decodes an IsAuthenticatedRequest message from the specified reader or buffer, length delimited.
      * @param reader Reader or buffer to decode from
-     * @returns AuthenticationRequest
+     * @returns IsAuthenticatedRequest
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): AuthenticationRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IsAuthenticatedRequest;
 
     /**
-     * Verifies an AuthenticationRequest message.
+     * Verifies an IsAuthenticatedRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
     public static verify(message: { [k: string]: any }): (string|null);
 
     /**
-     * Creates an AuthenticationRequest message from a plain object. Also converts values to their respective internal types.
+     * Creates an IsAuthenticatedRequest message from a plain object. Also converts values to their respective internal types.
      * @param object Plain object
-     * @returns AuthenticationRequest
+     * @returns IsAuthenticatedRequest
      */
-    public static fromObject(object: { [k: string]: any }): AuthenticationRequest;
+    public static fromObject(object: { [k: string]: any }): IsAuthenticatedRequest;
 
     /**
-     * Creates a plain object from an AuthenticationRequest message. Also converts values to other types if specified.
-     * @param message AuthenticationRequest
+     * Creates a plain object from an IsAuthenticatedRequest message. Also converts values to other types if specified.
+     * @param message IsAuthenticatedRequest
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(message: AuthenticationRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
+    public static toObject(message: IsAuthenticatedRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
-     * Converts this AuthenticationRequest to JSON.
+     * Converts this IsAuthenticatedRequest to JSON.
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a UserResponse. */
-export interface IUserResponse {
+/** Properties of an IsAuthenticatedResponse. */
+export interface IIsAuthenticatedResponse {
 
-    /** UserResponse user */
-    user?: (IUser|null);
+    /** IsAuthenticatedResponse success */
+    success?: (boolean|null);
 
-    /** UserResponse error */
+    /** IsAuthenticatedResponse error */
     error?: (string|null);
 }
 
-/** Represents a UserResponse. */
-export class UserResponse implements IUserResponse {
+/** Represents an IsAuthenticatedResponse. */
+export class IsAuthenticatedResponse implements IIsAuthenticatedResponse {
 
     /**
-     * Constructs a new UserResponse.
+     * Constructs a new IsAuthenticatedResponse.
      * @param [properties] Properties to set
      */
-    constructor(properties?: IUserResponse);
+    constructor(properties?: IIsAuthenticatedResponse);
 
-    /** UserResponse user. */
-    public user?: (IUser|null);
+    /** IsAuthenticatedResponse success. */
+    public success: boolean;
 
-    /** UserResponse error. */
+    /** IsAuthenticatedResponse error. */
     public error: string;
 
     /**
-     * Creates a new UserResponse instance using the specified properties.
+     * Creates a new IsAuthenticatedResponse instance using the specified properties.
      * @param [properties] Properties to set
-     * @returns UserResponse instance
+     * @returns IsAuthenticatedResponse instance
      */
-    public static create(properties?: IUserResponse): UserResponse;
+    public static create(properties?: IIsAuthenticatedResponse): IsAuthenticatedResponse;
 
     /**
-     * Encodes the specified UserResponse message. Does not implicitly {@link UserResponse.verify|verify} messages.
-     * @param message UserResponse message or plain object to encode
+     * Encodes the specified IsAuthenticatedResponse message. Does not implicitly {@link IsAuthenticatedResponse.verify|verify} messages.
+     * @param message IsAuthenticatedResponse message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
      */
-    public static encode(message: IUserResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+    public static encode(message: IIsAuthenticatedResponse, writer?: $protobuf.Writer): $protobuf.Writer;
 
     /**
-     * Encodes the specified UserResponse message, length delimited. Does not implicitly {@link UserResponse.verify|verify} messages.
-     * @param message UserResponse message or plain object to encode
+     * Encodes the specified IsAuthenticatedResponse message, length delimited. Does not implicitly {@link IsAuthenticatedResponse.verify|verify} messages.
+     * @param message IsAuthenticatedResponse message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
      */
-    public static encodeDelimited(message: IUserResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+    public static encodeDelimited(message: IIsAuthenticatedResponse, writer?: $protobuf.Writer): $protobuf.Writer;
 
     /**
-     * Decodes a UserResponse message from the specified reader or buffer.
+     * Decodes an IsAuthenticatedResponse message from the specified reader or buffer.
      * @param reader Reader or buffer to decode from
      * @param [length] Message length if known beforehand
-     * @returns UserResponse
+     * @returns IsAuthenticatedResponse
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): UserResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IsAuthenticatedResponse;
 
     /**
-     * Decodes a UserResponse message from the specified reader or buffer, length delimited.
+     * Decodes an IsAuthenticatedResponse message from the specified reader or buffer, length delimited.
      * @param reader Reader or buffer to decode from
-     * @returns UserResponse
+     * @returns IsAuthenticatedResponse
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): UserResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IsAuthenticatedResponse;
 
     /**
-     * Verifies a UserResponse message.
+     * Verifies an IsAuthenticatedResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
     public static verify(message: { [k: string]: any }): (string|null);
 
     /**
-     * Creates a UserResponse message from a plain object. Also converts values to their respective internal types.
+     * Creates an IsAuthenticatedResponse message from a plain object. Also converts values to their respective internal types.
      * @param object Plain object
-     * @returns UserResponse
+     * @returns IsAuthenticatedResponse
      */
-    public static fromObject(object: { [k: string]: any }): UserResponse;
+    public static fromObject(object: { [k: string]: any }): IsAuthenticatedResponse;
 
     /**
-     * Creates a plain object from a UserResponse message. Also converts values to other types if specified.
-     * @param message UserResponse
+     * Creates a plain object from an IsAuthenticatedResponse message. Also converts values to other types if specified.
+     * @param message IsAuthenticatedResponse
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(message: UserResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
+    public static toObject(message: IsAuthenticatedResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
-     * Converts this UserResponse to JSON.
+     * Converts this IsAuthenticatedResponse to JSON.
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a LoginUserRequest. */
-export interface ILoginUserRequest {
+/** Properties of a ParseAuthTokenRequest. */
+export interface IParseAuthTokenRequest {
 
-    /** LoginUserRequest user */
-    user?: (IUser|null);
-}
-
-/** Represents a LoginUserRequest. */
-export class LoginUserRequest implements ILoginUserRequest {
-
-    /**
-     * Constructs a new LoginUserRequest.
-     * @param [properties] Properties to set
-     */
-    constructor(properties?: ILoginUserRequest);
-
-    /** LoginUserRequest user. */
-    public user?: (IUser|null);
-
-    /**
-     * Creates a new LoginUserRequest instance using the specified properties.
-     * @param [properties] Properties to set
-     * @returns LoginUserRequest instance
-     */
-    public static create(properties?: ILoginUserRequest): LoginUserRequest;
-
-    /**
-     * Encodes the specified LoginUserRequest message. Does not implicitly {@link LoginUserRequest.verify|verify} messages.
-     * @param message LoginUserRequest message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encode(message: ILoginUserRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Encodes the specified LoginUserRequest message, length delimited. Does not implicitly {@link LoginUserRequest.verify|verify} messages.
-     * @param message LoginUserRequest message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encodeDelimited(message: ILoginUserRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Decodes a LoginUserRequest message from the specified reader or buffer.
-     * @param reader Reader or buffer to decode from
-     * @param [length] Message length if known beforehand
-     * @returns LoginUserRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): LoginUserRequest;
-
-    /**
-     * Decodes a LoginUserRequest message from the specified reader or buffer, length delimited.
-     * @param reader Reader or buffer to decode from
-     * @returns LoginUserRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): LoginUserRequest;
-
-    /**
-     * Verifies a LoginUserRequest message.
-     * @param message Plain object to verify
-     * @returns `null` if valid, otherwise the reason why it is not
-     */
-    public static verify(message: { [k: string]: any }): (string|null);
-
-    /**
-     * Creates a LoginUserRequest message from a plain object. Also converts values to their respective internal types.
-     * @param object Plain object
-     * @returns LoginUserRequest
-     */
-    public static fromObject(object: { [k: string]: any }): LoginUserRequest;
-
-    /**
-     * Creates a plain object from a LoginUserRequest message. Also converts values to other types if specified.
-     * @param message LoginUserRequest
-     * @param [options] Conversion options
-     * @returns Plain object
-     */
-    public static toObject(message: LoginUserRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-    /**
-     * Converts this LoginUserRequest to JSON.
-     * @returns JSON object
-     */
-    public toJSON(): { [k: string]: any };
-}
-
-/** Properties of a LoginResponse. */
-export interface ILoginResponse {
-
-    /** LoginResponse token */
+    /** ParseAuthTokenRequest token */
     token?: (string|null);
-
-    /** LoginResponse error */
-    error?: (string|null);
 }
 
-/** Represents a LoginResponse. */
-export class LoginResponse implements ILoginResponse {
+/** Represents a ParseAuthTokenRequest. */
+export class ParseAuthTokenRequest implements IParseAuthTokenRequest {
 
     /**
-     * Constructs a new LoginResponse.
+     * Constructs a new ParseAuthTokenRequest.
      * @param [properties] Properties to set
      */
-    constructor(properties?: ILoginResponse);
+    constructor(properties?: IParseAuthTokenRequest);
 
-    /** LoginResponse token. */
+    /** ParseAuthTokenRequest token. */
     public token: string;
 
-    /** LoginResponse error. */
-    public error: string;
-
     /**
-     * Creates a new LoginResponse instance using the specified properties.
+     * Creates a new ParseAuthTokenRequest instance using the specified properties.
      * @param [properties] Properties to set
-     * @returns LoginResponse instance
+     * @returns ParseAuthTokenRequest instance
      */
-    public static create(properties?: ILoginResponse): LoginResponse;
+    public static create(properties?: IParseAuthTokenRequest): ParseAuthTokenRequest;
 
     /**
-     * Encodes the specified LoginResponse message. Does not implicitly {@link LoginResponse.verify|verify} messages.
-     * @param message LoginResponse message or plain object to encode
+     * Encodes the specified ParseAuthTokenRequest message. Does not implicitly {@link ParseAuthTokenRequest.verify|verify} messages.
+     * @param message ParseAuthTokenRequest message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
      */
-    public static encode(message: ILoginResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+    public static encode(message: IParseAuthTokenRequest, writer?: $protobuf.Writer): $protobuf.Writer;
 
     /**
-     * Encodes the specified LoginResponse message, length delimited. Does not implicitly {@link LoginResponse.verify|verify} messages.
-     * @param message LoginResponse message or plain object to encode
+     * Encodes the specified ParseAuthTokenRequest message, length delimited. Does not implicitly {@link ParseAuthTokenRequest.verify|verify} messages.
+     * @param message ParseAuthTokenRequest message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
      */
-    public static encodeDelimited(message: ILoginResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+    public static encodeDelimited(message: IParseAuthTokenRequest, writer?: $protobuf.Writer): $protobuf.Writer;
 
     /**
-     * Decodes a LoginResponse message from the specified reader or buffer.
+     * Decodes a ParseAuthTokenRequest message from the specified reader or buffer.
      * @param reader Reader or buffer to decode from
      * @param [length] Message length if known beforehand
-     * @returns LoginResponse
+     * @returns ParseAuthTokenRequest
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): LoginResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ParseAuthTokenRequest;
 
     /**
-     * Decodes a LoginResponse message from the specified reader or buffer, length delimited.
+     * Decodes a ParseAuthTokenRequest message from the specified reader or buffer, length delimited.
      * @param reader Reader or buffer to decode from
-     * @returns LoginResponse
+     * @returns ParseAuthTokenRequest
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): LoginResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ParseAuthTokenRequest;
 
     /**
-     * Verifies a LoginResponse message.
+     * Verifies a ParseAuthTokenRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
     public static verify(message: { [k: string]: any }): (string|null);
 
     /**
-     * Creates a LoginResponse message from a plain object. Also converts values to their respective internal types.
+     * Creates a ParseAuthTokenRequest message from a plain object. Also converts values to their respective internal types.
      * @param object Plain object
-     * @returns LoginResponse
+     * @returns ParseAuthTokenRequest
      */
-    public static fromObject(object: { [k: string]: any }): LoginResponse;
+    public static fromObject(object: { [k: string]: any }): ParseAuthTokenRequest;
 
     /**
-     * Creates a plain object from a LoginResponse message. Also converts values to other types if specified.
-     * @param message LoginResponse
+     * Creates a plain object from a ParseAuthTokenRequest message. Also converts values to other types if specified.
+     * @param message ParseAuthTokenRequest
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(message: LoginResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
+    public static toObject(message: ParseAuthTokenRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
-     * Converts this LoginResponse to JSON.
+     * Converts this ParseAuthTokenRequest to JSON.
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
 }
 
-/** Represents a UserService */
-export class UserService extends $protobuf.rpc.Service {
+/** Properties of a ParseAuthTokenResponse. */
+export interface IParseAuthTokenResponse {
+
+    /** ParseAuthTokenResponse tokenData */
+    tokenData?: (IAuthTokenData|null);
+
+    /** ParseAuthTokenResponse success */
+    success?: (boolean|null);
+
+    /** ParseAuthTokenResponse error */
+    error?: (string|null);
+}
+
+/** Represents a ParseAuthTokenResponse. */
+export class ParseAuthTokenResponse implements IParseAuthTokenResponse {
 
     /**
-     * Constructs a new UserService service.
+     * Constructs a new ParseAuthTokenResponse.
+     * @param [properties] Properties to set
+     */
+    constructor(properties?: IParseAuthTokenResponse);
+
+    /** ParseAuthTokenResponse tokenData. */
+    public tokenData?: (IAuthTokenData|null);
+
+    /** ParseAuthTokenResponse success. */
+    public success: boolean;
+
+    /** ParseAuthTokenResponse error. */
+    public error: string;
+
+    /**
+     * Creates a new ParseAuthTokenResponse instance using the specified properties.
+     * @param [properties] Properties to set
+     * @returns ParseAuthTokenResponse instance
+     */
+    public static create(properties?: IParseAuthTokenResponse): ParseAuthTokenResponse;
+
+    /**
+     * Encodes the specified ParseAuthTokenResponse message. Does not implicitly {@link ParseAuthTokenResponse.verify|verify} messages.
+     * @param message ParseAuthTokenResponse message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encode(message: IParseAuthTokenResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Encodes the specified ParseAuthTokenResponse message, length delimited. Does not implicitly {@link ParseAuthTokenResponse.verify|verify} messages.
+     * @param message ParseAuthTokenResponse message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encodeDelimited(message: IParseAuthTokenResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Decodes a ParseAuthTokenResponse message from the specified reader or buffer.
+     * @param reader Reader or buffer to decode from
+     * @param [length] Message length if known beforehand
+     * @returns ParseAuthTokenResponse
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ParseAuthTokenResponse;
+
+    /**
+     * Decodes a ParseAuthTokenResponse message from the specified reader or buffer, length delimited.
+     * @param reader Reader or buffer to decode from
+     * @returns ParseAuthTokenResponse
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ParseAuthTokenResponse;
+
+    /**
+     * Verifies a ParseAuthTokenResponse message.
+     * @param message Plain object to verify
+     * @returns `null` if valid, otherwise the reason why it is not
+     */
+    public static verify(message: { [k: string]: any }): (string|null);
+
+    /**
+     * Creates a ParseAuthTokenResponse message from a plain object. Also converts values to their respective internal types.
+     * @param object Plain object
+     * @returns ParseAuthTokenResponse
+     */
+    public static fromObject(object: { [k: string]: any }): ParseAuthTokenResponse;
+
+    /**
+     * Creates a plain object from a ParseAuthTokenResponse message. Also converts values to other types if specified.
+     * @param message ParseAuthTokenResponse
+     * @param [options] Conversion options
+     * @returns Plain object
+     */
+    public static toObject(message: ParseAuthTokenResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+    /**
+     * Converts this ParseAuthTokenResponse to JSON.
+     * @returns JSON object
+     */
+    public toJSON(): { [k: string]: any };
+}
+
+/** Represents an Asgardian */
+export class Asgardian extends $protobuf.rpc.Service {
+
+    /**
+     * Constructs a new Asgardian service.
      * @param rpcImpl RPC implementation
      * @param [requestDelimited=false] Whether requests are length-delimited
      * @param [responseDelimited=false] Whether responses are length-delimited
@@ -671,755 +491,56 @@ export class UserService extends $protobuf.rpc.Service {
     constructor(rpcImpl: $protobuf.RPCImpl, requestDelimited?: boolean, responseDelimited?: boolean);
 
     /**
-     * Creates new UserService service using the specified rpc implementation.
+     * Creates new Asgardian service using the specified rpc implementation.
      * @param rpcImpl RPC implementation
      * @param [requestDelimited=false] Whether requests are length-delimited
      * @param [responseDelimited=false] Whether responses are length-delimited
      * @returns RPC service. Useful where requests and/or responses are streamed.
      */
-    public static create(rpcImpl: $protobuf.RPCImpl, requestDelimited?: boolean, responseDelimited?: boolean): UserService;
+    public static create(rpcImpl: $protobuf.RPCImpl, requestDelimited?: boolean, responseDelimited?: boolean): Asgardian;
 
     /**
-     * Calls GetUserById.
-     * @param request GetUserByIdRequest message or plain object
-     * @param callback Node-style callback called with the error, if any, and UserResponse
+     * Calls isAuthenticated.
+     * @param request IsAuthenticatedRequest message or plain object
+     * @param callback Node-style callback called with the error, if any, and IsAuthenticatedResponse
      */
-    public getUserById(request: IGetUserByIdRequest, callback: UserService.GetUserByIdCallback): void;
+    public isAuthenticated(request: IIsAuthenticatedRequest, callback: Asgardian.isAuthenticatedCallback): void;
 
     /**
-     * Calls GetUserById.
-     * @param request GetUserByIdRequest message or plain object
+     * Calls isAuthenticated.
+     * @param request IsAuthenticatedRequest message or plain object
      * @returns Promise
      */
-    public getUserById(request: IGetUserByIdRequest): Promise<UserResponse>;
+    public isAuthenticated(request: IIsAuthenticatedRequest): Promise<IsAuthenticatedResponse>;
 
     /**
-     * Calls RegisterUser.
-     * @param request RegisterUserRequest message or plain object
-     * @param callback Node-style callback called with the error, if any, and UserResponse
+     * Calls parseAuthToken.
+     * @param request ParseAuthTokenRequest message or plain object
+     * @param callback Node-style callback called with the error, if any, and ParseAuthTokenResponse
      */
-    public registerUser(request: IRegisterUserRequest, callback: UserService.RegisterUserCallback): void;
+    public parseAuthToken(request: IParseAuthTokenRequest, callback: Asgardian.parseAuthTokenCallback): void;
 
     /**
-     * Calls RegisterUser.
-     * @param request RegisterUserRequest message or plain object
+     * Calls parseAuthToken.
+     * @param request ParseAuthTokenRequest message or plain object
      * @returns Promise
      */
-    public registerUser(request: IRegisterUserRequest): Promise<UserResponse>;
-
-    /**
-     * Calls Authenticate.
-     * @param request AuthenticationRequest message or plain object
-     * @param callback Node-style callback called with the error, if any, and UserResponse
-     */
-    public authenticate(request: IAuthenticationRequest, callback: UserService.AuthenticateCallback): void;
-
-    /**
-     * Calls Authenticate.
-     * @param request AuthenticationRequest message or plain object
-     * @returns Promise
-     */
-    public authenticate(request: IAuthenticationRequest): Promise<UserResponse>;
-
-    /**
-     * Calls LoginUser.
-     * @param request LoginUserRequest message or plain object
-     * @param callback Node-style callback called with the error, if any, and LoginResponse
-     */
-    public loginUser(request: ILoginUserRequest, callback: UserService.LoginUserCallback): void;
-
-    /**
-     * Calls LoginUser.
-     * @param request LoginUserRequest message or plain object
-     * @returns Promise
-     */
-    public loginUser(request: ILoginUserRequest): Promise<LoginResponse>;
+    public parseAuthToken(request: IParseAuthTokenRequest): Promise<ParseAuthTokenResponse>;
 }
 
-export namespace UserService {
+export namespace Asgardian {
 
     /**
-     * Callback as used by {@link UserService#getUserById}.
+     * Callback as used by {@link Asgardian#isAuthenticated}.
      * @param error Error, if any
-     * @param [response] UserResponse
+     * @param [response] IsAuthenticatedResponse
      */
-    type GetUserByIdCallback = (error: (Error|null), response?: UserResponse) => void;
+    type isAuthenticatedCallback = (error: (Error|null), response?: IsAuthenticatedResponse) => void;
 
     /**
-     * Callback as used by {@link UserService#registerUser}.
+     * Callback as used by {@link Asgardian#parseAuthToken}.
      * @param error Error, if any
-     * @param [response] UserResponse
+     * @param [response] ParseAuthTokenResponse
      */
-    type RegisterUserCallback = (error: (Error|null), response?: UserResponse) => void;
-
-    /**
-     * Callback as used by {@link UserService#authenticate}.
-     * @param error Error, if any
-     * @param [response] UserResponse
-     */
-    type AuthenticateCallback = (error: (Error|null), response?: UserResponse) => void;
-
-    /**
-     * Callback as used by {@link UserService#loginUser}.
-     * @param error Error, if any
-     * @param [response] LoginResponse
-     */
-    type LoginUserCallback = (error: (Error|null), response?: LoginResponse) => void;
-}
-
-/** Properties of a Purchase. */
-export interface IPurchase {
-
-    /** Purchase id */
-    id?: (string|null);
-
-    /** Purchase userId */
-    userId?: (string|null);
-
-    /** Purchase title */
-    title?: (string|null);
-
-    /** Purchase value */
-    value?: (number|null);
-}
-
-/** Represents a Purchase. */
-export class Purchase implements IPurchase {
-
-    /**
-     * Constructs a new Purchase.
-     * @param [properties] Properties to set
-     */
-    constructor(properties?: IPurchase);
-
-    /** Purchase id. */
-    public id: string;
-
-    /** Purchase userId. */
-    public userId: string;
-
-    /** Purchase title. */
-    public title: string;
-
-    /** Purchase value. */
-    public value: number;
-
-    /**
-     * Creates a new Purchase instance using the specified properties.
-     * @param [properties] Properties to set
-     * @returns Purchase instance
-     */
-    public static create(properties?: IPurchase): Purchase;
-
-    /**
-     * Encodes the specified Purchase message. Does not implicitly {@link Purchase.verify|verify} messages.
-     * @param message Purchase message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encode(message: IPurchase, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Encodes the specified Purchase message, length delimited. Does not implicitly {@link Purchase.verify|verify} messages.
-     * @param message Purchase message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encodeDelimited(message: IPurchase, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Decodes a Purchase message from the specified reader or buffer.
-     * @param reader Reader or buffer to decode from
-     * @param [length] Message length if known beforehand
-     * @returns Purchase
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Purchase;
-
-    /**
-     * Decodes a Purchase message from the specified reader or buffer, length delimited.
-     * @param reader Reader or buffer to decode from
-     * @returns Purchase
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Purchase;
-
-    /**
-     * Verifies a Purchase message.
-     * @param message Plain object to verify
-     * @returns `null` if valid, otherwise the reason why it is not
-     */
-    public static verify(message: { [k: string]: any }): (string|null);
-
-    /**
-     * Creates a Purchase message from a plain object. Also converts values to their respective internal types.
-     * @param object Plain object
-     * @returns Purchase
-     */
-    public static fromObject(object: { [k: string]: any }): Purchase;
-
-    /**
-     * Creates a plain object from a Purchase message. Also converts values to other types if specified.
-     * @param message Purchase
-     * @param [options] Conversion options
-     * @returns Plain object
-     */
-    public static toObject(message: Purchase, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-    /**
-     * Converts this Purchase to JSON.
-     * @returns JSON object
-     */
-    public toJSON(): { [k: string]: any };
-}
-
-/** Properties of a GetPurchaseByIdRequest. */
-export interface IGetPurchaseByIdRequest {
-
-    /** GetPurchaseByIdRequest id */
-    id?: (string|null);
-}
-
-/** Represents a GetPurchaseByIdRequest. */
-export class GetPurchaseByIdRequest implements IGetPurchaseByIdRequest {
-
-    /**
-     * Constructs a new GetPurchaseByIdRequest.
-     * @param [properties] Properties to set
-     */
-    constructor(properties?: IGetPurchaseByIdRequest);
-
-    /** GetPurchaseByIdRequest id. */
-    public id: string;
-
-    /**
-     * Creates a new GetPurchaseByIdRequest instance using the specified properties.
-     * @param [properties] Properties to set
-     * @returns GetPurchaseByIdRequest instance
-     */
-    public static create(properties?: IGetPurchaseByIdRequest): GetPurchaseByIdRequest;
-
-    /**
-     * Encodes the specified GetPurchaseByIdRequest message. Does not implicitly {@link GetPurchaseByIdRequest.verify|verify} messages.
-     * @param message GetPurchaseByIdRequest message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encode(message: IGetPurchaseByIdRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Encodes the specified GetPurchaseByIdRequest message, length delimited. Does not implicitly {@link GetPurchaseByIdRequest.verify|verify} messages.
-     * @param message GetPurchaseByIdRequest message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encodeDelimited(message: IGetPurchaseByIdRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Decodes a GetPurchaseByIdRequest message from the specified reader or buffer.
-     * @param reader Reader or buffer to decode from
-     * @param [length] Message length if known beforehand
-     * @returns GetPurchaseByIdRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): GetPurchaseByIdRequest;
-
-    /**
-     * Decodes a GetPurchaseByIdRequest message from the specified reader or buffer, length delimited.
-     * @param reader Reader or buffer to decode from
-     * @returns GetPurchaseByIdRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): GetPurchaseByIdRequest;
-
-    /**
-     * Verifies a GetPurchaseByIdRequest message.
-     * @param message Plain object to verify
-     * @returns `null` if valid, otherwise the reason why it is not
-     */
-    public static verify(message: { [k: string]: any }): (string|null);
-
-    /**
-     * Creates a GetPurchaseByIdRequest message from a plain object. Also converts values to their respective internal types.
-     * @param object Plain object
-     * @returns GetPurchaseByIdRequest
-     */
-    public static fromObject(object: { [k: string]: any }): GetPurchaseByIdRequest;
-
-    /**
-     * Creates a plain object from a GetPurchaseByIdRequest message. Also converts values to other types if specified.
-     * @param message GetPurchaseByIdRequest
-     * @param [options] Conversion options
-     * @returns Plain object
-     */
-    public static toObject(message: GetPurchaseByIdRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-    /**
-     * Converts this GetPurchaseByIdRequest to JSON.
-     * @returns JSON object
-     */
-    public toJSON(): { [k: string]: any };
-}
-
-/** Properties of a HandlePurchaseRequest. */
-export interface IHandlePurchaseRequest {
-
-    /** HandlePurchaseRequest purchase */
-    purchase?: (IPurchase|null);
-}
-
-/** Represents a HandlePurchaseRequest. */
-export class HandlePurchaseRequest implements IHandlePurchaseRequest {
-
-    /**
-     * Constructs a new HandlePurchaseRequest.
-     * @param [properties] Properties to set
-     */
-    constructor(properties?: IHandlePurchaseRequest);
-
-    /** HandlePurchaseRequest purchase. */
-    public purchase?: (IPurchase|null);
-
-    /**
-     * Creates a new HandlePurchaseRequest instance using the specified properties.
-     * @param [properties] Properties to set
-     * @returns HandlePurchaseRequest instance
-     */
-    public static create(properties?: IHandlePurchaseRequest): HandlePurchaseRequest;
-
-    /**
-     * Encodes the specified HandlePurchaseRequest message. Does not implicitly {@link HandlePurchaseRequest.verify|verify} messages.
-     * @param message HandlePurchaseRequest message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encode(message: IHandlePurchaseRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Encodes the specified HandlePurchaseRequest message, length delimited. Does not implicitly {@link HandlePurchaseRequest.verify|verify} messages.
-     * @param message HandlePurchaseRequest message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encodeDelimited(message: IHandlePurchaseRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Decodes a HandlePurchaseRequest message from the specified reader or buffer.
-     * @param reader Reader or buffer to decode from
-     * @param [length] Message length if known beforehand
-     * @returns HandlePurchaseRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): HandlePurchaseRequest;
-
-    /**
-     * Decodes a HandlePurchaseRequest message from the specified reader or buffer, length delimited.
-     * @param reader Reader or buffer to decode from
-     * @returns HandlePurchaseRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): HandlePurchaseRequest;
-
-    /**
-     * Verifies a HandlePurchaseRequest message.
-     * @param message Plain object to verify
-     * @returns `null` if valid, otherwise the reason why it is not
-     */
-    public static verify(message: { [k: string]: any }): (string|null);
-
-    /**
-     * Creates a HandlePurchaseRequest message from a plain object. Also converts values to their respective internal types.
-     * @param object Plain object
-     * @returns HandlePurchaseRequest
-     */
-    public static fromObject(object: { [k: string]: any }): HandlePurchaseRequest;
-
-    /**
-     * Creates a plain object from a HandlePurchaseRequest message. Also converts values to other types if specified.
-     * @param message HandlePurchaseRequest
-     * @param [options] Conversion options
-     * @returns Plain object
-     */
-    public static toObject(message: HandlePurchaseRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-    /**
-     * Converts this HandlePurchaseRequest to JSON.
-     * @returns JSON object
-     */
-    public toJSON(): { [k: string]: any };
-}
-
-/** Properties of a PurchaseResponse. */
-export interface IPurchaseResponse {
-
-    /** PurchaseResponse purchase */
-    purchase?: (IPurchase|null);
-
-    /** PurchaseResponse error */
-    error?: (string|null);
-}
-
-/** Represents a PurchaseResponse. */
-export class PurchaseResponse implements IPurchaseResponse {
-
-    /**
-     * Constructs a new PurchaseResponse.
-     * @param [properties] Properties to set
-     */
-    constructor(properties?: IPurchaseResponse);
-
-    /** PurchaseResponse purchase. */
-    public purchase?: (IPurchase|null);
-
-    /** PurchaseResponse error. */
-    public error: string;
-
-    /**
-     * Creates a new PurchaseResponse instance using the specified properties.
-     * @param [properties] Properties to set
-     * @returns PurchaseResponse instance
-     */
-    public static create(properties?: IPurchaseResponse): PurchaseResponse;
-
-    /**
-     * Encodes the specified PurchaseResponse message. Does not implicitly {@link PurchaseResponse.verify|verify} messages.
-     * @param message PurchaseResponse message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encode(message: IPurchaseResponse, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Encodes the specified PurchaseResponse message, length delimited. Does not implicitly {@link PurchaseResponse.verify|verify} messages.
-     * @param message PurchaseResponse message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encodeDelimited(message: IPurchaseResponse, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Decodes a PurchaseResponse message from the specified reader or buffer.
-     * @param reader Reader or buffer to decode from
-     * @param [length] Message length if known beforehand
-     * @returns PurchaseResponse
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): PurchaseResponse;
-
-    /**
-     * Decodes a PurchaseResponse message from the specified reader or buffer, length delimited.
-     * @param reader Reader or buffer to decode from
-     * @returns PurchaseResponse
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): PurchaseResponse;
-
-    /**
-     * Verifies a PurchaseResponse message.
-     * @param message Plain object to verify
-     * @returns `null` if valid, otherwise the reason why it is not
-     */
-    public static verify(message: { [k: string]: any }): (string|null);
-
-    /**
-     * Creates a PurchaseResponse message from a plain object. Also converts values to their respective internal types.
-     * @param object Plain object
-     * @returns PurchaseResponse
-     */
-    public static fromObject(object: { [k: string]: any }): PurchaseResponse;
-
-    /**
-     * Creates a plain object from a PurchaseResponse message. Also converts values to other types if specified.
-     * @param message PurchaseResponse
-     * @param [options] Conversion options
-     * @returns Plain object
-     */
-    public static toObject(message: PurchaseResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-    /**
-     * Converts this PurchaseResponse to JSON.
-     * @returns JSON object
-     */
-    public toJSON(): { [k: string]: any };
-}
-
-/** Properties of a ListPurchasesRequest. */
-export interface IListPurchasesRequest {
-
-    /** ListPurchasesRequest userId */
-    userId?: (string|null);
-}
-
-/** Represents a ListPurchasesRequest. */
-export class ListPurchasesRequest implements IListPurchasesRequest {
-
-    /**
-     * Constructs a new ListPurchasesRequest.
-     * @param [properties] Properties to set
-     */
-    constructor(properties?: IListPurchasesRequest);
-
-    /** ListPurchasesRequest userId. */
-    public userId: string;
-
-    /**
-     * Creates a new ListPurchasesRequest instance using the specified properties.
-     * @param [properties] Properties to set
-     * @returns ListPurchasesRequest instance
-     */
-    public static create(properties?: IListPurchasesRequest): ListPurchasesRequest;
-
-    /**
-     * Encodes the specified ListPurchasesRequest message. Does not implicitly {@link ListPurchasesRequest.verify|verify} messages.
-     * @param message ListPurchasesRequest message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encode(message: IListPurchasesRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Encodes the specified ListPurchasesRequest message, length delimited. Does not implicitly {@link ListPurchasesRequest.verify|verify} messages.
-     * @param message ListPurchasesRequest message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encodeDelimited(message: IListPurchasesRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Decodes a ListPurchasesRequest message from the specified reader or buffer.
-     * @param reader Reader or buffer to decode from
-     * @param [length] Message length if known beforehand
-     * @returns ListPurchasesRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ListPurchasesRequest;
-
-    /**
-     * Decodes a ListPurchasesRequest message from the specified reader or buffer, length delimited.
-     * @param reader Reader or buffer to decode from
-     * @returns ListPurchasesRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ListPurchasesRequest;
-
-    /**
-     * Verifies a ListPurchasesRequest message.
-     * @param message Plain object to verify
-     * @returns `null` if valid, otherwise the reason why it is not
-     */
-    public static verify(message: { [k: string]: any }): (string|null);
-
-    /**
-     * Creates a ListPurchasesRequest message from a plain object. Also converts values to their respective internal types.
-     * @param object Plain object
-     * @returns ListPurchasesRequest
-     */
-    public static fromObject(object: { [k: string]: any }): ListPurchasesRequest;
-
-    /**
-     * Creates a plain object from a ListPurchasesRequest message. Also converts values to other types if specified.
-     * @param message ListPurchasesRequest
-     * @param [options] Conversion options
-     * @returns Plain object
-     */
-    public static toObject(message: ListPurchasesRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-    /**
-     * Converts this ListPurchasesRequest to JSON.
-     * @returns JSON object
-     */
-    public toJSON(): { [k: string]: any };
-}
-
-/** Properties of a ListPurchasesResponse. */
-export interface IListPurchasesResponse {
-
-    /** ListPurchasesResponse purchases */
-    purchases?: (IPurchase[]|null);
-
-    /** ListPurchasesResponse error */
-    error?: (string|null);
-}
-
-/** Represents a ListPurchasesResponse. */
-export class ListPurchasesResponse implements IListPurchasesResponse {
-
-    /**
-     * Constructs a new ListPurchasesResponse.
-     * @param [properties] Properties to set
-     */
-    constructor(properties?: IListPurchasesResponse);
-
-    /** ListPurchasesResponse purchases. */
-    public purchases: IPurchase[];
-
-    /** ListPurchasesResponse error. */
-    public error: string;
-
-    /**
-     * Creates a new ListPurchasesResponse instance using the specified properties.
-     * @param [properties] Properties to set
-     * @returns ListPurchasesResponse instance
-     */
-    public static create(properties?: IListPurchasesResponse): ListPurchasesResponse;
-
-    /**
-     * Encodes the specified ListPurchasesResponse message. Does not implicitly {@link ListPurchasesResponse.verify|verify} messages.
-     * @param message ListPurchasesResponse message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encode(message: IListPurchasesResponse, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Encodes the specified ListPurchasesResponse message, length delimited. Does not implicitly {@link ListPurchasesResponse.verify|verify} messages.
-     * @param message ListPurchasesResponse message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encodeDelimited(message: IListPurchasesResponse, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Decodes a ListPurchasesResponse message from the specified reader or buffer.
-     * @param reader Reader or buffer to decode from
-     * @param [length] Message length if known beforehand
-     * @returns ListPurchasesResponse
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ListPurchasesResponse;
-
-    /**
-     * Decodes a ListPurchasesResponse message from the specified reader or buffer, length delimited.
-     * @param reader Reader or buffer to decode from
-     * @returns ListPurchasesResponse
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ListPurchasesResponse;
-
-    /**
-     * Verifies a ListPurchasesResponse message.
-     * @param message Plain object to verify
-     * @returns `null` if valid, otherwise the reason why it is not
-     */
-    public static verify(message: { [k: string]: any }): (string|null);
-
-    /**
-     * Creates a ListPurchasesResponse message from a plain object. Also converts values to their respective internal types.
-     * @param object Plain object
-     * @returns ListPurchasesResponse
-     */
-    public static fromObject(object: { [k: string]: any }): ListPurchasesResponse;
-
-    /**
-     * Creates a plain object from a ListPurchasesResponse message. Also converts values to other types if specified.
-     * @param message ListPurchasesResponse
-     * @param [options] Conversion options
-     * @returns Plain object
-     */
-    public static toObject(message: ListPurchasesResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-    /**
-     * Converts this ListPurchasesResponse to JSON.
-     * @returns JSON object
-     */
-    public toJSON(): { [k: string]: any };
-}
-
-/** Represents a PurchaseService */
-export class PurchaseService extends $protobuf.rpc.Service {
-
-    /**
-     * Constructs a new PurchaseService service.
-     * @param rpcImpl RPC implementation
-     * @param [requestDelimited=false] Whether requests are length-delimited
-     * @param [responseDelimited=false] Whether responses are length-delimited
-     */
-    constructor(rpcImpl: $protobuf.RPCImpl, requestDelimited?: boolean, responseDelimited?: boolean);
-
-    /**
-     * Creates new PurchaseService service using the specified rpc implementation.
-     * @param rpcImpl RPC implementation
-     * @param [requestDelimited=false] Whether requests are length-delimited
-     * @param [responseDelimited=false] Whether responses are length-delimited
-     * @returns RPC service. Useful where requests and/or responses are streamed.
-     */
-    public static create(rpcImpl: $protobuf.RPCImpl, requestDelimited?: boolean, responseDelimited?: boolean): PurchaseService;
-
-    /**
-     * Calls GetPurchaseById.
-     * @param request GetPurchaseByIdRequest message or plain object
-     * @param callback Node-style callback called with the error, if any, and PurchaseResponse
-     */
-    public getPurchaseById(request: IGetPurchaseByIdRequest, callback: PurchaseService.GetPurchaseByIdCallback): void;
-
-    /**
-     * Calls GetPurchaseById.
-     * @param request GetPurchaseByIdRequest message or plain object
-     * @returns Promise
-     */
-    public getPurchaseById(request: IGetPurchaseByIdRequest): Promise<PurchaseResponse>;
-
-    /**
-     * Calls ListPurchases.
-     * @param request ListPurchasesRequest message or plain object
-     * @param callback Node-style callback called with the error, if any, and ListPurchasesResponse
-     */
-    public listPurchases(request: IListPurchasesRequest, callback: PurchaseService.ListPurchasesCallback): void;
-
-    /**
-     * Calls ListPurchases.
-     * @param request ListPurchasesRequest message or plain object
-     * @returns Promise
-     */
-    public listPurchases(request: IListPurchasesRequest): Promise<ListPurchasesResponse>;
-
-    /**
-     * Calls HandlePurchase.
-     * @param request HandlePurchaseRequest message or plain object
-     * @param callback Node-style callback called with the error, if any, and PurchaseResponse
-     */
-    public handlePurchase(request: IHandlePurchaseRequest, callback: PurchaseService.HandlePurchaseCallback): void;
-
-    /**
-     * Calls HandlePurchase.
-     * @param request HandlePurchaseRequest message or plain object
-     * @returns Promise
-     */
-    public handlePurchase(request: IHandlePurchaseRequest): Promise<PurchaseResponse>;
-}
-
-export namespace PurchaseService {
-
-    /**
-     * Callback as used by {@link PurchaseService#getPurchaseById}.
-     * @param error Error, if any
-     * @param [response] PurchaseResponse
-     */
-    type GetPurchaseByIdCallback = (error: (Error|null), response?: PurchaseResponse) => void;
-
-    /**
-     * Callback as used by {@link PurchaseService#listPurchases}.
-     * @param error Error, if any
-     * @param [response] ListPurchasesResponse
-     */
-    type ListPurchasesCallback = (error: (Error|null), response?: ListPurchasesResponse) => void;
-
-    /**
-     * Callback as used by {@link PurchaseService#handlePurchase}.
-     * @param error Error, if any
-     * @param [response] PurchaseResponse
-     */
-    type HandlePurchaseCallback = (error: (Error|null), response?: PurchaseResponse) => void;
+    type parseAuthTokenCallback = (error: (Error|null), response?: ParseAuthTokenResponse) => void;
 }

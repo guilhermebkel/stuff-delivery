@@ -4,7 +4,7 @@ import RpcService from "@rpc"
 
 import rpcConfig from "@asgardian/config/rpc"
 
-import implementation from "@asgardian/implementation"
+import implementations from "@asgardian/implementations"
 
 class Rpc {
 	proto: GrpcObject
@@ -17,11 +17,11 @@ class Rpc {
 	}
 
 	setup() {
-		this.server.addService((this.proto["Asgardian"] as any).service, implementation)
-		this.server.bind(`0.0.0.0:${rpcConfig.port}`, grpc.ServerCredentials.createInsecure())
+		this.server.addService((this.proto["Asgardian"] as any).service, implementations)
+		this.server.bind(`${rpcConfig.address}`, grpc.ServerCredentials.createInsecure())
 
 		this.server.start()
-		console.log(`RPC is running... [PORT ${rpcConfig.port}]`)
+		console.log(`RPC is running... [${rpcConfig.address}]`)
 	}
 }
 
