@@ -28,7 +28,7 @@ My advice is not to use this repo as the absolute path/truth to build a microser
 - Kubernetes
 - Docker
 - React.js
-- rGPC
+- RPC
 - Kibana
 - ElasticSearch
 - Fluentd
