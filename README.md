@@ -45,19 +45,19 @@ We have currently 3 main microservices:
 
 ### Asgardian
 
-This microservice is responsible for making all related User business rules, per example: User Authentication, Profile Update, Authentication Token Verification and so on.
+Responsible for making all related User business rules, per example: User Authentication, Profile Update, Authentication Token Verification and so on.
 
 <img src="./assets/hermes.png" align="left" width="70">
 
 ### Hermes
 
-This microservice owns the responsability of Tracking Packages and Delivery Mans.
+Owns the responsability of Tracking Packages and Delivery Mans.
 
 <img src="./assets/iris.png" align="left" width="70">
 
 ### Iris
 
-This microservice is used to control all notification that needs to be sent, per example: Emails and Push Notifications.
+Controls all notification that needs to be sent, per example: Emails and Push Notifications.
 
 
 ## CI Flow
