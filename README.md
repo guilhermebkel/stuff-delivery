@@ -107,7 +107,7 @@ All the services inside each microservice follow the TDD principles.
 
 ## 🌀 Repo Management
 
-That's a monorepo managed by **Lerna**, the microservices can be found on ```/apps``` folder. The modules shared between all the microservices can be found on ```/apps/shared```.
+That's a monorepo managed by **Lerna**, the microservices can be found on ```/apps``` folder. The modules shared between all of them can be found on ```/apps/shared```.
 
 ## 🚀 Getting started (Currently not available)
 
