@@ -1,6 +1,6 @@
 import grpc, { GrpcObject, Server } from "grpc"
 
-import RpcService from "@rpc"
+import RpcService from "@shared/rpc"
 
 import rpcConfig from "@asgardian/config/rpc"
 

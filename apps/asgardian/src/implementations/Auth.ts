@@ -5,7 +5,7 @@ import {
 	IIsAuthenticatedResponse,
 	IParseAuthTokenRequest,
 	IParseAuthTokenResponse
-} from "@protos"
+} from "@shared/protos"
 
 import DecodeUserAuthTokenService from "@asgardian/services/DecodeUserAuthToken"
 import CheckAuthenticationUtil from "@asgardian/utils/CheckAuthentication"

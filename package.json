@@ -12,6 +12,7 @@
     "lerna": "^3.20.2"
   },
   "workspaces": [
-    "apps/*"
+    "apps/*",
+    "apps/shared/**"
   ]
 }

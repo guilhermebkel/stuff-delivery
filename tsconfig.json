@@ -17,10 +17,10 @@
     "paths": {
       "@asgardian/*": ["apps/asgardian/src/*"],
       "@hermes/*": ["apps/hermes/src/*"],
-      "@iris/*": ["apps/hermes/src/*"],
-      "@protos": ["apps/rpc/protos"],
-      "@rpc": ["apps/rpc/src"]
+      "@iris/*": ["apps/iris/src/*"],
+      "@shared/protos": ["apps/shared/rpc/protos"],
+      "@shared/rpc": ["apps/shared/rpc/src"]
     }
   },
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "migrations/*"]
 }

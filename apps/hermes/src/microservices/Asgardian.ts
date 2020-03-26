@@ -1,6 +1,6 @@
-import { Asgardian } from "@protos"
+import { Asgardian } from "@shared/protos"
 
-import RpcService from "@rpc"
+import RpcService from "@shared/rpc"
 
 import asgardianConfig from "@hermes/config/asgardian"
 
