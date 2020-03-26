@@ -1,6 +1,6 @@
 import * as jwt from "jsonwebtoken"
 
-import ErrorUtil from "@asgardian/utils/Error"
+import ErrorService from "@shared/error"
 
 import { UserAuthTokenData } from "@asgardian/interfaces/UserAuth"
 
@@ -13,7 +13,7 @@ class GenerateUserAuthTokenService {
 
 			return token
 		} catch(error) {
-			ErrorUtil.handle(error)
+			ErrorService.handle(error)
 			return null
 		}
 	}

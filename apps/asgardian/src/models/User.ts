@@ -2,8 +2,8 @@ import { Model, Sequelize, DataTypes } from "sequelize"
 
 class User extends Model {
 	id: number
-	name: Date
-	email: Date
+	name: string
+	email: string
 	admin: boolean
 	password: string
 	created_at: Date
@@ -44,6 +44,8 @@ class User extends Model {
 				}
 			]
 		})
+
+		return this
 	}
 }
 

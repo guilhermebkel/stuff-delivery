@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "module": "commonjs",
     "allowJs": true,
     "strict": true,
@@ -19,7 +19,10 @@
       "@hermes/*": ["apps/hermes/src/*"],
       "@iris/*": ["apps/iris/src/*"],
       "@shared/protos": ["apps/shared/rpc/protos"],
-      "@shared/rpc": ["apps/shared/rpc/src"]
+      "@shared/rpc": ["apps/shared/rpc/src"],
+      "@shared/response": ["apps/shared/response/src"],
+      "@shared/cache": ["apps/shared/cache/src"],
+      "@shared/error": ["apps/shared/error/src"]
     }
   },
   "exclude": ["node_modules", "migrations/*"]

@@ -1,8 +1,8 @@
 import * as Sentry from "@sentry/node"
 
-import sentryConfig from "@asgardian/config/sentry"
+import sentryConfig from "./config"
 
-class ErrorUtil {
+class ErrorService {
 	constructor() {
 		Sentry.init(sentryConfig)
 	}
@@ -12,4 +12,4 @@ class ErrorUtil {
 	}
 }
 
-export default new ErrorUtil()
+export default new ErrorService()

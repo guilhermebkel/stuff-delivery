@@ -1,0 +1,15 @@
+{
+  "name": "cache",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ioredis": "^4.16.0"
+  },
+  "devDependencies": {
+    "@types/ioredis": "^4.14.9"
+  }
+}

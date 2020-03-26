@@ -13,7 +13,6 @@ export default {
 			updatedAt: "updated_at",
 			timestamps: true,
 			freezeTableName: true,
-			paranoid: true,
 			underscored: true
 		},
 		logging: process.env.DB_LOGGER === "active" && console.log

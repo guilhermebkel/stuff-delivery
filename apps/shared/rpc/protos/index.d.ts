@@ -194,6 +194,9 @@ export class IsAuthenticatedRequest implements IIsAuthenticatedRequest {
 /** Properties of an IsAuthenticatedResponse. */
 export interface IIsAuthenticatedResponse {
 
+    /** IsAuthenticatedResponse tokenData */
+    tokenData?: (IAuthTokenData|null);
+
     /** IsAuthenticatedResponse success */
     success?: (boolean|null);
 
@@ -209,6 +212,9 @@ export class IsAuthenticatedResponse implements IIsAuthenticatedResponse {
      * @param [properties] Properties to set
      */
     constructor(properties?: IIsAuthenticatedResponse);
+
+    /** IsAuthenticatedResponse tokenData. */
+    public tokenData?: (IAuthTokenData|null);
 
     /** IsAuthenticatedResponse success. */
     public success: boolean;
@@ -287,198 +293,6 @@ export class IsAuthenticatedResponse implements IIsAuthenticatedResponse {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ParseAuthTokenRequest. */
-export interface IParseAuthTokenRequest {
-
-    /** ParseAuthTokenRequest token */
-    token?: (string|null);
-}
-
-/** Represents a ParseAuthTokenRequest. */
-export class ParseAuthTokenRequest implements IParseAuthTokenRequest {
-
-    /**
-     * Constructs a new ParseAuthTokenRequest.
-     * @param [properties] Properties to set
-     */
-    constructor(properties?: IParseAuthTokenRequest);
-
-    /** ParseAuthTokenRequest token. */
-    public token: string;
-
-    /**
-     * Creates a new ParseAuthTokenRequest instance using the specified properties.
-     * @param [properties] Properties to set
-     * @returns ParseAuthTokenRequest instance
-     */
-    public static create(properties?: IParseAuthTokenRequest): ParseAuthTokenRequest;
-
-    /**
-     * Encodes the specified ParseAuthTokenRequest message. Does not implicitly {@link ParseAuthTokenRequest.verify|verify} messages.
-     * @param message ParseAuthTokenRequest message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encode(message: IParseAuthTokenRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Encodes the specified ParseAuthTokenRequest message, length delimited. Does not implicitly {@link ParseAuthTokenRequest.verify|verify} messages.
-     * @param message ParseAuthTokenRequest message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encodeDelimited(message: IParseAuthTokenRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Decodes a ParseAuthTokenRequest message from the specified reader or buffer.
-     * @param reader Reader or buffer to decode from
-     * @param [length] Message length if known beforehand
-     * @returns ParseAuthTokenRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ParseAuthTokenRequest;
-
-    /**
-     * Decodes a ParseAuthTokenRequest message from the specified reader or buffer, length delimited.
-     * @param reader Reader or buffer to decode from
-     * @returns ParseAuthTokenRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ParseAuthTokenRequest;
-
-    /**
-     * Verifies a ParseAuthTokenRequest message.
-     * @param message Plain object to verify
-     * @returns `null` if valid, otherwise the reason why it is not
-     */
-    public static verify(message: { [k: string]: any }): (string|null);
-
-    /**
-     * Creates a ParseAuthTokenRequest message from a plain object. Also converts values to their respective internal types.
-     * @param object Plain object
-     * @returns ParseAuthTokenRequest
-     */
-    public static fromObject(object: { [k: string]: any }): ParseAuthTokenRequest;
-
-    /**
-     * Creates a plain object from a ParseAuthTokenRequest message. Also converts values to other types if specified.
-     * @param message ParseAuthTokenRequest
-     * @param [options] Conversion options
-     * @returns Plain object
-     */
-    public static toObject(message: ParseAuthTokenRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-    /**
-     * Converts this ParseAuthTokenRequest to JSON.
-     * @returns JSON object
-     */
-    public toJSON(): { [k: string]: any };
-}
-
-/** Properties of a ParseAuthTokenResponse. */
-export interface IParseAuthTokenResponse {
-
-    /** ParseAuthTokenResponse tokenData */
-    tokenData?: (IAuthTokenData|null);
-
-    /** ParseAuthTokenResponse success */
-    success?: (boolean|null);
-
-    /** ParseAuthTokenResponse error */
-    error?: (string|null);
-}
-
-/** Represents a ParseAuthTokenResponse. */
-export class ParseAuthTokenResponse implements IParseAuthTokenResponse {
-
-    /**
-     * Constructs a new ParseAuthTokenResponse.
-     * @param [properties] Properties to set
-     */
-    constructor(properties?: IParseAuthTokenResponse);
-
-    /** ParseAuthTokenResponse tokenData. */
-    public tokenData?: (IAuthTokenData|null);
-
-    /** ParseAuthTokenResponse success. */
-    public success: boolean;
-
-    /** ParseAuthTokenResponse error. */
-    public error: string;
-
-    /**
-     * Creates a new ParseAuthTokenResponse instance using the specified properties.
-     * @param [properties] Properties to set
-     * @returns ParseAuthTokenResponse instance
-     */
-    public static create(properties?: IParseAuthTokenResponse): ParseAuthTokenResponse;
-
-    /**
-     * Encodes the specified ParseAuthTokenResponse message. Does not implicitly {@link ParseAuthTokenResponse.verify|verify} messages.
-     * @param message ParseAuthTokenResponse message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encode(message: IParseAuthTokenResponse, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Encodes the specified ParseAuthTokenResponse message, length delimited. Does not implicitly {@link ParseAuthTokenResponse.verify|verify} messages.
-     * @param message ParseAuthTokenResponse message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encodeDelimited(message: IParseAuthTokenResponse, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Decodes a ParseAuthTokenResponse message from the specified reader or buffer.
-     * @param reader Reader or buffer to decode from
-     * @param [length] Message length if known beforehand
-     * @returns ParseAuthTokenResponse
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ParseAuthTokenResponse;
-
-    /**
-     * Decodes a ParseAuthTokenResponse message from the specified reader or buffer, length delimited.
-     * @param reader Reader or buffer to decode from
-     * @returns ParseAuthTokenResponse
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ParseAuthTokenResponse;
-
-    /**
-     * Verifies a ParseAuthTokenResponse message.
-     * @param message Plain object to verify
-     * @returns `null` if valid, otherwise the reason why it is not
-     */
-    public static verify(message: { [k: string]: any }): (string|null);
-
-    /**
-     * Creates a ParseAuthTokenResponse message from a plain object. Also converts values to their respective internal types.
-     * @param object Plain object
-     * @returns ParseAuthTokenResponse
-     */
-    public static fromObject(object: { [k: string]: any }): ParseAuthTokenResponse;
-
-    /**
-     * Creates a plain object from a ParseAuthTokenResponse message. Also converts values to other types if specified.
-     * @param message ParseAuthTokenResponse
-     * @param [options] Conversion options
-     * @returns Plain object
-     */
-    public static toObject(message: ParseAuthTokenResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-    /**
-     * Converts this ParseAuthTokenResponse to JSON.
-     * @returns JSON object
-     */
-    public toJSON(): { [k: string]: any };
-}
-
 /** Represents an Asgardian */
 export class Asgardian extends $protobuf.rpc.Service {
 
@@ -512,20 +326,6 @@ export class Asgardian extends $protobuf.rpc.Service {
      * @returns Promise
      */
     public isAuthenticated(request: IIsAuthenticatedRequest): Promise<IsAuthenticatedResponse>;
-
-    /**
-     * Calls parseAuthToken.
-     * @param request ParseAuthTokenRequest message or plain object
-     * @param callback Node-style callback called with the error, if any, and ParseAuthTokenResponse
-     */
-    public parseAuthToken(request: IParseAuthTokenRequest, callback: Asgardian.parseAuthTokenCallback): void;
-
-    /**
-     * Calls parseAuthToken.
-     * @param request ParseAuthTokenRequest message or plain object
-     * @returns Promise
-     */
-    public parseAuthToken(request: IParseAuthTokenRequest): Promise<ParseAuthTokenResponse>;
 }
 
 export namespace Asgardian {
@@ -536,11 +336,4 @@ export namespace Asgardian {
      * @param [response] IsAuthenticatedResponse
      */
     type isAuthenticatedCallback = (error: (Error|null), response?: IsAuthenticatedResponse) => void;
-
-    /**
-     * Callback as used by {@link Asgardian#parseAuthToken}.
-     * @param error Error, if any
-     * @param [response] ParseAuthTokenResponse
-     */
-    type parseAuthTokenCallback = (error: (Error|null), response?: ParseAuthTokenResponse) => void;
 }

@@ -11,15 +11,6 @@ message IsAuthenticatedRequest {
 }
 
 message IsAuthenticatedResponse {
-  bool success = 1;
-  string error = 2;
-}
-
-message ParseAuthTokenRequest {
-  string token = 1;
-}
-
-message ParseAuthTokenResponse {
   AuthTokenData tokenData = 1;
   bool success = 2;
   string error = 3;
@@ -27,5 +18,4 @@ message ParseAuthTokenResponse {
 
 service Asgardian {
   rpc isAuthenticated(IsAuthenticatedRequest) returns (IsAuthenticatedResponse);
-  rpc parseAuthToken(ParseAuthTokenRequest) returns (ParseAuthTokenResponse);
 }

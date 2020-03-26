@@ -434,6 +434,7 @@ $root.IsAuthenticatedResponse = (function() {
      * Properties of an IsAuthenticatedResponse.
      * @exports IIsAuthenticatedResponse
      * @interface IIsAuthenticatedResponse
+     * @property {IAuthTokenData|null} [tokenData] IsAuthenticatedResponse tokenData
      * @property {boolean|null} [success] IsAuthenticatedResponse success
      * @property {string|null} [error] IsAuthenticatedResponse error
      */
@@ -452,6 +453,14 @@ $root.IsAuthenticatedResponse = (function() {
                 if (properties[keys[i]] != null)
                     this[keys[i]] = properties[keys[i]];
     }
+
+    /**
+     * IsAuthenticatedResponse tokenData.
+     * @member {IAuthTokenData|null|undefined} tokenData
+     * @memberof IsAuthenticatedResponse
+     * @instance
+     */
+    IsAuthenticatedResponse.prototype.tokenData = null;
 
     /**
      * IsAuthenticatedResponse success.
@@ -493,10 +502,12 @@ $root.IsAuthenticatedResponse = (function() {
     IsAuthenticatedResponse.encode = function encode(message, writer) {
         if (!writer)
             writer = $Writer.create();
+        if (message.tokenData != null && message.hasOwnProperty("tokenData"))
+            $root.AuthTokenData.encode(message.tokenData, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
         if (message.success != null && message.hasOwnProperty("success"))
-            writer.uint32(/* id 1, wireType 0 =*/8).bool(message.success);
+            writer.uint32(/* id 2, wireType 0 =*/16).bool(message.success);
         if (message.error != null && message.hasOwnProperty("error"))
-            writer.uint32(/* id 2, wireType 2 =*/18).string(message.error);
+            writer.uint32(/* id 3, wireType 2 =*/26).string(message.error);
         return writer;
     };
 
@@ -532,9 +543,12 @@ $root.IsAuthenticatedResponse = (function() {
             var tag = reader.uint32();
             switch (tag >>> 3) {
             case 1:
-                message.success = reader.bool();
+                message.tokenData = $root.AuthTokenData.decode(reader, reader.uint32());
                 break;
             case 2:
+                message.success = reader.bool();
+                break;
+            case 3:
                 message.error = reader.string();
                 break;
             default:
@@ -572,6 +586,11 @@ $root.IsAuthenticatedResponse = (function() {
     IsAuthenticatedResponse.verify = function verify(message) {
         if (typeof message !== "object" || message === null)
             return "object expected";
+        if (message.tokenData != null && message.hasOwnProperty("tokenData")) {
+            var error = $root.AuthTokenData.verify(message.tokenData);
+            if (error)
+                return "tokenData." + error;
+        }
         if (message.success != null && message.hasOwnProperty("success"))
             if (typeof message.success !== "boolean")
                 return "success: boolean expected";
@@ -593,6 +612,11 @@ $root.IsAuthenticatedResponse = (function() {
         if (object instanceof $root.IsAuthenticatedResponse)
             return object;
         var message = new $root.IsAuthenticatedResponse();
+        if (object.tokenData != null) {
+            if (typeof object.tokenData !== "object")
+                throw TypeError(".IsAuthenticatedResponse.tokenData: object expected");
+            message.tokenData = $root.AuthTokenData.fromObject(object.tokenData);
+        }
         if (object.success != null)
             message.success = Boolean(object.success);
         if (object.error != null)
@@ -614,9 +638,12 @@ $root.IsAuthenticatedResponse = (function() {
             options = {};
         var object = {};
         if (options.defaults) {
+            object.tokenData = null;
             object.success = false;
             object.error = "";
         }
+        if (message.tokenData != null && message.hasOwnProperty("tokenData"))
+            object.tokenData = $root.AuthTokenData.toObject(message.tokenData, options);
         if (message.success != null && message.hasOwnProperty("success"))
             object.success = message.success;
         if (message.error != null && message.hasOwnProperty("error"))
@@ -636,430 +663,6 @@ $root.IsAuthenticatedResponse = (function() {
     };
 
     return IsAuthenticatedResponse;
-})();
-
-$root.ParseAuthTokenRequest = (function() {
-
-    /**
-     * Properties of a ParseAuthTokenRequest.
-     * @exports IParseAuthTokenRequest
-     * @interface IParseAuthTokenRequest
-     * @property {string|null} [token] ParseAuthTokenRequest token
-     */
-
-    /**
-     * Constructs a new ParseAuthTokenRequest.
-     * @exports ParseAuthTokenRequest
-     * @classdesc Represents a ParseAuthTokenRequest.
-     * @implements IParseAuthTokenRequest
-     * @constructor
-     * @param {IParseAuthTokenRequest=} [properties] Properties to set
-     */
-    function ParseAuthTokenRequest(properties) {
-        if (properties)
-            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                if (properties[keys[i]] != null)
-                    this[keys[i]] = properties[keys[i]];
-    }
-
-    /**
-     * ParseAuthTokenRequest token.
-     * @member {string} token
-     * @memberof ParseAuthTokenRequest
-     * @instance
-     */
-    ParseAuthTokenRequest.prototype.token = "";
-
-    /**
-     * Creates a new ParseAuthTokenRequest instance using the specified properties.
-     * @function create
-     * @memberof ParseAuthTokenRequest
-     * @static
-     * @param {IParseAuthTokenRequest=} [properties] Properties to set
-     * @returns {ParseAuthTokenRequest} ParseAuthTokenRequest instance
-     */
-    ParseAuthTokenRequest.create = function create(properties) {
-        return new ParseAuthTokenRequest(properties);
-    };
-
-    /**
-     * Encodes the specified ParseAuthTokenRequest message. Does not implicitly {@link ParseAuthTokenRequest.verify|verify} messages.
-     * @function encode
-     * @memberof ParseAuthTokenRequest
-     * @static
-     * @param {IParseAuthTokenRequest} message ParseAuthTokenRequest message or plain object to encode
-     * @param {$protobuf.Writer} [writer] Writer to encode to
-     * @returns {$protobuf.Writer} Writer
-     */
-    ParseAuthTokenRequest.encode = function encode(message, writer) {
-        if (!writer)
-            writer = $Writer.create();
-        if (message.token != null && message.hasOwnProperty("token"))
-            writer.uint32(/* id 1, wireType 2 =*/10).string(message.token);
-        return writer;
-    };
-
-    /**
-     * Encodes the specified ParseAuthTokenRequest message, length delimited. Does not implicitly {@link ParseAuthTokenRequest.verify|verify} messages.
-     * @function encodeDelimited
-     * @memberof ParseAuthTokenRequest
-     * @static
-     * @param {IParseAuthTokenRequest} message ParseAuthTokenRequest message or plain object to encode
-     * @param {$protobuf.Writer} [writer] Writer to encode to
-     * @returns {$protobuf.Writer} Writer
-     */
-    ParseAuthTokenRequest.encodeDelimited = function encodeDelimited(message, writer) {
-        return this.encode(message, writer).ldelim();
-    };
-
-    /**
-     * Decodes a ParseAuthTokenRequest message from the specified reader or buffer.
-     * @function decode
-     * @memberof ParseAuthTokenRequest
-     * @static
-     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-     * @param {number} [length] Message length if known beforehand
-     * @returns {ParseAuthTokenRequest} ParseAuthTokenRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    ParseAuthTokenRequest.decode = function decode(reader, length) {
-        if (!(reader instanceof $Reader))
-            reader = $Reader.create(reader);
-        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.ParseAuthTokenRequest();
-        while (reader.pos < end) {
-            var tag = reader.uint32();
-            switch (tag >>> 3) {
-            case 1:
-                message.token = reader.string();
-                break;
-            default:
-                reader.skipType(tag & 7);
-                break;
-            }
-        }
-        return message;
-    };
-
-    /**
-     * Decodes a ParseAuthTokenRequest message from the specified reader or buffer, length delimited.
-     * @function decodeDelimited
-     * @memberof ParseAuthTokenRequest
-     * @static
-     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-     * @returns {ParseAuthTokenRequest} ParseAuthTokenRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    ParseAuthTokenRequest.decodeDelimited = function decodeDelimited(reader) {
-        if (!(reader instanceof $Reader))
-            reader = new $Reader(reader);
-        return this.decode(reader, reader.uint32());
-    };
-
-    /**
-     * Verifies a ParseAuthTokenRequest message.
-     * @function verify
-     * @memberof ParseAuthTokenRequest
-     * @static
-     * @param {Object.<string,*>} message Plain object to verify
-     * @returns {string|null} `null` if valid, otherwise the reason why it is not
-     */
-    ParseAuthTokenRequest.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-            return "object expected";
-        if (message.token != null && message.hasOwnProperty("token"))
-            if (!$util.isString(message.token))
-                return "token: string expected";
-        return null;
-    };
-
-    /**
-     * Creates a ParseAuthTokenRequest message from a plain object. Also converts values to their respective internal types.
-     * @function fromObject
-     * @memberof ParseAuthTokenRequest
-     * @static
-     * @param {Object.<string,*>} object Plain object
-     * @returns {ParseAuthTokenRequest} ParseAuthTokenRequest
-     */
-    ParseAuthTokenRequest.fromObject = function fromObject(object) {
-        if (object instanceof $root.ParseAuthTokenRequest)
-            return object;
-        var message = new $root.ParseAuthTokenRequest();
-        if (object.token != null)
-            message.token = String(object.token);
-        return message;
-    };
-
-    /**
-     * Creates a plain object from a ParseAuthTokenRequest message. Also converts values to other types if specified.
-     * @function toObject
-     * @memberof ParseAuthTokenRequest
-     * @static
-     * @param {ParseAuthTokenRequest} message ParseAuthTokenRequest
-     * @param {$protobuf.IConversionOptions} [options] Conversion options
-     * @returns {Object.<string,*>} Plain object
-     */
-    ParseAuthTokenRequest.toObject = function toObject(message, options) {
-        if (!options)
-            options = {};
-        var object = {};
-        if (options.defaults)
-            object.token = "";
-        if (message.token != null && message.hasOwnProperty("token"))
-            object.token = message.token;
-        return object;
-    };
-
-    /**
-     * Converts this ParseAuthTokenRequest to JSON.
-     * @function toJSON
-     * @memberof ParseAuthTokenRequest
-     * @instance
-     * @returns {Object.<string,*>} JSON object
-     */
-    ParseAuthTokenRequest.prototype.toJSON = function toJSON() {
-        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-    };
-
-    return ParseAuthTokenRequest;
-})();
-
-$root.ParseAuthTokenResponse = (function() {
-
-    /**
-     * Properties of a ParseAuthTokenResponse.
-     * @exports IParseAuthTokenResponse
-     * @interface IParseAuthTokenResponse
-     * @property {IAuthTokenData|null} [tokenData] ParseAuthTokenResponse tokenData
-     * @property {boolean|null} [success] ParseAuthTokenResponse success
-     * @property {string|null} [error] ParseAuthTokenResponse error
-     */
-
-    /**
-     * Constructs a new ParseAuthTokenResponse.
-     * @exports ParseAuthTokenResponse
-     * @classdesc Represents a ParseAuthTokenResponse.
-     * @implements IParseAuthTokenResponse
-     * @constructor
-     * @param {IParseAuthTokenResponse=} [properties] Properties to set
-     */
-    function ParseAuthTokenResponse(properties) {
-        if (properties)
-            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                if (properties[keys[i]] != null)
-                    this[keys[i]] = properties[keys[i]];
-    }
-
-    /**
-     * ParseAuthTokenResponse tokenData.
-     * @member {IAuthTokenData|null|undefined} tokenData
-     * @memberof ParseAuthTokenResponse
-     * @instance
-     */
-    ParseAuthTokenResponse.prototype.tokenData = null;
-
-    /**
-     * ParseAuthTokenResponse success.
-     * @member {boolean} success
-     * @memberof ParseAuthTokenResponse
-     * @instance
-     */
-    ParseAuthTokenResponse.prototype.success = false;
-
-    /**
-     * ParseAuthTokenResponse error.
-     * @member {string} error
-     * @memberof ParseAuthTokenResponse
-     * @instance
-     */
-    ParseAuthTokenResponse.prototype.error = "";
-
-    /**
-     * Creates a new ParseAuthTokenResponse instance using the specified properties.
-     * @function create
-     * @memberof ParseAuthTokenResponse
-     * @static
-     * @param {IParseAuthTokenResponse=} [properties] Properties to set
-     * @returns {ParseAuthTokenResponse} ParseAuthTokenResponse instance
-     */
-    ParseAuthTokenResponse.create = function create(properties) {
-        return new ParseAuthTokenResponse(properties);
-    };
-
-    /**
-     * Encodes the specified ParseAuthTokenResponse message. Does not implicitly {@link ParseAuthTokenResponse.verify|verify} messages.
-     * @function encode
-     * @memberof ParseAuthTokenResponse
-     * @static
-     * @param {IParseAuthTokenResponse} message ParseAuthTokenResponse message or plain object to encode
-     * @param {$protobuf.Writer} [writer] Writer to encode to
-     * @returns {$protobuf.Writer} Writer
-     */
-    ParseAuthTokenResponse.encode = function encode(message, writer) {
-        if (!writer)
-            writer = $Writer.create();
-        if (message.tokenData != null && message.hasOwnProperty("tokenData"))
-            $root.AuthTokenData.encode(message.tokenData, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-        if (message.success != null && message.hasOwnProperty("success"))
-            writer.uint32(/* id 2, wireType 0 =*/16).bool(message.success);
-        if (message.error != null && message.hasOwnProperty("error"))
-            writer.uint32(/* id 3, wireType 2 =*/26).string(message.error);
-        return writer;
-    };
-
-    /**
-     * Encodes the specified ParseAuthTokenResponse message, length delimited. Does not implicitly {@link ParseAuthTokenResponse.verify|verify} messages.
-     * @function encodeDelimited
-     * @memberof ParseAuthTokenResponse
-     * @static
-     * @param {IParseAuthTokenResponse} message ParseAuthTokenResponse message or plain object to encode
-     * @param {$protobuf.Writer} [writer] Writer to encode to
-     * @returns {$protobuf.Writer} Writer
-     */
-    ParseAuthTokenResponse.encodeDelimited = function encodeDelimited(message, writer) {
-        return this.encode(message, writer).ldelim();
-    };
-
-    /**
-     * Decodes a ParseAuthTokenResponse message from the specified reader or buffer.
-     * @function decode
-     * @memberof ParseAuthTokenResponse
-     * @static
-     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-     * @param {number} [length] Message length if known beforehand
-     * @returns {ParseAuthTokenResponse} ParseAuthTokenResponse
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    ParseAuthTokenResponse.decode = function decode(reader, length) {
-        if (!(reader instanceof $Reader))
-            reader = $Reader.create(reader);
-        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.ParseAuthTokenResponse();
-        while (reader.pos < end) {
-            var tag = reader.uint32();
-            switch (tag >>> 3) {
-            case 1:
-                message.tokenData = $root.AuthTokenData.decode(reader, reader.uint32());
-                break;
-            case 2:
-                message.success = reader.bool();
-                break;
-            case 3:
-                message.error = reader.string();
-                break;
-            default:
-                reader.skipType(tag & 7);
-                break;
-            }
-        }
-        return message;
-    };
-
-    /**
-     * Decodes a ParseAuthTokenResponse message from the specified reader or buffer, length delimited.
-     * @function decodeDelimited
-     * @memberof ParseAuthTokenResponse
-     * @static
-     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-     * @returns {ParseAuthTokenResponse} ParseAuthTokenResponse
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    ParseAuthTokenResponse.decodeDelimited = function decodeDelimited(reader) {
-        if (!(reader instanceof $Reader))
-            reader = new $Reader(reader);
-        return this.decode(reader, reader.uint32());
-    };
-
-    /**
-     * Verifies a ParseAuthTokenResponse message.
-     * @function verify
-     * @memberof ParseAuthTokenResponse
-     * @static
-     * @param {Object.<string,*>} message Plain object to verify
-     * @returns {string|null} `null` if valid, otherwise the reason why it is not
-     */
-    ParseAuthTokenResponse.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-            return "object expected";
-        if (message.tokenData != null && message.hasOwnProperty("tokenData")) {
-            var error = $root.AuthTokenData.verify(message.tokenData);
-            if (error)
-                return "tokenData." + error;
-        }
-        if (message.success != null && message.hasOwnProperty("success"))
-            if (typeof message.success !== "boolean")
-                return "success: boolean expected";
-        if (message.error != null && message.hasOwnProperty("error"))
-            if (!$util.isString(message.error))
-                return "error: string expected";
-        return null;
-    };
-
-    /**
-     * Creates a ParseAuthTokenResponse message from a plain object. Also converts values to their respective internal types.
-     * @function fromObject
-     * @memberof ParseAuthTokenResponse
-     * @static
-     * @param {Object.<string,*>} object Plain object
-     * @returns {ParseAuthTokenResponse} ParseAuthTokenResponse
-     */
-    ParseAuthTokenResponse.fromObject = function fromObject(object) {
-        if (object instanceof $root.ParseAuthTokenResponse)
-            return object;
-        var message = new $root.ParseAuthTokenResponse();
-        if (object.tokenData != null) {
-            if (typeof object.tokenData !== "object")
-                throw TypeError(".ParseAuthTokenResponse.tokenData: object expected");
-            message.tokenData = $root.AuthTokenData.fromObject(object.tokenData);
-        }
-        if (object.success != null)
-            message.success = Boolean(object.success);
-        if (object.error != null)
-            message.error = String(object.error);
-        return message;
-    };
-
-    /**
-     * Creates a plain object from a ParseAuthTokenResponse message. Also converts values to other types if specified.
-     * @function toObject
-     * @memberof ParseAuthTokenResponse
-     * @static
-     * @param {ParseAuthTokenResponse} message ParseAuthTokenResponse
-     * @param {$protobuf.IConversionOptions} [options] Conversion options
-     * @returns {Object.<string,*>} Plain object
-     */
-    ParseAuthTokenResponse.toObject = function toObject(message, options) {
-        if (!options)
-            options = {};
-        var object = {};
-        if (options.defaults) {
-            object.tokenData = null;
-            object.success = false;
-            object.error = "";
-        }
-        if (message.tokenData != null && message.hasOwnProperty("tokenData"))
-            object.tokenData = $root.AuthTokenData.toObject(message.tokenData, options);
-        if (message.success != null && message.hasOwnProperty("success"))
-            object.success = message.success;
-        if (message.error != null && message.hasOwnProperty("error"))
-            object.error = message.error;
-        return object;
-    };
-
-    /**
-     * Converts this ParseAuthTokenResponse to JSON.
-     * @function toJSON
-     * @memberof ParseAuthTokenResponse
-     * @instance
-     * @returns {Object.<string,*>} JSON object
-     */
-    ParseAuthTokenResponse.prototype.toJSON = function toJSON() {
-        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-    };
-
-    return ParseAuthTokenResponse;
 })();
 
 $root.Asgardian = (function() {
@@ -1124,39 +727,6 @@ $root.Asgardian = (function() {
      * @instance
      * @param {IIsAuthenticatedRequest} request IsAuthenticatedRequest message or plain object
      * @returns {Promise<IsAuthenticatedResponse>} Promise
-     * @variation 2
-     */
-
-    /**
-     * Callback as used by {@link Asgardian#parseAuthToken}.
-     * @memberof Asgardian
-     * @typedef parseAuthTokenCallback
-     * @type {function}
-     * @param {Error|null} error Error, if any
-     * @param {ParseAuthTokenResponse} [response] ParseAuthTokenResponse
-     */
-
-    /**
-     * Calls parseAuthToken.
-     * @function parseAuthToken
-     * @memberof Asgardian
-     * @instance
-     * @param {IParseAuthTokenRequest} request ParseAuthTokenRequest message or plain object
-     * @param {Asgardian.parseAuthTokenCallback} callback Node-style callback called with the error, if any, and ParseAuthTokenResponse
-     * @returns {undefined}
-     * @variation 1
-     */
-    Object.defineProperty(Asgardian.prototype.parseAuthToken = function parseAuthToken(request, callback) {
-        return this.rpcCall(parseAuthToken, $root.ParseAuthTokenRequest, $root.ParseAuthTokenResponse, request, callback);
-    }, "name", { value: "parseAuthToken" });
-
-    /**
-     * Calls parseAuthToken.
-     * @function parseAuthToken
-     * @memberof Asgardian
-     * @instance
-     * @param {IParseAuthTokenRequest} request ParseAuthTokenRequest message or plain object
-     * @returns {Promise<ParseAuthTokenResponse>} Promise
      * @variation 2
      */
 
