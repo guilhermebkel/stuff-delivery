@@ -61,6 +61,8 @@ Controls all notification that needs to be sent, per example: Emails and Push No
 
 ## 🌆 Architecture
 
+### Application Structure
+
 We have three basic ways to make communication with/between the microservices:
 
 1. **REST:** In case someone outside needs to use a resource from some microservice. Ex: Someone tries to log in.
@@ -98,6 +100,14 @@ The Asgardian Microservice publishes a message to Kafka
 The Iris Microservice is subscribed to CustomerSignedUp event and makes the action of sending a email to new user
 > SERVICE Iris.sendWelcomeMail { email, password }
 ```
+
+### Tests
+
+All the services inside each microservice follow the TDD principles.
+
+## 🌀 Repo Management
+
+That's a monorepo managed by **Lerna**, the microservices can be found on ```/apps``` folder. The modules shared between all the microservices can be found on ```/apps/shared```.
 
 ## 🚀 Getting started (Currently not available)
 
