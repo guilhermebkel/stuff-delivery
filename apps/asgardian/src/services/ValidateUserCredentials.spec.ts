@@ -8,7 +8,6 @@ import User from "@asgardian/models/User"
 
 const MOCK = {
 	EMAIL: "test@test.com",
-	ENCRYPTED_PASSWORD: "$2b$05$vocuFxYi4cnrOQDQ5kWOveGmaUbv0I1tjpMsMuKxP2mz42A/0xU96",
 	PASSWORD: "123",
 	NAME: "test"
 }
@@ -34,7 +33,7 @@ describe("Validate User Credentials", () => {
 
 		await User.create({
 			email: MOCK.EMAIL,
-			password: MOCK.ENCRYPTED_PASSWORD,
+			password: MOCK.PASSWORD,
 			name: MOCK.NAME
 		})
 	})

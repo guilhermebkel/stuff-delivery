@@ -4,6 +4,7 @@ import ResponseService from "@shared/response"
 import ValidateSignUpSchemaService from "@asgardian/services/ValidateSignupSchema"
 import SignupService from "@asgardian/services/Signup"
 import LoginService from "@asgardian/services/Login"
+import ValidateUserExistenceService from "@asgardian/services/ValidateUserExistence"
 
 class SignupController {
 	async signup(req: Request, res: Response) {
@@ -13,6 +14,12 @@ class SignupController {
 
 		if (!isSignupDataValid) {
 			return ResponseService.json(res, 400, { error: "InvalidDataSupplied" })
+		}
+
+		const userExists = await ValidateUserExistenceService.run(signupData.email)
+
+		if (userExists) {
+			return ResponseService.json(res, 400, { error: "UserAlreadyExists" })
 		}
 		
 		const user = await SignupService.run(signupData)

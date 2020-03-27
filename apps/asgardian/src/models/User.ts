@@ -29,11 +29,10 @@ class User extends Model {
 				allowNull: false
 			},
 			password: {
-				type: DataTypes.VIRTUAL,
+				type: DataTypes.VIRTUAL
 			},
 			encrypted_password: {
-				type: DataTypes.STRING,
-				allowNull: false
+				type: DataTypes.STRING
 			},
 			admin: {
 				type: DataTypes.BOOLEAN,

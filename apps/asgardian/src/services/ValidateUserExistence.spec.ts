@@ -2,7 +2,7 @@ import "dotenv/config"
 
 import Database from "@asgardian/core/database"
 
-import LoginService from "@asgardian/services/Login"
+import ValidateUserExistenceService from "@asgardian/services/ValidateUserExistence"
 
 import User from "@asgardian/models/User"
 
@@ -44,11 +44,15 @@ describe("Make Login", () => {
 		})
 	})
 
-  it("should login user", async () => {
-		const token = await LoginService.run({
-			email: MOCK.EMAIL
-		})
+  it("should recognize existent user", async () => {
+		const userExists = await ValidateUserExistenceService.run(MOCK.EMAIL)
 
-		expect(token).toBeTruthy()
+		expect(userExists).toBeTruthy()
+	})
+
+	it("should recognize not existent user", async () => {
+		const userExists = await ValidateUserExistenceService.run("hello@hello.com")
+
+		expect(userExists).toBeFalsy()
 	})
 })

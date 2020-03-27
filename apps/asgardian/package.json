@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node dist/index.js",
     "dev": "nodemon src/index.ts",
-    "test": "jest",
+    "test": "jest --runInBand",
     "database:migrate:make": "npx sequelize-cli db:migrate",
     "database:migrate:generate": "npx sequelize-cli migration:generate --name",
     "database:migrate:rollback": "npx sequelize-cli db:migrate:undo",
