@@ -3,13 +3,23 @@
   "private": true,
   "scripts": {
     "bootstrap": "lerna exec npm install",
-    "list": "lerna ls"
+    "list": "lerna ls",
+    "build:api-docs": "apidoc -i apps/*/src"
   },
   "dependencies": {
     "dotenv": "^8.2.0"
   },
   "devDependencies": {
+    "apidoc": "^0.20.1",
+    "apidoc-plugin-ts": "^0.1.5",
     "lerna": "^3.20.2"
+  },
+  "apidoc": {
+    "name": "Stuff Delivery",
+    "version": "1.0.0",
+    "description": "Stuff delivery api documentation",
+    "title": "Stuff Delivery API",
+    "url" : "http://localhost/"
   },
   "workspaces": [
     "apps/*",
