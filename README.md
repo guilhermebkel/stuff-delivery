@@ -130,3 +130,5 @@ Now the resources will be available at:
 - http://localhost/asgardian (Asgardian Microservice)
 - http://localhost/hermes (Hermes Microservice)
 - http://localhost/api-docs (REST API Documentation)
+
+If you use **Insomnia** you can download the [**Insomnia File with all routes**](./insomnia.json).
