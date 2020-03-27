@@ -120,7 +120,13 @@ docker-compose up # Inits all needed resources
 ```sh
 npm run bootstrap # Will use lerna to install every repo dependency
 ```
-4. Goes inside every repo inside apps folder, duplicate .env.example, change its name to .env, add the needed environmental variables and run:
-```sh
-npm run dev # Will start the microservice
-```
+4. Goes inside every repo inside apps folder and do the following:
+	1. Duplicate .env.example
+	2. Change .env.example name to .env
+	3. Add the needed environmental variables
+	4. Execute the command: ```npm run dev```
+
+Now the resources will be available at:
+- http://localhost/asgardian (Asgardian Microservice)
+- http://localhost/hermes (Hermes Microservice)
+- http://localhost/api-docs (REST API Documentation)
