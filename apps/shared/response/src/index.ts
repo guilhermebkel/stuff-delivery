@@ -1,6 +1,6 @@
 import { Response,  } from "express"
 
-type ResponseError = "InvalidDataSupplied" | "InvalidCredentials" | "LoginFailed"
+type ResponseError = "InvalidDataSupplied" | "InvalidCredentials" | "ServiceFailed"
 
 interface ResponseErrorMessage {
 	id: string

@@ -15,18 +15,18 @@ class LoginController {
 			return ResponseService.json(res, 400, { error: "InvalidDataSupplied" })
 		}
 
-		const areUserCredentialsValid = ValidateUserCredentialsService.run(loginData.email)
+		const areUserCredentialsValid = await ValidateUserCredentialsService.run(loginData)
 
 		if (!areUserCredentialsValid) {
-			return ResponseService.json(res, 404, { error: "InvalidCredentials" })
+			return ResponseService.json(res, 400, { error: "InvalidCredentials" })
 		}
-		
-		const token = LoginService.run(loginData.email)
+
+		const token = await LoginService.run({ email: loginData.email })
 
 		if (token) {
 			return ResponseService.json(res, 200, { token })
 		} else {
-			return ResponseService.json(res, 500, { error: "LoginFailed" })
+			return ResponseService.json(res, 500, { error: "ServiceFailed" })
 		}
 	}
 }

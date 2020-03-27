@@ -1,5 +1,7 @@
+import { LoginSchema } from "@asgardian/interfaces/Login"
+
 class ValidateLoginSchemaService {
-	run({ email, password }: { email: string, password: string }) {
+	run({ email, password }: LoginSchema) {
 		if (!email || !password) {
 			return false
 		} else {

@@ -1,3 +1,5 @@
+import * as bcrypt from "bcrypt"
+
 import { Model, Sequelize, DataTypes } from "sequelize"
 
 class User extends Model {
@@ -5,7 +7,7 @@ class User extends Model {
 	name: string
 	email: string
 	admin: boolean
-	password: string
+	encrypted_password: string
 	created_at: Date
 	updated_at: Date
 	deleted_at: Date
@@ -27,6 +29,9 @@ class User extends Model {
 				allowNull: false
 			},
 			password: {
+				type: DataTypes.VIRTUAL,
+			},
+			encrypted_password: {
 				type: DataTypes.STRING,
 				allowNull: false
 			},
@@ -45,8 +50,20 @@ class User extends Model {
 			]
 		})
 
+		this.addHook("beforeSave", async (user: User & { password: string }) => {
+      if (user.password) {
+        user.encrypted_password = await bcrypt.hash(user.password, 8);
+      }
+    })
+
 		return this
 	}
+
+	checkPassword(password: string) {
+		const isPasswordValid = bcrypt.compareSync(password, this.encrypted_password)
+		
+		return isPasswordValid
+  }
 }
 
 export default User
