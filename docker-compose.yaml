@@ -1,66 +1,58 @@
 version: "3"
 services:
-
-  pub-sub-manager:
+  zookeeper:
     image: wurstmeister/zookeeper:latest
     ports:
       - "2181:2181"
 
-  pub-sub-worker:
+  kafka:
     image: wurstmeister/kafka:2.11-1.1.0
     ports:
       - "9092:9092"
     environment:
       KAFKA_ADVERTISED_HOST_NAME: localhost
-      KAFKA_ZOOKEEPER_CONNECT: pub-sub-manager:2181
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
-  pub-sub-dashboard:
+  kafka-manager:
     image: sheepkiller/kafka-manager:latest
     ports:
       - "9000:9000"
     links:
-      - pub-sub-manager
-      - pub-sub-worker
+      - zookeeper
+      - kafka
     environment:
-      ZK_HOSTS: pub-sub-manager:2181
+      ZK_HOSTS: zookeeper:2181
       APPLICATION_SECRET: h3rm3s
       KM_ARGS: -Djava.net.preferIPv4Stack=true
 
-  # database:
-  #   image: postgres
-  #   ports:
-  #     - "5432:5432"
-  #   restart: always
-  #   environment:
-  #     POSTGRES_PASSWORD: 123
-  #     POSTGRES_USER: master
-  #     POSTGRES_DB: delivery
-  #   volumes:
-  #     - /var/lib/postgresql/data:/var/lib/postgresql/data
+  postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: 123
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - /var/lib/postgresql/data:/var/lib/postgresql/data
 
-  # cache:
-  #   image: redis
-  #   ports:
-  #     - "6379:6379"
-  #   environment:
-  #     - ALLOW_EMPTY_PASSWORD=yes
-  #   volumes:
-  #     - /data:/data
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - /data:/data
 
-  ingress-controller: 
+  nginx:
+    network_mode: host
     image: nginx:latest
     ports:
       - 80:80
-      - 443:443
     volumes:
-      - ./ingress/nginx:/etc/nginx/conf.d
-      - ./ingress/certbot/conf:/etc/letsencrypt
-      - ./ingress/certbot/www:/var/www/certbot
-
-  ingress-certificate:
-    image: certbot/certbot
-    volumes:
-      - ./ingress/certbot/conf:/etc/letsencrypt
-      - ./ingress/certbot/www:/var/www/certbot
+      - ./nginx:/etc/nginx/conf.d
+      - ./doc:/usr/share/nginx/html/api-docs
