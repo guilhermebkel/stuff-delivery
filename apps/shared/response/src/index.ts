@@ -1,6 +1,13 @@
 import { Response,  } from "express"
+import { sendUnaryData } from "grpc"
 
-type ResponseError = "InvalidDataSupplied" | "InvalidCredentials" | "ServiceFailed" | "UserAlreadyExists"
+type ResponseError =
+"InvalidDataSupplied" |
+"InvalidCredentials" |
+"ServiceFailed" |
+"UserAlreadyExists" |
+"NoAuthTokenProvided" |
+"InvalidToken"
 
 interface ResponseErrorMessage {
 	id: string
@@ -14,6 +21,9 @@ interface ResponseJsonData {
 	[key: string]: any
 }
 
+interface ResponseRpcData {
+	error?: ResponseError
+}
 
 class ResponseService {
 	json(res: Response, status: number, data: ResponseJsonData) {
@@ -29,6 +39,21 @@ class ResponseService {
 		}
 
 		return res.status(status).json(json)
+	}
+
+	rpc<RpcResponse>(callback: sendUnaryData<RpcResponse>, data: ResponseRpcData & RpcResponse) {
+		let success: boolean = false
+
+		if (!data.error) {
+			success = true
+		}
+
+		const rpc: ResponseRpcData & { success: boolean } = {
+			...data,
+			success
+		}
+
+		return callback(null, rpc as RpcResponse | any)
 	}
 }
 

@@ -196,12 +196,6 @@ export interface IIsAuthenticatedResponse {
 
     /** IsAuthenticatedResponse tokenData */
     tokenData?: (IAuthTokenData|null);
-
-    /** IsAuthenticatedResponse success */
-    success?: (boolean|null);
-
-    /** IsAuthenticatedResponse error */
-    error?: (string|null);
 }
 
 /** Represents an IsAuthenticatedResponse. */
@@ -215,12 +209,6 @@ export class IsAuthenticatedResponse implements IIsAuthenticatedResponse {
 
     /** IsAuthenticatedResponse tokenData. */
     public tokenData?: (IAuthTokenData|null);
-
-    /** IsAuthenticatedResponse success. */
-    public success: boolean;
-
-    /** IsAuthenticatedResponse error. */
-    public error: string;
 
     /**
      * Creates a new IsAuthenticatedResponse instance using the specified properties.

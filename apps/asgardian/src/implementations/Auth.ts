@@ -6,6 +6,7 @@ import {
 } from "@shared/protos"
 
 import DecodeUserAuthTokenService from "@asgardian/services/DecodeUserAuthToken"
+import ResponseService from "@shared/response"
 
 interface AsgardianAuth {
 	isAuthenticated: handleUnaryCall<IIsAuthenticatedRequest, IIsAuthenticatedResponse>
@@ -16,9 +17,8 @@ const AuthImplementation: AsgardianAuth = {
 		const { token } = call.request
 
 		if (!token) {
-			return callback(null, {
+			return ResponseService.rpc<IIsAuthenticatedResponse>(callback, {
 				error: "NoAuthTokenProvided",
-				success: false,
 				tokenData: null
 			})
 		}
@@ -26,14 +26,10 @@ const AuthImplementation: AsgardianAuth = {
 		const decoded = DecodeUserAuthTokenService.run(token)
 
 		if (decoded) {
-			return callback(null, {
-				success: true,
-				tokenData: decoded
-			})
+			return ResponseService.rpc<IIsAuthenticatedResponse>(callback, { tokenData: decoded })
 		} else {
-			return callback(null, {
+			return ResponseService.rpc<IIsAuthenticatedResponse>(callback, {
 				error: "InvalidToken",
-				success: false,
 				tokenData: null
 			})
 		}
