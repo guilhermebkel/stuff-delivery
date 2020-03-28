@@ -8,10 +8,10 @@
 
 <p align="center">
 	<a href="https://lerna.js.org/">
-		<img src="https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg" alt="maintained with lerna"/>
+		<img alt="lerna" src="https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg" alt="maintained with lerna"/>
 	</a>
 	<a href="https://github.com/guilhermebkel/stuff-delivery">
-		<img alt="mit license" src="https://img.shields.io/github/license/guilhermebkel/stuff-delivery?color=0051ff">
+		<img alt="mit license" src="https://img.shields.io/github/license/guilhermebkel/stuff-delivery?color=0051ff" />
 	</a>
 </p>
 
@@ -127,8 +127,12 @@ npm run bootstrap # Will use lerna to install every repo dependency
 	4. Execute the command: ```npm run dev```
 
 Now the resources will be available at:
-- http://localhost/asgardian (Asgardian Microservice)
-- http://localhost/hermes (Hermes Microservice)
-- http://localhost/api-docs (REST API Documentation)
+- http://127.0.0.1/asgardian (Asgardian Microservice)
+- http://127.0.0.1/hermes (Hermes Microservice)
+- http://127.0.0.1/api-docs (REST API Documentation)
 
-If you use **Insomnia** you can download the [**Insomnia File with all routes**](./insomnia.json).
+If you have **Insomnia** installed on your computer, you can download the API routes by clicking in the button below:
+
+<a href="https://insomnia.rest/run/?label=Stuff%20Delivery%20API&uri=https%3A%2F%2Fgithub.com%2Fguilhermebkel%2Fstuff-delivery%2Fblob%2Fmaster%2Finsomnia.json">
+	<img alt="insomnia" src="https://insomnia.rest/images/run.svg" />
+</a>
