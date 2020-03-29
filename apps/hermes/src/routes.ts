@@ -1,6 +1,7 @@
 import { Router } from "express"
 
 import PayloadController from "@hermes/controllers/Payload"
+import TrackController from "@hermes/controllers/Track"
 
 import AuthMiddleware from "@hermes/middlewares/Auth"
 
@@ -68,6 +69,46 @@ const route: any = Router()
  *       "error": "InvalidDataSupplied"
  *     }
  */
-route.post("/payload", AuthMiddleware.isAuthenticated, PayloadController.registerNewPayload)
+route.post("/payload", AuthMiddleware.isAdmin, PayloadController.registerNewPayload)
+
+/**
+ * @api {post} /hermes/track Track
+ * @apiName track
+ * @apiGroup Hermes
+ * 
+ * @apiParam {String} name Payload name.
+ * @apiParam {String} trackingCode Payload tracking code.
+ * 
+ * @apiParamExample {json} Request-Example:
+ *     {
+ *       "name": "Xiaomi A1",
+ *			 "trackingCode": "SS123456789BR"
+ *     }
+ * 
+ * @apiHeader {String} Authorization Auth user token.
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *       "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MS"
+ *     }
+ * 
+ * @apiPermission user
+ * 
+ * @apiSuccess {Object} newTrackSubscriptionData Some details of the new subscription.
+ * 
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "id": 1
+ *     }
+ * 
+ * @apiError InvalidDataSupplied name/trackingCode weren't supplied or are bad formatted.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 400 Bad Request
+ *     {
+ *       "error": "InvalidDataSupplied"
+ *     }
+ */
+route.post("/track", AuthMiddleware.isAuthenticated, TrackController.makeSubscription)
 
 export default route
