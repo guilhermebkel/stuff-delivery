@@ -3,7 +3,7 @@ import { Router } from "express"
 import LoginController from "@asgardian/controllers/Login"
 import SignupController from "@asgardian/controllers/Signup"
 
-const route: Router = Router()
+const route: any = Router()
 
 /**
  * @api {post} /asgardian/login Login

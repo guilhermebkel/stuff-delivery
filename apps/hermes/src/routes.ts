@@ -2,7 +2,9 @@ import { Router } from "express"
 
 import PayloadController from "@hermes/controllers/Payload"
 
-const route: Router = Router()
+import AuthMiddleware from "@hermes/middlewares/Auth"
+
+const route: any = Router()
 
 /**
  * @api {post} /hermes/payload Payload
@@ -66,6 +68,6 @@ const route: Router = Router()
  *       "error": "InvalidDataSupplied"
  *     }
  */
-route.post("/payload", PayloadController.registerNewPayload)
+route.post("/payload", AuthMiddleware.isAuthenticated, PayloadController.registerNewPayload)
 
 export default route
