@@ -12,9 +12,8 @@ class Database {
 	async start() {
 		this.setupConnection()
 		await this.testConnection()
-		this.setupModels()
 		await this.runMigrations()
-		// await this.syncModels()
+		this.setupModels()
 	}
 
 	setupConnection() {
@@ -64,10 +63,6 @@ class Database {
 
 	setupModels() {
 		models.map(model => model.define(this.postgres))
-	}
-
-	async syncModels() {
-		await this.postgres.sync({})
 	}
 }
 

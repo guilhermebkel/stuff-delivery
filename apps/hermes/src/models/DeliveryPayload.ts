@@ -28,7 +28,7 @@ class DeliveryPayload extends Model {
 				allowNull: false
 			},
 			weight: {
-				type: DataTypes.NUMBER,
+				type: DataTypes.INTEGER,
 				allowNull: false
 			},
 			sender: {
@@ -47,7 +47,7 @@ class DeliveryPayload extends Model {
 			sequelize,
 			tableName: "delivery_payloads",
 			indexes: [
-				{ unique: true, fields: ["tracking_code"] },
+				{ unique: true, fields: ["tracking_code"] }
 			]
 		})
 	}

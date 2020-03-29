@@ -1,5 +1,5 @@
 export interface Sender {
-	cep: number
+	zip: number
 	name: string
 	address: string
 	country: string
