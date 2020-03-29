@@ -1,10 +1,10 @@
 import { Model, Sequelize, DataTypes } from "sequelize"
 
-class DeliveryPosition extends Model {
+class DeliveryTrack extends Model {
 	id: number
-	delivery_id: number
-	latitude: number
-	longitude: number
+	name: string
+	user_id: number
+	tracking_code: number
 	created_at: Date
 	updated_at: Date
 	deleted_at: Date
@@ -17,34 +17,31 @@ class DeliveryPosition extends Model {
 				primaryKey: true,
 				autoIncrement: true
 			},
-			delivery_id: {
+			name: {
+				type: DataTypes.STRING,
+				allowNull: true
+			},
+			user_id: {
 				type: DataTypes.INTEGER,
 				allowNull: true,
 				references: {
-					model: "deliveries",
+					model: "users",
 					key: "id"
 				}
 			},
-			latitude: {
-				type: DataTypes.FLOAT,
+			tracking_code: {
+				type: DataTypes.STRING,
 				allowNull: true
-			},
-			longitude: {
-				type: DataTypes.FLOAT,
-				allowNull: true
-			},
-			spotlight: {
-				type: DataTypes.BOOLEAN,
-				defaultValue: false
 			}
 		}, {
 			sequelize,
-			tableName: "delivery_positions",
+			tableName: "delivery_tracks",
 			indexes: [
-				{ fields: ["delivery_id"] }
+				{ fields: ["user_id"] },
+				{ fields: ["tracking_code"] }
 			]
 		})
 	}
 }
 
-export default DeliveryPosition
+export default DeliveryTrack
