@@ -4,6 +4,9 @@ import Socket, { Server as SocketServer } from "socket.io"
 
 import serverConfig from "@hermes/config/server"
 
+import routes from "@hermes/routes"
+import middlewares from "@hermes/core/server/middlewares"
+
 class Server {
 	private server: HttpServer
 	private app: Express
@@ -16,7 +19,17 @@ class Server {
 	}
 
 	setup(): void {
+		this.setupMiddlewares()
+		this.setupRoutes()
 		this.initializeServer()
+	}
+
+	setupRoutes(): void {
+		this.app.use(routes)
+	}
+
+	setupMiddlewares(): void {
+		middlewares.forEach(middleware => this.app.use(middleware))
 	}
 
 	private initializeServer(): void {

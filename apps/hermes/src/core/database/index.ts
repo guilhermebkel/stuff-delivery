@@ -12,6 +12,7 @@ class Database {
 	async start() {
 		this.setupConnection()
 		await this.testConnection()
+		await this.syncModels()
 		await this.runMigrations()
 		this.setupModels()
 	}
@@ -59,6 +60,10 @@ class Database {
 		await umzug.up()
 
 		return Promise.resolve(true)
+	}
+
+	async syncModels() {
+		await this.postgres.sync()
 	}
 
 	setupModels() {

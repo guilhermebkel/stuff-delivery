@@ -1,5 +1,3 @@
-import "dotenv/config"
-
 import Database from "@asgardian/core/database"
 
 import SignupService from "@asgardian/services/Signup"

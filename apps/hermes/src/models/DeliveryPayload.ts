@@ -4,12 +4,13 @@ import { Sender, Receiver, PayloadDimensions } from "@hermes/interfaces/Delivery
 
 class DeliveryPayload extends Model {
 	id: number
-	created_at: Date
-	updated_at: Date
-	deleted_at: Date
 	sender: Sender
 	receiver: Receiver
 	payload_dimensions: PayloadDimensions
+	tracking_code: string
+	created_at: Date
+	updated_at: Date
+	deleted_at: Date
 
 	static define(sequelize: Sequelize) {
 		this.init({
@@ -25,10 +26,6 @@ class DeliveryPayload extends Model {
 			},
 			tracking_code: {
 				type: DataTypes.STRING,
-				allowNull: false
-			},
-			weight: {
-				type: DataTypes.INTEGER,
 				allowNull: false
 			},
 			sender: {

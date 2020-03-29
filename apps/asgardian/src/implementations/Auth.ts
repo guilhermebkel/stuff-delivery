@@ -14,7 +14,7 @@ interface AsgardianAuth {
 
 const AuthImplementation: AsgardianAuth = {
 	isAuthenticated(call, callback) {
-		const { token } = call.request
+		const { token, authType } = call.request
 
 		if (!token) {
 			return ResponseService.rpc<IIsAuthenticatedResponse>(callback, {
@@ -25,13 +25,20 @@ const AuthImplementation: AsgardianAuth = {
 
 		const decoded = DecodeUserAuthTokenService.run(token)
 
-		if (decoded) {
-			return ResponseService.rpc<IIsAuthenticatedResponse>(callback, { tokenData: decoded })
-		} else {
+		if (!decoded) {
 			return ResponseService.rpc<IIsAuthenticatedResponse>(callback, {
-				error: "InvalidToken",
+				error: "NotAuthenticated",
 				tokenData: null
 			})
+		}
+
+		if (authType === "admin" && decoded.admin === false) {
+			return ResponseService.rpc<IIsAuthenticatedResponse>(callback, {
+				error: "NotAuthenticatedAdmin",
+				tokenData: null
+			})
+		} else {
+			return ResponseService.rpc<IIsAuthenticatedResponse>(callback, { tokenData: decoded })
 		}
 	}
 }

@@ -3,13 +3,13 @@ define({
   "version": "1.0.0",
   "description": "Stuff delivery api documentation",
   "title": "Stuff Delivery API",
-  "url": "http://localhost/",
+  "url": "http://127.0.0.1",
   "sampleUrl": false,
   "defaultVersion": "0.0.0",
   "apidoc": "0.3.0",
   "generator": {
     "name": "apidoc",
-    "time": "2020-03-27T09:26:56.330Z",
+    "time": "2020-03-29T15:30:27.426Z",
     "url": "http://apidocjs.com",
     "version": "0.20.1"
   }

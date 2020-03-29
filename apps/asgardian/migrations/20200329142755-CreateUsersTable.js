@@ -22,7 +22,7 @@ module.exports = {
 				allowNull: false,
         defaultValue: false
       },
-      password: {
+      encrypted_password: {
         type: Sequelize.DataTypes.STRING,
         allowNull: false
       }

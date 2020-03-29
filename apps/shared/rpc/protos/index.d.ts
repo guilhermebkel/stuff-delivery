@@ -105,7 +105,10 @@ export class AuthTokenData implements IAuthTokenData {
 export interface IIsAuthenticatedRequest {
 
     /** IsAuthenticatedRequest token */
-    token?: (string|null);
+    token: string;
+
+    /** IsAuthenticatedRequest authType */
+    authType?: (string|null);
 }
 
 /** Represents an IsAuthenticatedRequest. */
@@ -119,6 +122,9 @@ export class IsAuthenticatedRequest implements IIsAuthenticatedRequest {
 
     /** IsAuthenticatedRequest token. */
     public token: string;
+
+    /** IsAuthenticatedRequest authType. */
+    public authType: string;
 
     /**
      * Creates a new IsAuthenticatedRequest instance using the specified properties.
@@ -196,6 +202,12 @@ export interface IIsAuthenticatedResponse {
 
     /** IsAuthenticatedResponse tokenData */
     tokenData?: (IAuthTokenData|null);
+
+    /** IsAuthenticatedResponse success */
+    success?: (boolean|null);
+
+    /** IsAuthenticatedResponse error */
+    error?: (string|null);
 }
 
 /** Represents an IsAuthenticatedResponse. */
@@ -209,6 +221,12 @@ export class IsAuthenticatedResponse implements IIsAuthenticatedResponse {
 
     /** IsAuthenticatedResponse tokenData. */
     public tokenData?: (IAuthTokenData|null);
+
+    /** IsAuthenticatedResponse success. */
+    public success: boolean;
+
+    /** IsAuthenticatedResponse error. */
+    public error: string;
 
     /**
      * Creates a new IsAuthenticatedResponse instance using the specified properties.

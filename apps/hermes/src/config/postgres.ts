@@ -11,7 +11,8 @@ export default {
 			updatedAt: "updated_at",
 			timestamps: true,
 			freezeTableName: true,
-			underscored: true
+			underscored: true,
+			paranoid: true
 		},
 		logging: process.env.DB_LOGGER === "active" && console.log,
 		port: process.env.POSTGRES_PORT ? +process.env.POSTGRES_PORT : 5432,

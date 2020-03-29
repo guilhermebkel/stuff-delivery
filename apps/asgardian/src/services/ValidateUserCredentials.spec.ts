@@ -1,5 +1,3 @@
-import "dotenv/config"
-
 import Database from "@asgardian/core/database"
 
 import ValidateUserCredentials from "@asgardian/services/ValidateUserCredentials"

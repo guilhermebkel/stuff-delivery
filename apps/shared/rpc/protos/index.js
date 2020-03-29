@@ -247,7 +247,8 @@ $root.IsAuthenticatedRequest = (function() {
      * Properties of an IsAuthenticatedRequest.
      * @exports IIsAuthenticatedRequest
      * @interface IIsAuthenticatedRequest
-     * @property {string|null} [token] IsAuthenticatedRequest token
+     * @property {string} token IsAuthenticatedRequest token
+     * @property {string|null} [authType] IsAuthenticatedRequest authType
      */
 
     /**
@@ -274,6 +275,14 @@ $root.IsAuthenticatedRequest = (function() {
     IsAuthenticatedRequest.prototype.token = "";
 
     /**
+     * IsAuthenticatedRequest authType.
+     * @member {string} authType
+     * @memberof IsAuthenticatedRequest
+     * @instance
+     */
+    IsAuthenticatedRequest.prototype.authType = "";
+
+    /**
      * Creates a new IsAuthenticatedRequest instance using the specified properties.
      * @function create
      * @memberof IsAuthenticatedRequest
@@ -297,8 +306,9 @@ $root.IsAuthenticatedRequest = (function() {
     IsAuthenticatedRequest.encode = function encode(message, writer) {
         if (!writer)
             writer = $Writer.create();
-        if (message.token != null && message.hasOwnProperty("token"))
-            writer.uint32(/* id 1, wireType 2 =*/10).string(message.token);
+        writer.uint32(/* id 1, wireType 2 =*/10).string(message.token);
+        if (message.authType != null && message.hasOwnProperty("authType"))
+            writer.uint32(/* id 2, wireType 2 =*/18).string(message.authType);
         return writer;
     };
 
@@ -336,11 +346,16 @@ $root.IsAuthenticatedRequest = (function() {
             case 1:
                 message.token = reader.string();
                 break;
+            case 2:
+                message.authType = reader.string();
+                break;
             default:
                 reader.skipType(tag & 7);
                 break;
             }
         }
+        if (!message.hasOwnProperty("token"))
+            throw $util.ProtocolError("missing required 'token'", { instance: message });
         return message;
     };
 
@@ -371,9 +386,11 @@ $root.IsAuthenticatedRequest = (function() {
     IsAuthenticatedRequest.verify = function verify(message) {
         if (typeof message !== "object" || message === null)
             return "object expected";
-        if (message.token != null && message.hasOwnProperty("token"))
-            if (!$util.isString(message.token))
-                return "token: string expected";
+        if (!$util.isString(message.token))
+            return "token: string expected";
+        if (message.authType != null && message.hasOwnProperty("authType"))
+            if (!$util.isString(message.authType))
+                return "authType: string expected";
         return null;
     };
 
@@ -391,6 +408,8 @@ $root.IsAuthenticatedRequest = (function() {
         var message = new $root.IsAuthenticatedRequest();
         if (object.token != null)
             message.token = String(object.token);
+        if (object.authType != null)
+            message.authType = String(object.authType);
         return message;
     };
 
@@ -407,10 +426,14 @@ $root.IsAuthenticatedRequest = (function() {
         if (!options)
             options = {};
         var object = {};
-        if (options.defaults)
+        if (options.defaults) {
             object.token = "";
+            object.authType = "";
+        }
         if (message.token != null && message.hasOwnProperty("token"))
             object.token = message.token;
+        if (message.authType != null && message.hasOwnProperty("authType"))
+            object.authType = message.authType;
         return object;
     };
 
@@ -435,6 +458,8 @@ $root.IsAuthenticatedResponse = (function() {
      * @exports IIsAuthenticatedResponse
      * @interface IIsAuthenticatedResponse
      * @property {IAuthTokenData|null} [tokenData] IsAuthenticatedResponse tokenData
+     * @property {boolean|null} [success] IsAuthenticatedResponse success
+     * @property {string|null} [error] IsAuthenticatedResponse error
      */
 
     /**
@@ -459,6 +484,22 @@ $root.IsAuthenticatedResponse = (function() {
      * @instance
      */
     IsAuthenticatedResponse.prototype.tokenData = null;
+
+    /**
+     * IsAuthenticatedResponse success.
+     * @member {boolean} success
+     * @memberof IsAuthenticatedResponse
+     * @instance
+     */
+    IsAuthenticatedResponse.prototype.success = false;
+
+    /**
+     * IsAuthenticatedResponse error.
+     * @member {string} error
+     * @memberof IsAuthenticatedResponse
+     * @instance
+     */
+    IsAuthenticatedResponse.prototype.error = "";
 
     /**
      * Creates a new IsAuthenticatedResponse instance using the specified properties.
@@ -486,6 +527,10 @@ $root.IsAuthenticatedResponse = (function() {
             writer = $Writer.create();
         if (message.tokenData != null && message.hasOwnProperty("tokenData"))
             $root.AuthTokenData.encode(message.tokenData, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+        if (message.success != null && message.hasOwnProperty("success"))
+            writer.uint32(/* id 2, wireType 0 =*/16).bool(message.success);
+        if (message.error != null && message.hasOwnProperty("error"))
+            writer.uint32(/* id 3, wireType 2 =*/26).string(message.error);
         return writer;
     };
 
@@ -522,6 +567,12 @@ $root.IsAuthenticatedResponse = (function() {
             switch (tag >>> 3) {
             case 1:
                 message.tokenData = $root.AuthTokenData.decode(reader, reader.uint32());
+                break;
+            case 2:
+                message.success = reader.bool();
+                break;
+            case 3:
+                message.error = reader.string();
                 break;
             default:
                 reader.skipType(tag & 7);
@@ -563,6 +614,12 @@ $root.IsAuthenticatedResponse = (function() {
             if (error)
                 return "tokenData." + error;
         }
+        if (message.success != null && message.hasOwnProperty("success"))
+            if (typeof message.success !== "boolean")
+                return "success: boolean expected";
+        if (message.error != null && message.hasOwnProperty("error"))
+            if (!$util.isString(message.error))
+                return "error: string expected";
         return null;
     };
 
@@ -583,6 +640,10 @@ $root.IsAuthenticatedResponse = (function() {
                 throw TypeError(".IsAuthenticatedResponse.tokenData: object expected");
             message.tokenData = $root.AuthTokenData.fromObject(object.tokenData);
         }
+        if (object.success != null)
+            message.success = Boolean(object.success);
+        if (object.error != null)
+            message.error = String(object.error);
         return message;
     };
 
@@ -599,10 +660,17 @@ $root.IsAuthenticatedResponse = (function() {
         if (!options)
             options = {};
         var object = {};
-        if (options.defaults)
+        if (options.defaults) {
             object.tokenData = null;
+            object.success = false;
+            object.error = "";
+        }
         if (message.tokenData != null && message.hasOwnProperty("tokenData"))
             object.tokenData = $root.AuthTokenData.toObject(message.tokenData, options);
+        if (message.success != null && message.hasOwnProperty("success"))
+            object.success = message.success;
+        if (message.error != null && message.hasOwnProperty("error"))
+            object.error = message.error;
         return object;
     };
 

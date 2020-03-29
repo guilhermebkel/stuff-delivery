@@ -21,6 +21,7 @@
       "@shared/protos": ["apps/shared/rpc/protos"],
       "@shared/rpc": ["apps/shared/rpc/src"],
       "@shared/response": ["apps/shared/response/src"],
+      "@shared/request": ["apps/shared/request/src"],
       "@shared/cache": ["apps/shared/cache/src"],
       "@shared/error": ["apps/shared/error/src"]
     }

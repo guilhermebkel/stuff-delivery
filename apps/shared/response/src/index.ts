@@ -7,7 +7,9 @@ type ResponseError =
 "ServiceFailed" |
 "UserAlreadyExists" |
 "NoAuthTokenProvided" |
-"InvalidToken"
+"NotAuthenticated" |
+"NotAuthenticatedAdmin" |
+"MalformedTokenHeaders"
 
 interface ResponseErrorMessage {
 	id: string

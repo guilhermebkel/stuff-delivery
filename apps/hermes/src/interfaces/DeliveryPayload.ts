@@ -1,5 +1,5 @@
 export interface Sender {
-	zip: number
+	zip_code: number
 	name: string
 	address: string
 	country: string
@@ -16,4 +16,11 @@ export interface PayloadDimensions {
 	length: number
 	width: number
 	height: number
+}
+
+export interface PayloadSchema {
+	name: string
+	sender: Sender
+	receiver: Receiver
+	payloadDimensions: PayloadDimensions
 }

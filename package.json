@@ -4,7 +4,7 @@
   "scripts": {
     "bootstrap": "lerna exec npm install",
     "list": "lerna ls",
-    "build:api-docs": "apidoc -i apps/*/src"
+    "build:api-docs": "apidoc -i apps/ -e node_modules/"
   },
   "dependencies": {
     "dotenv": "^8.2.0"
@@ -19,7 +19,7 @@
     "version": "1.0.0",
     "description": "Stuff delivery api documentation",
     "title": "Stuff Delivery API",
-    "url" : "http://localhost/"
+    "url" : "http://127.0.0.1"
   },
   "workspaces": [
     "apps/*",
