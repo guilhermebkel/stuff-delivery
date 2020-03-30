@@ -19,8 +19,6 @@
 
 Stuff Delivery is a simple study of a microservice architecture using the most famous (and some new ones as well) technologies.
 
-My advice is not to use this repo as the absolute path/truth to build a microservice architecture, since it depends on the business gaps you're living with.
-
 ## 🔧 Technologies
 
 - Kafka
@@ -107,7 +105,11 @@ All the services inside each microservice follow the TDD principles.
 
 ## 🌀 Repo Management
 
-That's a monorepo managed by **Lerna**, the microservices can be found on ```/apps``` folder. The modules shared between all of them can be found on ```/apps/shared```.
+That's a monorepo managed by [**Lerna**](https://github.com/lerna/lerna), the microservices can be found on ```/apps``` folder. The modules shared between all of them can be found on ```/apps/shared```.
+
+##  🌊 API Documentation
+
+The API Documentation is powered by [**ApiDoc**](https://github.com/apidoc/apidoc).
 
 ## 🚀 Getting started (Currently not available)
 
