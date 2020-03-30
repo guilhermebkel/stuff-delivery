@@ -5,6 +5,7 @@ import ValidateSignUpSchemaService from "@asgardian/services/ValidateSignupSchem
 import SignupService from "@asgardian/services/Signup"
 import LoginService from "@asgardian/services/Login"
 import ValidateUserExistenceService from "@asgardian/services/ValidateUserExistence"
+import EventService from "@shared/event"
 
 class SignupController {
 	async signup(req: Request, res: Response) {
@@ -26,6 +27,8 @@ class SignupController {
 
 		if (user) {
 			const token = await LoginService.run({ id: user.id })
+
+			EventService.triggerEvent("UserSignedUp", { user_id: user.id })
 
 			return ResponseService.json(res, 200, { ...user, token })
 		} else {

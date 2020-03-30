@@ -12,9 +12,9 @@ class Database {
 	async start() {
 		this.setupConnection()
 		await this.testConnection()
+		this.setupModels()
 		await this.syncModels()
 		await this.runMigrations()
-		this.setupModels()
 	}
 
 	setupConnection() {
