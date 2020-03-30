@@ -202,12 +202,6 @@ export interface IIsAuthenticatedResponse {
 
     /** IsAuthenticatedResponse tokenData */
     tokenData?: (IAuthTokenData|null);
-
-    /** IsAuthenticatedResponse success */
-    success?: (boolean|null);
-
-    /** IsAuthenticatedResponse error */
-    error?: (string|null);
 }
 
 /** Represents an IsAuthenticatedResponse. */
@@ -221,12 +215,6 @@ export class IsAuthenticatedResponse implements IIsAuthenticatedResponse {
 
     /** IsAuthenticatedResponse tokenData. */
     public tokenData?: (IAuthTokenData|null);
-
-    /** IsAuthenticatedResponse success. */
-    public success: boolean;
-
-    /** IsAuthenticatedResponse error. */
-    public error: string;
 
     /**
      * Creates a new IsAuthenticatedResponse instance using the specified properties.
@@ -342,4 +330,235 @@ export namespace Asgardian {
      * @param [response] IsAuthenticatedResponse
      */
     type isAuthenticatedCallback = (error: (Error|null), response?: IsAuthenticatedResponse) => void;
+}
+
+/** Properties of a SendEmailRequest. */
+export interface ISendEmailRequest {
+
+    /** SendEmailRequest token */
+    token: string;
+
+    /** SendEmailRequest authType */
+    authType?: (string|null);
+}
+
+/** Represents a SendEmailRequest. */
+export class SendEmailRequest implements ISendEmailRequest {
+
+    /**
+     * Constructs a new SendEmailRequest.
+     * @param [properties] Properties to set
+     */
+    constructor(properties?: ISendEmailRequest);
+
+    /** SendEmailRequest token. */
+    public token: string;
+
+    /** SendEmailRequest authType. */
+    public authType: string;
+
+    /**
+     * Creates a new SendEmailRequest instance using the specified properties.
+     * @param [properties] Properties to set
+     * @returns SendEmailRequest instance
+     */
+    public static create(properties?: ISendEmailRequest): SendEmailRequest;
+
+    /**
+     * Encodes the specified SendEmailRequest message. Does not implicitly {@link SendEmailRequest.verify|verify} messages.
+     * @param message SendEmailRequest message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encode(message: ISendEmailRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Encodes the specified SendEmailRequest message, length delimited. Does not implicitly {@link SendEmailRequest.verify|verify} messages.
+     * @param message SendEmailRequest message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encodeDelimited(message: ISendEmailRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Decodes a SendEmailRequest message from the specified reader or buffer.
+     * @param reader Reader or buffer to decode from
+     * @param [length] Message length if known beforehand
+     * @returns SendEmailRequest
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): SendEmailRequest;
+
+    /**
+     * Decodes a SendEmailRequest message from the specified reader or buffer, length delimited.
+     * @param reader Reader or buffer to decode from
+     * @returns SendEmailRequest
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): SendEmailRequest;
+
+    /**
+     * Verifies a SendEmailRequest message.
+     * @param message Plain object to verify
+     * @returns `null` if valid, otherwise the reason why it is not
+     */
+    public static verify(message: { [k: string]: any }): (string|null);
+
+    /**
+     * Creates a SendEmailRequest message from a plain object. Also converts values to their respective internal types.
+     * @param object Plain object
+     * @returns SendEmailRequest
+     */
+    public static fromObject(object: { [k: string]: any }): SendEmailRequest;
+
+    /**
+     * Creates a plain object from a SendEmailRequest message. Also converts values to other types if specified.
+     * @param message SendEmailRequest
+     * @param [options] Conversion options
+     * @returns Plain object
+     */
+    public static toObject(message: SendEmailRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+    /**
+     * Converts this SendEmailRequest to JSON.
+     * @returns JSON object
+     */
+    public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a SendEmailResponse. */
+export interface ISendEmailResponse {
+
+    /** SendEmailResponse tokenData */
+    tokenData?: (string|null);
+}
+
+/** Represents a SendEmailResponse. */
+export class SendEmailResponse implements ISendEmailResponse {
+
+    /**
+     * Constructs a new SendEmailResponse.
+     * @param [properties] Properties to set
+     */
+    constructor(properties?: ISendEmailResponse);
+
+    /** SendEmailResponse tokenData. */
+    public tokenData: string;
+
+    /**
+     * Creates a new SendEmailResponse instance using the specified properties.
+     * @param [properties] Properties to set
+     * @returns SendEmailResponse instance
+     */
+    public static create(properties?: ISendEmailResponse): SendEmailResponse;
+
+    /**
+     * Encodes the specified SendEmailResponse message. Does not implicitly {@link SendEmailResponse.verify|verify} messages.
+     * @param message SendEmailResponse message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encode(message: ISendEmailResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Encodes the specified SendEmailResponse message, length delimited. Does not implicitly {@link SendEmailResponse.verify|verify} messages.
+     * @param message SendEmailResponse message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encodeDelimited(message: ISendEmailResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Decodes a SendEmailResponse message from the specified reader or buffer.
+     * @param reader Reader or buffer to decode from
+     * @param [length] Message length if known beforehand
+     * @returns SendEmailResponse
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): SendEmailResponse;
+
+    /**
+     * Decodes a SendEmailResponse message from the specified reader or buffer, length delimited.
+     * @param reader Reader or buffer to decode from
+     * @returns SendEmailResponse
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): SendEmailResponse;
+
+    /**
+     * Verifies a SendEmailResponse message.
+     * @param message Plain object to verify
+     * @returns `null` if valid, otherwise the reason why it is not
+     */
+    public static verify(message: { [k: string]: any }): (string|null);
+
+    /**
+     * Creates a SendEmailResponse message from a plain object. Also converts values to their respective internal types.
+     * @param object Plain object
+     * @returns SendEmailResponse
+     */
+    public static fromObject(object: { [k: string]: any }): SendEmailResponse;
+
+    /**
+     * Creates a plain object from a SendEmailResponse message. Also converts values to other types if specified.
+     * @param message SendEmailResponse
+     * @param [options] Conversion options
+     * @returns Plain object
+     */
+    public static toObject(message: SendEmailResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+    /**
+     * Converts this SendEmailResponse to JSON.
+     * @returns JSON object
+     */
+    public toJSON(): { [k: string]: any };
+}
+
+/** Represents an Iris */
+export class Iris extends $protobuf.rpc.Service {
+
+    /**
+     * Constructs a new Iris service.
+     * @param rpcImpl RPC implementation
+     * @param [requestDelimited=false] Whether requests are length-delimited
+     * @param [responseDelimited=false] Whether responses are length-delimited
+     */
+    constructor(rpcImpl: $protobuf.RPCImpl, requestDelimited?: boolean, responseDelimited?: boolean);
+
+    /**
+     * Creates new Iris service using the specified rpc implementation.
+     * @param rpcImpl RPC implementation
+     * @param [requestDelimited=false] Whether requests are length-delimited
+     * @param [responseDelimited=false] Whether responses are length-delimited
+     * @returns RPC service. Useful where requests and/or responses are streamed.
+     */
+    public static create(rpcImpl: $protobuf.RPCImpl, requestDelimited?: boolean, responseDelimited?: boolean): Iris;
+
+    /**
+     * Calls sendEmail.
+     * @param request SendEmailRequest message or plain object
+     * @param callback Node-style callback called with the error, if any, and SendEmailResponse
+     */
+    public sendEmail(request: ISendEmailRequest, callback: Iris.sendEmailCallback): void;
+
+    /**
+     * Calls sendEmail.
+     * @param request SendEmailRequest message or plain object
+     * @returns Promise
+     */
+    public sendEmail(request: ISendEmailRequest): Promise<SendEmailResponse>;
+}
+
+export namespace Iris {
+
+    /**
+     * Callback as used by {@link Iris#sendEmail}.
+     * @param error Error, if any
+     * @param [response] SendEmailResponse
+     */
+    type sendEmailCallback = (error: (Error|null), response?: SendEmailResponse) => void;
 }

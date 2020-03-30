@@ -1,56 +1,26 @@
-import Database from "@asgardian/core/database"
+import MockUtil from "@asgardian/utils/Mock"
 
 import ValidateUserCredentials from "@asgardian/services/ValidateUserCredentials"
 
-import User from "@asgardian/models/User"
-
-const MOCK = {
-	EMAIL: "test@test.com",
-	PASSWORD: "123",
-	NAME: "test"
-}
-
 describe("Validate User Credentials", () => {
 	beforeAll(() => {
-		Database.setupConnection()
-		Database.setupModels()
+		MockUtil.setupDatabase()
 	})
 
 	beforeEach(async () => {
-		const user = await User.findOne({
-			where: { email: MOCK.EMAIL },
-			raw: true
-		})
-
-		if (user) {
-			await User.destroy({
-				where: { email: MOCK.EMAIL },
-				force: true
-			})
-		}
-
-		await User.create({
-			email: MOCK.EMAIL,
-			password: MOCK.PASSWORD,
-			name: MOCK.NAME
-		})
+		await MockUtil.generateUser()
 	})
 
 	afterAll(async () => {
-		await User.destroy({
-			where: { email: MOCK.EMAIL },
-			force: true
-		})
+		await MockUtil.removeUser()
 	})
 
   it("should invalidate inexistent user", async () => {
-		await User.destroy({
-			where: { email: MOCK.EMAIL }
-		})
+		await MockUtil.removeUser()
 
 		const areCredentialsValid = await ValidateUserCredentials.run({
 			email: "test-inexistent@test.com",
-			password: MOCK.PASSWORD
+			password: MockUtil.user.PASSWORD
 		})
 
 		expect(areCredentialsValid).toBeFalsy()
@@ -58,7 +28,7 @@ describe("Validate User Credentials", () => {
 
 	it("should invalidate incorrect password", async () => {
 		const areCredentialsValid = await ValidateUserCredentials.run({
-			email: MOCK.EMAIL,
+			email: MockUtil.user.EMAIL,
 			password: "wrong-password"
 		})
 
@@ -67,8 +37,8 @@ describe("Validate User Credentials", () => {
 
 	it("should validate existent user", async () => {
 		const areCredentialsValid = await ValidateUserCredentials.run({
-			email: MOCK.EMAIL,
-			password: MOCK.PASSWORD
+			email: MockUtil.user.EMAIL,
+			password: MockUtil.user.PASSWORD
 		})
 
 		expect(areCredentialsValid).toBeTruthy()

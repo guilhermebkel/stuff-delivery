@@ -1,49 +1,22 @@
-import Database from "@asgardian/core/database"
+import MockUtil from "@asgardian/utils/Mock"
 
 import ValidateUserExistenceService from "@asgardian/services/ValidateUserExistence"
 
-import User from "@asgardian/models/User"
-
-const MOCK = {
-	EMAIL: "test@test.com",
-	PASSWORD: "123",
-	NAME: "test"
-}
-
 describe("Make Login", () => {
 	beforeAll(async () => {
-		Database.setupConnection()
-		Database.setupModels()
+		MockUtil.setupDatabase()
 	})
 
 	beforeEach(async () => {
-		const user = await User.findOne({
-			where: { email: MOCK.EMAIL },
-			raw: true
-		})
-
-		if (user) {
-			await User.destroy({
-				where: { email: MOCK.EMAIL }
-			})
-		}
-
-		await User.create({
-			email: MOCK.EMAIL,
-			password: MOCK.PASSWORD,
-			name: MOCK.NAME
-		})
+		await MockUtil.generateUser()
 	})
 
 	afterAll(async () => {
-		await User.destroy({
-			where: { email: MOCK.EMAIL },
-			force: true
-		})
+		await MockUtil.removeUser()
 	})
 
   it("should recognize existent user", async () => {
-		const userExists = await ValidateUserExistenceService.run(MOCK.EMAIL)
+		const userExists = await ValidateUserExistenceService.run(MockUtil.user.EMAIL)
 
 		expect(userExists).toBeTruthy()
 	})

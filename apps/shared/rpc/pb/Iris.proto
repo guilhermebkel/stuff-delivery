@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+message SendMailRequest {
+  required string token = 1;
+  optional string authType = 2;
+}
+
+message SendMailResponse {
+  optional string tokenData = 1;
+}
+
+service Iris {
+  rpc sendMail(SendMailRequest) returns (SendMailResponse);
+}

@@ -1,11 +1,10 @@
-import RegisterNewPayloadService from "@hermes/services/RegisterNewPayload"
+import MockUtil from "@hermes/utils/Mock"
 
-import Database from "@hermes/core/database"
+import RegisterNewPayloadService from "@hermes/services/RegisterNewPayload"
 
 describe('Register new payload', () => {
 	beforeAll(async () => {
-		Database.setupConnection()
-		Database.setupModels()
+		MockUtil.setupDatabase()
 	})
 
   it('should create a new payload', async () => {

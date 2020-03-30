@@ -1,17 +1,16 @@
-import MakeNewTrackSubscriptionService from "@hermes/services/MakeNewTrackSubscription"
+import MockUtil from "@hermes/utils/Mock"
 
-import Database from "@hermes/core/database"
+import MakeNewTrackSubscriptionService from "@hermes/services/MakeNewTrackSubscription"
 
 describe('Make new track subscription', () => {
 	beforeAll(async () => {
-		Database.setupConnection()
-		Database.setupModels()
+		MockUtil.setupDatabase()
 	})
 
   it('should make a track subscription', async () => {
 		const newTrackSubscription = await MakeNewTrackSubscriptionService.run({
 			trackingCode: "SS123456789BR",
-				name: "Xiaomi A1"
+			name: "Xiaomi A1"
 		}, 1)
 
 		expect(newTrackSubscription).toBeTruthy()
