@@ -1,11 +1,10 @@
-import express, { Express } from "express"
+import express, { Express, RequestHandler } from "express"
 import Http, { Server as HttpServer } from "http"
 import Socket, { Server as SocketServer } from "socket.io"
 
-import serverConfig from "@hermes/config/server"
+import serverConfig from "./config"
 
-import routes from "@hermes/routes"
-import middlewares from "@hermes/core/server/middlewares"
+import defaultMiddlewares from "./middlewares"
 
 class Server {
 	private server: HttpServer
@@ -18,17 +17,17 @@ class Server {
 		this.socket = Socket(this.server)
 	}
 
-	setup(): void {
-		this.setupMiddlewares()
-		this.setupRoutes()
+	setup(routes: any[], middlewares: RequestHandler[] = defaultMiddlewares): void {
+		this.setupMiddlewares(middlewares)
+		this.setupRoutes(routes)
 		this.initializeServer()
 	}
 
-	setupRoutes(): void {
+	setupRoutes(routes: any): void {
 		this.app.use(routes)
 	}
 
-	setupMiddlewares(): void {
+	setupMiddlewares(middlewares: RequestHandler[]): void {
 		middlewares.forEach(middleware => this.app.use(middleware))
 	}
 

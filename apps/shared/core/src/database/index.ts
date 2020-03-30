@@ -1,18 +1,16 @@
 import Umzug from "umzug"
 import { Sequelize, Dialect } from "sequelize"
 
-import models from "@asgardian/models"
-
-import postgresConfig from "@asgardian/config/postgres"
+import postgresConfig from "./config"
 
 class Database {
 	rootDir: string = process.cwd()
 	postgres: Sequelize
 
-	async start() {
+	async start(models: any[]) {
 		this.setupConnection()
 		await this.testConnection()
-		this.setupModels()
+		this.setupModels(models)
 		await this.syncModels()
 		await this.runMigrations()
 	}
@@ -66,7 +64,7 @@ class Database {
 		await this.postgres.sync()
 	}
 
-	setupModels() {
+	setupModels(models: any[]) {
 		models.map(model => model.define(this.postgres))
 	}
 }

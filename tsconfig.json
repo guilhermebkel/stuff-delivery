@@ -24,7 +24,8 @@
       "@shared/request": ["apps/shared/request/src"],
       "@shared/cache": ["apps/shared/cache/src"],
       "@shared/error": ["apps/shared/error/src"],
-      "@shared/event": ["apps/shared/event/src"]
+      "@shared/event": ["apps/shared/event/src"],
+      "@shared/core": ["apps/shared/core/src"]
     }
   },
   "exclude": ["node_modules", "migrations/*"]

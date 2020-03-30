@@ -3,7 +3,7 @@ import grpc, { GrpcObject } from "grpc"
 import * as protoLoader from "@grpc/proto-loader"
 import { promisify } from "util"
 
-type Service = "Asgardian" | "Hermes" | "Iris"
+export type Service = "Asgardian" | "Hermes" | "Iris"
 
 interface IGRPCMethod {
   (): void

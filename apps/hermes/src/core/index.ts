@@ -1,14 +1,15 @@
-import Consumer from "@hermes/core/consumer"
-import Server from "@hermes/core/server"
-import Database from "@hermes/core/database"
+import { Consumer, Server, Database } from "@shared/core"
+
+import routes from "@hermes/routes"
+import models from "@hermes/models"
 
 class App {
 	static async start(): Promise<void> {
 		console.log("- Hermes started!\n")
 
-		await Database.start()
-		Server.setup()
-		await Consumer.process()
+		await Database.start(models)
+		Server.setup(routes)
+		// await Consumer.process()
 	}
 }
 
