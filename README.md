@@ -13,6 +13,9 @@
 	<a href="https://github.com/guilhermebkel/stuff-delivery">
 		<img alt="mit license" src="https://img.shields.io/github/license/guilhermebkel/stuff-delivery?color=0051ff" />
 	</a>
+	<a href="https://github.com/microsoft/TypeScript">
+		<img alt="typescript" src="https://camo.githubusercontent.com/41c68e9f29c6caccc084e5a147e0abd5f392d9bc/68747470733a2f2f62616467656e2e6e65742f62616467652f547970655363726970742f7374726963742532302546302539462539322541412f626c7565">
+	</a>
 </p>
 
 ## 📌 Overview
@@ -114,7 +117,7 @@ The API Documentation is powered by [**ApiDoc**](https://github.com/apidoc/apido
 ## 🚀 Getting started (Currently not available)
 
 1. Clone this repository
-2. Open root directory and run the following command:
+2. Open the root directory and run the following command:
 ```sh
 docker-compose up # Inits all needed resources
 ```
