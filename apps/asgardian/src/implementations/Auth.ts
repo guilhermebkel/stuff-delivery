@@ -1,19 +1,12 @@
-import { handleUnaryCall } from "grpc"
+import { ServerUnaryCall, sendUnaryData } from "grpc"
 
-import {
-	IIsAuthenticatedRequest,
-	IIsAuthenticatedResponse,
-} from "@shared/protos"
+import { IIsAuthenticatedRequest, IIsAuthenticatedResponse } from "@shared/protos"
 
 import DecodeUserAuthTokenService from "@asgardian/services/DecodeUserAuthToken"
 import ResponseService from "@shared/response"
 
-interface AsgardianAuth {
-	isAuthenticated: handleUnaryCall<IIsAuthenticatedRequest, IIsAuthenticatedResponse>
-}
-
-const AuthImplementation: AsgardianAuth = {
-	isAuthenticated(call, callback) {
+class AuthImplementation {
+	isAuthenticated(call: ServerUnaryCall<IIsAuthenticatedRequest>, callback: sendUnaryData<IIsAuthenticatedResponse>) {
 		const { token, authType } = call.request
 
 		if (!token) {
