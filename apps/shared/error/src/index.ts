@@ -8,7 +8,11 @@ class ErrorService {
 	}
 
 	handle(error: Error) {
-		Sentry.captureException(error)
+		if (process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test") {
+			console.error(error)
+		} else {
+			Sentry.captureException(error)
+		}
 	}
 }
 

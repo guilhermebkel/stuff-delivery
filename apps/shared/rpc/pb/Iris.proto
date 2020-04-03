@@ -1,12 +1,19 @@
 syntax = "proto3";
 
+message SendMailRequestContext {
+  string userName = 1;
+}
+
 message SendMailRequest {
-  required string token = 1;
-  optional string authType = 2;
+  required string to = 1;
+  required string subject = 2;
+  required string template = 3;
+  SendMailRequestContext context = 4;
 }
 
 message SendMailResponse {
-  optional string tokenData = 1;
+  bool success = 1;
+  string error = 2;
 }
 
 service Iris {

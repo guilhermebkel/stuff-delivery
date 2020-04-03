@@ -1,48 +1,32 @@
-// import { handleUnaryCall } from "grpc"
+import { ServerUnaryCall, sendUnaryData } from "grpc"
 
-// import {
-// 	IIsAuthenticatedRequest,
-// 	IIsAuthenticatedResponse,
-// } from "@shared/protos"
+import { ISendMailRequest, ISendMailResponse } from "@shared/protos"
 
-// import DecodeUserAuthTokenService from "@asgardian/services/DecodeUserAuthToken"
-// import ResponseService from "@shared/response"
+import { SendMailSchema } from "@iris/interfaces/SendMail"
 
-// interface AsgardianAuth {
-// 	isAuthenticated: handleUnaryCall<IIsAuthenticatedRequest, IIsAuthenticatedResponse>
-// }
+import SendMailService from "@iris/services/SendMail"
+import ResponseService from "@shared/response"
 
-// const AuthImplementation: AsgardianAuth = {
-// 	isAuthenticated(call, callback) {
-// 		const { token, authType } = call.request
+class MailImplementation {
+	async sendMail(call: ServerUnaryCall<ISendMailRequest>, callback: sendUnaryData<ISendMailResponse>) {
+		const { to, subject, template, context } = call.request as SendMailSchema
 
-// 		if (!token) {
-// 			return ResponseService.rpc<IIsAuthenticatedResponse>(callback, {
-// 				error: "NoAuthTokenProvided",
-// 				tokenData: null
-// 			})
-// 		}
+		if (!to || !subject || !template) {
+			return ResponseService.rpc<ISendMailResponse>(callback, {
+				error: "NoDataSupplied"
+			})
+		}
 
-// 		const decoded = DecodeUserAuthTokenService.run(token)
+		const isMailSent = await SendMailService.run({ to, subject, template, context })
 
-// 		if (!decoded) {
-// 			return ResponseService.rpc<IIsAuthenticatedResponse>(callback, {
-// 				error: "NotAuthenticated",
-// 				tokenData: null
-// 			})
-// 		}
+		if (isMailSent) {
+			return ResponseService.rpc<ISendMailResponse>(callback, {})
+		} else {
+			return ResponseService.rpc<ISendMailResponse>(callback, {
+				error: "ServiceFailed"
+			})
+		}
+	}
+}
 
-// 		if (authType === "admin" && decoded.admin === false) {
-// 			return ResponseService.rpc<IIsAuthenticatedResponse>(callback, {
-// 				error: "NotAuthenticatedAdmin",
-// 				tokenData: null
-// 			})
-// 		} else {
-// 			return ResponseService.rpc<IIsAuthenticatedResponse>(callback, { tokenData: decoded })
-// 		}
-// 	}
-// }
-
-// export default AuthImplementation
-
-export default {}
+export default MailImplementation

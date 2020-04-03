@@ -10,7 +10,12 @@
     "build": "tsc"
   },
   "dependencies": {
-    "dotenv": "^8.2.0"
+    "@types/express-handlebars": "^3.1.0",
+    "@types/nodemailer": "^6.4.0",
+    "dotenv": "^8.2.0",
+    "express-handlebars": "^4.0.2",
+    "nodemailer": "^6.4.6",
+    "nodemailer-express-handlebars": "^4.0.0"
   },
   "devDependencies": {
     "@types/jest": "^24.9.0",

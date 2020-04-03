@@ -457,6 +457,8 @@ $root.IsAuthenticatedResponse = (function() {
      * Properties of an IsAuthenticatedResponse.
      * @exports IIsAuthenticatedResponse
      * @interface IIsAuthenticatedResponse
+     * @property {boolean|null} [success] IsAuthenticatedResponse success
+     * @property {string|null} [error] IsAuthenticatedResponse error
      * @property {IAuthTokenData|null} [tokenData] IsAuthenticatedResponse tokenData
      */
 
@@ -474,6 +476,22 @@ $root.IsAuthenticatedResponse = (function() {
                 if (properties[keys[i]] != null)
                     this[keys[i]] = properties[keys[i]];
     }
+
+    /**
+     * IsAuthenticatedResponse success.
+     * @member {boolean} success
+     * @memberof IsAuthenticatedResponse
+     * @instance
+     */
+    IsAuthenticatedResponse.prototype.success = false;
+
+    /**
+     * IsAuthenticatedResponse error.
+     * @member {string} error
+     * @memberof IsAuthenticatedResponse
+     * @instance
+     */
+    IsAuthenticatedResponse.prototype.error = "";
 
     /**
      * IsAuthenticatedResponse tokenData.
@@ -507,8 +525,12 @@ $root.IsAuthenticatedResponse = (function() {
     IsAuthenticatedResponse.encode = function encode(message, writer) {
         if (!writer)
             writer = $Writer.create();
+        if (message.success != null && message.hasOwnProperty("success"))
+            writer.uint32(/* id 1, wireType 0 =*/8).bool(message.success);
+        if (message.error != null && message.hasOwnProperty("error"))
+            writer.uint32(/* id 2, wireType 2 =*/18).string(message.error);
         if (message.tokenData != null && message.hasOwnProperty("tokenData"))
-            $root.AuthTokenData.encode(message.tokenData, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            $root.AuthTokenData.encode(message.tokenData, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
         return writer;
     };
 
@@ -544,6 +566,12 @@ $root.IsAuthenticatedResponse = (function() {
             var tag = reader.uint32();
             switch (tag >>> 3) {
             case 1:
+                message.success = reader.bool();
+                break;
+            case 2:
+                message.error = reader.string();
+                break;
+            case 3:
                 message.tokenData = $root.AuthTokenData.decode(reader, reader.uint32());
                 break;
             default:
@@ -581,6 +609,12 @@ $root.IsAuthenticatedResponse = (function() {
     IsAuthenticatedResponse.verify = function verify(message) {
         if (typeof message !== "object" || message === null)
             return "object expected";
+        if (message.success != null && message.hasOwnProperty("success"))
+            if (typeof message.success !== "boolean")
+                return "success: boolean expected";
+        if (message.error != null && message.hasOwnProperty("error"))
+            if (!$util.isString(message.error))
+                return "error: string expected";
         if (message.tokenData != null && message.hasOwnProperty("tokenData")) {
             var error = $root.AuthTokenData.verify(message.tokenData);
             if (error)
@@ -601,6 +635,10 @@ $root.IsAuthenticatedResponse = (function() {
         if (object instanceof $root.IsAuthenticatedResponse)
             return object;
         var message = new $root.IsAuthenticatedResponse();
+        if (object.success != null)
+            message.success = Boolean(object.success);
+        if (object.error != null)
+            message.error = String(object.error);
         if (object.tokenData != null) {
             if (typeof object.tokenData !== "object")
                 throw TypeError(".IsAuthenticatedResponse.tokenData: object expected");
@@ -622,8 +660,15 @@ $root.IsAuthenticatedResponse = (function() {
         if (!options)
             options = {};
         var object = {};
-        if (options.defaults)
+        if (options.defaults) {
+            object.success = false;
+            object.error = "";
             object.tokenData = null;
+        }
+        if (message.success != null && message.hasOwnProperty("success"))
+            object.success = message.success;
+        if (message.error != null && message.hasOwnProperty("error"))
+            object.error = message.error;
         if (message.tokenData != null && message.hasOwnProperty("tokenData"))
             object.tokenData = $root.AuthTokenData.toObject(message.tokenData, options);
         return object;
@@ -711,25 +756,24 @@ $root.Asgardian = (function() {
     return Asgardian;
 })();
 
-$root.SendEmailRequest = (function() {
+$root.SendMailRequestContext = (function() {
 
     /**
-     * Properties of a SendEmailRequest.
-     * @exports ISendEmailRequest
-     * @interface ISendEmailRequest
-     * @property {string} token SendEmailRequest token
-     * @property {string|null} [authType] SendEmailRequest authType
+     * Properties of a SendMailRequestContext.
+     * @exports ISendMailRequestContext
+     * @interface ISendMailRequestContext
+     * @property {string|null} [userName] SendMailRequestContext userName
      */
 
     /**
-     * Constructs a new SendEmailRequest.
-     * @exports SendEmailRequest
-     * @classdesc Represents a SendEmailRequest.
-     * @implements ISendEmailRequest
+     * Constructs a new SendMailRequestContext.
+     * @exports SendMailRequestContext
+     * @classdesc Represents a SendMailRequestContext.
+     * @implements ISendMailRequestContext
      * @constructor
-     * @param {ISendEmailRequest=} [properties] Properties to set
+     * @param {ISendMailRequestContext=} [properties] Properties to set
      */
-    function SendEmailRequest(properties) {
+    function SendMailRequestContext(properties) {
         if (properties)
             for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                 if (properties[keys[i]] != null)
@@ -737,284 +781,75 @@ $root.SendEmailRequest = (function() {
     }
 
     /**
-     * SendEmailRequest token.
-     * @member {string} token
-     * @memberof SendEmailRequest
+     * SendMailRequestContext userName.
+     * @member {string} userName
+     * @memberof SendMailRequestContext
      * @instance
      */
-    SendEmailRequest.prototype.token = "";
+    SendMailRequestContext.prototype.userName = "";
 
     /**
-     * SendEmailRequest authType.
-     * @member {string} authType
-     * @memberof SendEmailRequest
-     * @instance
-     */
-    SendEmailRequest.prototype.authType = "";
-
-    /**
-     * Creates a new SendEmailRequest instance using the specified properties.
+     * Creates a new SendMailRequestContext instance using the specified properties.
      * @function create
-     * @memberof SendEmailRequest
+     * @memberof SendMailRequestContext
      * @static
-     * @param {ISendEmailRequest=} [properties] Properties to set
-     * @returns {SendEmailRequest} SendEmailRequest instance
+     * @param {ISendMailRequestContext=} [properties] Properties to set
+     * @returns {SendMailRequestContext} SendMailRequestContext instance
      */
-    SendEmailRequest.create = function create(properties) {
-        return new SendEmailRequest(properties);
+    SendMailRequestContext.create = function create(properties) {
+        return new SendMailRequestContext(properties);
     };
 
     /**
-     * Encodes the specified SendEmailRequest message. Does not implicitly {@link SendEmailRequest.verify|verify} messages.
+     * Encodes the specified SendMailRequestContext message. Does not implicitly {@link SendMailRequestContext.verify|verify} messages.
      * @function encode
-     * @memberof SendEmailRequest
+     * @memberof SendMailRequestContext
      * @static
-     * @param {ISendEmailRequest} message SendEmailRequest message or plain object to encode
+     * @param {ISendMailRequestContext} message SendMailRequestContext message or plain object to encode
      * @param {$protobuf.Writer} [writer] Writer to encode to
      * @returns {$protobuf.Writer} Writer
      */
-    SendEmailRequest.encode = function encode(message, writer) {
+    SendMailRequestContext.encode = function encode(message, writer) {
         if (!writer)
             writer = $Writer.create();
-        writer.uint32(/* id 1, wireType 2 =*/10).string(message.token);
-        if (message.authType != null && message.hasOwnProperty("authType"))
-            writer.uint32(/* id 2, wireType 2 =*/18).string(message.authType);
+        if (message.userName != null && message.hasOwnProperty("userName"))
+            writer.uint32(/* id 1, wireType 2 =*/10).string(message.userName);
         return writer;
     };
 
     /**
-     * Encodes the specified SendEmailRequest message, length delimited. Does not implicitly {@link SendEmailRequest.verify|verify} messages.
+     * Encodes the specified SendMailRequestContext message, length delimited. Does not implicitly {@link SendMailRequestContext.verify|verify} messages.
      * @function encodeDelimited
-     * @memberof SendEmailRequest
+     * @memberof SendMailRequestContext
      * @static
-     * @param {ISendEmailRequest} message SendEmailRequest message or plain object to encode
+     * @param {ISendMailRequestContext} message SendMailRequestContext message or plain object to encode
      * @param {$protobuf.Writer} [writer] Writer to encode to
      * @returns {$protobuf.Writer} Writer
      */
-    SendEmailRequest.encodeDelimited = function encodeDelimited(message, writer) {
+    SendMailRequestContext.encodeDelimited = function encodeDelimited(message, writer) {
         return this.encode(message, writer).ldelim();
     };
 
     /**
-     * Decodes a SendEmailRequest message from the specified reader or buffer.
+     * Decodes a SendMailRequestContext message from the specified reader or buffer.
      * @function decode
-     * @memberof SendEmailRequest
+     * @memberof SendMailRequestContext
      * @static
      * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
      * @param {number} [length] Message length if known beforehand
-     * @returns {SendEmailRequest} SendEmailRequest
+     * @returns {SendMailRequestContext} SendMailRequestContext
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    SendEmailRequest.decode = function decode(reader, length) {
+    SendMailRequestContext.decode = function decode(reader, length) {
         if (!(reader instanceof $Reader))
             reader = $Reader.create(reader);
-        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.SendEmailRequest();
+        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.SendMailRequestContext();
         while (reader.pos < end) {
             var tag = reader.uint32();
             switch (tag >>> 3) {
             case 1:
-                message.token = reader.string();
-                break;
-            case 2:
-                message.authType = reader.string();
-                break;
-            default:
-                reader.skipType(tag & 7);
-                break;
-            }
-        }
-        if (!message.hasOwnProperty("token"))
-            throw $util.ProtocolError("missing required 'token'", { instance: message });
-        return message;
-    };
-
-    /**
-     * Decodes a SendEmailRequest message from the specified reader or buffer, length delimited.
-     * @function decodeDelimited
-     * @memberof SendEmailRequest
-     * @static
-     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-     * @returns {SendEmailRequest} SendEmailRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    SendEmailRequest.decodeDelimited = function decodeDelimited(reader) {
-        if (!(reader instanceof $Reader))
-            reader = new $Reader(reader);
-        return this.decode(reader, reader.uint32());
-    };
-
-    /**
-     * Verifies a SendEmailRequest message.
-     * @function verify
-     * @memberof SendEmailRequest
-     * @static
-     * @param {Object.<string,*>} message Plain object to verify
-     * @returns {string|null} `null` if valid, otherwise the reason why it is not
-     */
-    SendEmailRequest.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-            return "object expected";
-        if (!$util.isString(message.token))
-            return "token: string expected";
-        if (message.authType != null && message.hasOwnProperty("authType"))
-            if (!$util.isString(message.authType))
-                return "authType: string expected";
-        return null;
-    };
-
-    /**
-     * Creates a SendEmailRequest message from a plain object. Also converts values to their respective internal types.
-     * @function fromObject
-     * @memberof SendEmailRequest
-     * @static
-     * @param {Object.<string,*>} object Plain object
-     * @returns {SendEmailRequest} SendEmailRequest
-     */
-    SendEmailRequest.fromObject = function fromObject(object) {
-        if (object instanceof $root.SendEmailRequest)
-            return object;
-        var message = new $root.SendEmailRequest();
-        if (object.token != null)
-            message.token = String(object.token);
-        if (object.authType != null)
-            message.authType = String(object.authType);
-        return message;
-    };
-
-    /**
-     * Creates a plain object from a SendEmailRequest message. Also converts values to other types if specified.
-     * @function toObject
-     * @memberof SendEmailRequest
-     * @static
-     * @param {SendEmailRequest} message SendEmailRequest
-     * @param {$protobuf.IConversionOptions} [options] Conversion options
-     * @returns {Object.<string,*>} Plain object
-     */
-    SendEmailRequest.toObject = function toObject(message, options) {
-        if (!options)
-            options = {};
-        var object = {};
-        if (options.defaults) {
-            object.token = "";
-            object.authType = "";
-        }
-        if (message.token != null && message.hasOwnProperty("token"))
-            object.token = message.token;
-        if (message.authType != null && message.hasOwnProperty("authType"))
-            object.authType = message.authType;
-        return object;
-    };
-
-    /**
-     * Converts this SendEmailRequest to JSON.
-     * @function toJSON
-     * @memberof SendEmailRequest
-     * @instance
-     * @returns {Object.<string,*>} JSON object
-     */
-    SendEmailRequest.prototype.toJSON = function toJSON() {
-        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-    };
-
-    return SendEmailRequest;
-})();
-
-$root.SendEmailResponse = (function() {
-
-    /**
-     * Properties of a SendEmailResponse.
-     * @exports ISendEmailResponse
-     * @interface ISendEmailResponse
-     * @property {string|null} [tokenData] SendEmailResponse tokenData
-     */
-
-    /**
-     * Constructs a new SendEmailResponse.
-     * @exports SendEmailResponse
-     * @classdesc Represents a SendEmailResponse.
-     * @implements ISendEmailResponse
-     * @constructor
-     * @param {ISendEmailResponse=} [properties] Properties to set
-     */
-    function SendEmailResponse(properties) {
-        if (properties)
-            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                if (properties[keys[i]] != null)
-                    this[keys[i]] = properties[keys[i]];
-    }
-
-    /**
-     * SendEmailResponse tokenData.
-     * @member {string} tokenData
-     * @memberof SendEmailResponse
-     * @instance
-     */
-    SendEmailResponse.prototype.tokenData = "";
-
-    /**
-     * Creates a new SendEmailResponse instance using the specified properties.
-     * @function create
-     * @memberof SendEmailResponse
-     * @static
-     * @param {ISendEmailResponse=} [properties] Properties to set
-     * @returns {SendEmailResponse} SendEmailResponse instance
-     */
-    SendEmailResponse.create = function create(properties) {
-        return new SendEmailResponse(properties);
-    };
-
-    /**
-     * Encodes the specified SendEmailResponse message. Does not implicitly {@link SendEmailResponse.verify|verify} messages.
-     * @function encode
-     * @memberof SendEmailResponse
-     * @static
-     * @param {ISendEmailResponse} message SendEmailResponse message or plain object to encode
-     * @param {$protobuf.Writer} [writer] Writer to encode to
-     * @returns {$protobuf.Writer} Writer
-     */
-    SendEmailResponse.encode = function encode(message, writer) {
-        if (!writer)
-            writer = $Writer.create();
-        if (message.tokenData != null && message.hasOwnProperty("tokenData"))
-            writer.uint32(/* id 1, wireType 2 =*/10).string(message.tokenData);
-        return writer;
-    };
-
-    /**
-     * Encodes the specified SendEmailResponse message, length delimited. Does not implicitly {@link SendEmailResponse.verify|verify} messages.
-     * @function encodeDelimited
-     * @memberof SendEmailResponse
-     * @static
-     * @param {ISendEmailResponse} message SendEmailResponse message or plain object to encode
-     * @param {$protobuf.Writer} [writer] Writer to encode to
-     * @returns {$protobuf.Writer} Writer
-     */
-    SendEmailResponse.encodeDelimited = function encodeDelimited(message, writer) {
-        return this.encode(message, writer).ldelim();
-    };
-
-    /**
-     * Decodes a SendEmailResponse message from the specified reader or buffer.
-     * @function decode
-     * @memberof SendEmailResponse
-     * @static
-     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-     * @param {number} [length] Message length if known beforehand
-     * @returns {SendEmailResponse} SendEmailResponse
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    SendEmailResponse.decode = function decode(reader, length) {
-        if (!(reader instanceof $Reader))
-            reader = $Reader.create(reader);
-        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.SendEmailResponse();
-        while (reader.pos < end) {
-            var tag = reader.uint32();
-            switch (tag >>> 3) {
-            case 1:
-                message.tokenData = reader.string();
+                message.userName = reader.string();
                 break;
             default:
                 reader.skipType(tag & 7);
@@ -1025,87 +860,556 @@ $root.SendEmailResponse = (function() {
     };
 
     /**
-     * Decodes a SendEmailResponse message from the specified reader or buffer, length delimited.
+     * Decodes a SendMailRequestContext message from the specified reader or buffer, length delimited.
      * @function decodeDelimited
-     * @memberof SendEmailResponse
+     * @memberof SendMailRequestContext
      * @static
      * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-     * @returns {SendEmailResponse} SendEmailResponse
+     * @returns {SendMailRequestContext} SendMailRequestContext
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    SendEmailResponse.decodeDelimited = function decodeDelimited(reader) {
+    SendMailRequestContext.decodeDelimited = function decodeDelimited(reader) {
         if (!(reader instanceof $Reader))
             reader = new $Reader(reader);
         return this.decode(reader, reader.uint32());
     };
 
     /**
-     * Verifies a SendEmailResponse message.
+     * Verifies a SendMailRequestContext message.
      * @function verify
-     * @memberof SendEmailResponse
+     * @memberof SendMailRequestContext
      * @static
      * @param {Object.<string,*>} message Plain object to verify
      * @returns {string|null} `null` if valid, otherwise the reason why it is not
      */
-    SendEmailResponse.verify = function verify(message) {
+    SendMailRequestContext.verify = function verify(message) {
         if (typeof message !== "object" || message === null)
             return "object expected";
-        if (message.tokenData != null && message.hasOwnProperty("tokenData"))
-            if (!$util.isString(message.tokenData))
-                return "tokenData: string expected";
+        if (message.userName != null && message.hasOwnProperty("userName"))
+            if (!$util.isString(message.userName))
+                return "userName: string expected";
         return null;
     };
 
     /**
-     * Creates a SendEmailResponse message from a plain object. Also converts values to their respective internal types.
+     * Creates a SendMailRequestContext message from a plain object. Also converts values to their respective internal types.
      * @function fromObject
-     * @memberof SendEmailResponse
+     * @memberof SendMailRequestContext
      * @static
      * @param {Object.<string,*>} object Plain object
-     * @returns {SendEmailResponse} SendEmailResponse
+     * @returns {SendMailRequestContext} SendMailRequestContext
      */
-    SendEmailResponse.fromObject = function fromObject(object) {
-        if (object instanceof $root.SendEmailResponse)
+    SendMailRequestContext.fromObject = function fromObject(object) {
+        if (object instanceof $root.SendMailRequestContext)
             return object;
-        var message = new $root.SendEmailResponse();
-        if (object.tokenData != null)
-            message.tokenData = String(object.tokenData);
+        var message = new $root.SendMailRequestContext();
+        if (object.userName != null)
+            message.userName = String(object.userName);
         return message;
     };
 
     /**
-     * Creates a plain object from a SendEmailResponse message. Also converts values to other types if specified.
+     * Creates a plain object from a SendMailRequestContext message. Also converts values to other types if specified.
      * @function toObject
-     * @memberof SendEmailResponse
+     * @memberof SendMailRequestContext
      * @static
-     * @param {SendEmailResponse} message SendEmailResponse
+     * @param {SendMailRequestContext} message SendMailRequestContext
      * @param {$protobuf.IConversionOptions} [options] Conversion options
      * @returns {Object.<string,*>} Plain object
      */
-    SendEmailResponse.toObject = function toObject(message, options) {
+    SendMailRequestContext.toObject = function toObject(message, options) {
         if (!options)
             options = {};
         var object = {};
         if (options.defaults)
-            object.tokenData = "";
-        if (message.tokenData != null && message.hasOwnProperty("tokenData"))
-            object.tokenData = message.tokenData;
+            object.userName = "";
+        if (message.userName != null && message.hasOwnProperty("userName"))
+            object.userName = message.userName;
         return object;
     };
 
     /**
-     * Converts this SendEmailResponse to JSON.
+     * Converts this SendMailRequestContext to JSON.
      * @function toJSON
-     * @memberof SendEmailResponse
+     * @memberof SendMailRequestContext
      * @instance
      * @returns {Object.<string,*>} JSON object
      */
-    SendEmailResponse.prototype.toJSON = function toJSON() {
+    SendMailRequestContext.prototype.toJSON = function toJSON() {
         return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
     };
 
-    return SendEmailResponse;
+    return SendMailRequestContext;
+})();
+
+$root.SendMailRequest = (function() {
+
+    /**
+     * Properties of a SendMailRequest.
+     * @exports ISendMailRequest
+     * @interface ISendMailRequest
+     * @property {string} to SendMailRequest to
+     * @property {string} subject SendMailRequest subject
+     * @property {string} template SendMailRequest template
+     * @property {ISendMailRequestContext|null} [context] SendMailRequest context
+     */
+
+    /**
+     * Constructs a new SendMailRequest.
+     * @exports SendMailRequest
+     * @classdesc Represents a SendMailRequest.
+     * @implements ISendMailRequest
+     * @constructor
+     * @param {ISendMailRequest=} [properties] Properties to set
+     */
+    function SendMailRequest(properties) {
+        if (properties)
+            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                if (properties[keys[i]] != null)
+                    this[keys[i]] = properties[keys[i]];
+    }
+
+    /**
+     * SendMailRequest to.
+     * @member {string} to
+     * @memberof SendMailRequest
+     * @instance
+     */
+    SendMailRequest.prototype.to = "";
+
+    /**
+     * SendMailRequest subject.
+     * @member {string} subject
+     * @memberof SendMailRequest
+     * @instance
+     */
+    SendMailRequest.prototype.subject = "";
+
+    /**
+     * SendMailRequest template.
+     * @member {string} template
+     * @memberof SendMailRequest
+     * @instance
+     */
+    SendMailRequest.prototype.template = "";
+
+    /**
+     * SendMailRequest context.
+     * @member {ISendMailRequestContext|null|undefined} context
+     * @memberof SendMailRequest
+     * @instance
+     */
+    SendMailRequest.prototype.context = null;
+
+    /**
+     * Creates a new SendMailRequest instance using the specified properties.
+     * @function create
+     * @memberof SendMailRequest
+     * @static
+     * @param {ISendMailRequest=} [properties] Properties to set
+     * @returns {SendMailRequest} SendMailRequest instance
+     */
+    SendMailRequest.create = function create(properties) {
+        return new SendMailRequest(properties);
+    };
+
+    /**
+     * Encodes the specified SendMailRequest message. Does not implicitly {@link SendMailRequest.verify|verify} messages.
+     * @function encode
+     * @memberof SendMailRequest
+     * @static
+     * @param {ISendMailRequest} message SendMailRequest message or plain object to encode
+     * @param {$protobuf.Writer} [writer] Writer to encode to
+     * @returns {$protobuf.Writer} Writer
+     */
+    SendMailRequest.encode = function encode(message, writer) {
+        if (!writer)
+            writer = $Writer.create();
+        writer.uint32(/* id 1, wireType 2 =*/10).string(message.to);
+        writer.uint32(/* id 2, wireType 2 =*/18).string(message.subject);
+        writer.uint32(/* id 3, wireType 2 =*/26).string(message.template);
+        if (message.context != null && message.hasOwnProperty("context"))
+            $root.SendMailRequestContext.encode(message.context, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+        return writer;
+    };
+
+    /**
+     * Encodes the specified SendMailRequest message, length delimited. Does not implicitly {@link SendMailRequest.verify|verify} messages.
+     * @function encodeDelimited
+     * @memberof SendMailRequest
+     * @static
+     * @param {ISendMailRequest} message SendMailRequest message or plain object to encode
+     * @param {$protobuf.Writer} [writer] Writer to encode to
+     * @returns {$protobuf.Writer} Writer
+     */
+    SendMailRequest.encodeDelimited = function encodeDelimited(message, writer) {
+        return this.encode(message, writer).ldelim();
+    };
+
+    /**
+     * Decodes a SendMailRequest message from the specified reader or buffer.
+     * @function decode
+     * @memberof SendMailRequest
+     * @static
+     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+     * @param {number} [length] Message length if known beforehand
+     * @returns {SendMailRequest} SendMailRequest
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    SendMailRequest.decode = function decode(reader, length) {
+        if (!(reader instanceof $Reader))
+            reader = $Reader.create(reader);
+        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.SendMailRequest();
+        while (reader.pos < end) {
+            var tag = reader.uint32();
+            switch (tag >>> 3) {
+            case 1:
+                message.to = reader.string();
+                break;
+            case 2:
+                message.subject = reader.string();
+                break;
+            case 3:
+                message.template = reader.string();
+                break;
+            case 4:
+                message.context = $root.SendMailRequestContext.decode(reader, reader.uint32());
+                break;
+            default:
+                reader.skipType(tag & 7);
+                break;
+            }
+        }
+        if (!message.hasOwnProperty("to"))
+            throw $util.ProtocolError("missing required 'to'", { instance: message });
+        if (!message.hasOwnProperty("subject"))
+            throw $util.ProtocolError("missing required 'subject'", { instance: message });
+        if (!message.hasOwnProperty("template"))
+            throw $util.ProtocolError("missing required 'template'", { instance: message });
+        return message;
+    };
+
+    /**
+     * Decodes a SendMailRequest message from the specified reader or buffer, length delimited.
+     * @function decodeDelimited
+     * @memberof SendMailRequest
+     * @static
+     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+     * @returns {SendMailRequest} SendMailRequest
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    SendMailRequest.decodeDelimited = function decodeDelimited(reader) {
+        if (!(reader instanceof $Reader))
+            reader = new $Reader(reader);
+        return this.decode(reader, reader.uint32());
+    };
+
+    /**
+     * Verifies a SendMailRequest message.
+     * @function verify
+     * @memberof SendMailRequest
+     * @static
+     * @param {Object.<string,*>} message Plain object to verify
+     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+     */
+    SendMailRequest.verify = function verify(message) {
+        if (typeof message !== "object" || message === null)
+            return "object expected";
+        if (!$util.isString(message.to))
+            return "to: string expected";
+        if (!$util.isString(message.subject))
+            return "subject: string expected";
+        if (!$util.isString(message.template))
+            return "template: string expected";
+        if (message.context != null && message.hasOwnProperty("context")) {
+            var error = $root.SendMailRequestContext.verify(message.context);
+            if (error)
+                return "context." + error;
+        }
+        return null;
+    };
+
+    /**
+     * Creates a SendMailRequest message from a plain object. Also converts values to their respective internal types.
+     * @function fromObject
+     * @memberof SendMailRequest
+     * @static
+     * @param {Object.<string,*>} object Plain object
+     * @returns {SendMailRequest} SendMailRequest
+     */
+    SendMailRequest.fromObject = function fromObject(object) {
+        if (object instanceof $root.SendMailRequest)
+            return object;
+        var message = new $root.SendMailRequest();
+        if (object.to != null)
+            message.to = String(object.to);
+        if (object.subject != null)
+            message.subject = String(object.subject);
+        if (object.template != null)
+            message.template = String(object.template);
+        if (object.context != null) {
+            if (typeof object.context !== "object")
+                throw TypeError(".SendMailRequest.context: object expected");
+            message.context = $root.SendMailRequestContext.fromObject(object.context);
+        }
+        return message;
+    };
+
+    /**
+     * Creates a plain object from a SendMailRequest message. Also converts values to other types if specified.
+     * @function toObject
+     * @memberof SendMailRequest
+     * @static
+     * @param {SendMailRequest} message SendMailRequest
+     * @param {$protobuf.IConversionOptions} [options] Conversion options
+     * @returns {Object.<string,*>} Plain object
+     */
+    SendMailRequest.toObject = function toObject(message, options) {
+        if (!options)
+            options = {};
+        var object = {};
+        if (options.defaults) {
+            object.to = "";
+            object.subject = "";
+            object.template = "";
+            object.context = null;
+        }
+        if (message.to != null && message.hasOwnProperty("to"))
+            object.to = message.to;
+        if (message.subject != null && message.hasOwnProperty("subject"))
+            object.subject = message.subject;
+        if (message.template != null && message.hasOwnProperty("template"))
+            object.template = message.template;
+        if (message.context != null && message.hasOwnProperty("context"))
+            object.context = $root.SendMailRequestContext.toObject(message.context, options);
+        return object;
+    };
+
+    /**
+     * Converts this SendMailRequest to JSON.
+     * @function toJSON
+     * @memberof SendMailRequest
+     * @instance
+     * @returns {Object.<string,*>} JSON object
+     */
+    SendMailRequest.prototype.toJSON = function toJSON() {
+        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+    };
+
+    return SendMailRequest;
+})();
+
+$root.SendMailResponse = (function() {
+
+    /**
+     * Properties of a SendMailResponse.
+     * @exports ISendMailResponse
+     * @interface ISendMailResponse
+     * @property {boolean|null} [success] SendMailResponse success
+     * @property {string|null} [error] SendMailResponse error
+     */
+
+    /**
+     * Constructs a new SendMailResponse.
+     * @exports SendMailResponse
+     * @classdesc Represents a SendMailResponse.
+     * @implements ISendMailResponse
+     * @constructor
+     * @param {ISendMailResponse=} [properties] Properties to set
+     */
+    function SendMailResponse(properties) {
+        if (properties)
+            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                if (properties[keys[i]] != null)
+                    this[keys[i]] = properties[keys[i]];
+    }
+
+    /**
+     * SendMailResponse success.
+     * @member {boolean} success
+     * @memberof SendMailResponse
+     * @instance
+     */
+    SendMailResponse.prototype.success = false;
+
+    /**
+     * SendMailResponse error.
+     * @member {string} error
+     * @memberof SendMailResponse
+     * @instance
+     */
+    SendMailResponse.prototype.error = "";
+
+    /**
+     * Creates a new SendMailResponse instance using the specified properties.
+     * @function create
+     * @memberof SendMailResponse
+     * @static
+     * @param {ISendMailResponse=} [properties] Properties to set
+     * @returns {SendMailResponse} SendMailResponse instance
+     */
+    SendMailResponse.create = function create(properties) {
+        return new SendMailResponse(properties);
+    };
+
+    /**
+     * Encodes the specified SendMailResponse message. Does not implicitly {@link SendMailResponse.verify|verify} messages.
+     * @function encode
+     * @memberof SendMailResponse
+     * @static
+     * @param {ISendMailResponse} message SendMailResponse message or plain object to encode
+     * @param {$protobuf.Writer} [writer] Writer to encode to
+     * @returns {$protobuf.Writer} Writer
+     */
+    SendMailResponse.encode = function encode(message, writer) {
+        if (!writer)
+            writer = $Writer.create();
+        if (message.success != null && message.hasOwnProperty("success"))
+            writer.uint32(/* id 1, wireType 0 =*/8).bool(message.success);
+        if (message.error != null && message.hasOwnProperty("error"))
+            writer.uint32(/* id 2, wireType 2 =*/18).string(message.error);
+        return writer;
+    };
+
+    /**
+     * Encodes the specified SendMailResponse message, length delimited. Does not implicitly {@link SendMailResponse.verify|verify} messages.
+     * @function encodeDelimited
+     * @memberof SendMailResponse
+     * @static
+     * @param {ISendMailResponse} message SendMailResponse message or plain object to encode
+     * @param {$protobuf.Writer} [writer] Writer to encode to
+     * @returns {$protobuf.Writer} Writer
+     */
+    SendMailResponse.encodeDelimited = function encodeDelimited(message, writer) {
+        return this.encode(message, writer).ldelim();
+    };
+
+    /**
+     * Decodes a SendMailResponse message from the specified reader or buffer.
+     * @function decode
+     * @memberof SendMailResponse
+     * @static
+     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+     * @param {number} [length] Message length if known beforehand
+     * @returns {SendMailResponse} SendMailResponse
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    SendMailResponse.decode = function decode(reader, length) {
+        if (!(reader instanceof $Reader))
+            reader = $Reader.create(reader);
+        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.SendMailResponse();
+        while (reader.pos < end) {
+            var tag = reader.uint32();
+            switch (tag >>> 3) {
+            case 1:
+                message.success = reader.bool();
+                break;
+            case 2:
+                message.error = reader.string();
+                break;
+            default:
+                reader.skipType(tag & 7);
+                break;
+            }
+        }
+        return message;
+    };
+
+    /**
+     * Decodes a SendMailResponse message from the specified reader or buffer, length delimited.
+     * @function decodeDelimited
+     * @memberof SendMailResponse
+     * @static
+     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+     * @returns {SendMailResponse} SendMailResponse
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    SendMailResponse.decodeDelimited = function decodeDelimited(reader) {
+        if (!(reader instanceof $Reader))
+            reader = new $Reader(reader);
+        return this.decode(reader, reader.uint32());
+    };
+
+    /**
+     * Verifies a SendMailResponse message.
+     * @function verify
+     * @memberof SendMailResponse
+     * @static
+     * @param {Object.<string,*>} message Plain object to verify
+     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+     */
+    SendMailResponse.verify = function verify(message) {
+        if (typeof message !== "object" || message === null)
+            return "object expected";
+        if (message.success != null && message.hasOwnProperty("success"))
+            if (typeof message.success !== "boolean")
+                return "success: boolean expected";
+        if (message.error != null && message.hasOwnProperty("error"))
+            if (!$util.isString(message.error))
+                return "error: string expected";
+        return null;
+    };
+
+    /**
+     * Creates a SendMailResponse message from a plain object. Also converts values to their respective internal types.
+     * @function fromObject
+     * @memberof SendMailResponse
+     * @static
+     * @param {Object.<string,*>} object Plain object
+     * @returns {SendMailResponse} SendMailResponse
+     */
+    SendMailResponse.fromObject = function fromObject(object) {
+        if (object instanceof $root.SendMailResponse)
+            return object;
+        var message = new $root.SendMailResponse();
+        if (object.success != null)
+            message.success = Boolean(object.success);
+        if (object.error != null)
+            message.error = String(object.error);
+        return message;
+    };
+
+    /**
+     * Creates a plain object from a SendMailResponse message. Also converts values to other types if specified.
+     * @function toObject
+     * @memberof SendMailResponse
+     * @static
+     * @param {SendMailResponse} message SendMailResponse
+     * @param {$protobuf.IConversionOptions} [options] Conversion options
+     * @returns {Object.<string,*>} Plain object
+     */
+    SendMailResponse.toObject = function toObject(message, options) {
+        if (!options)
+            options = {};
+        var object = {};
+        if (options.defaults) {
+            object.success = false;
+            object.error = "";
+        }
+        if (message.success != null && message.hasOwnProperty("success"))
+            object.success = message.success;
+        if (message.error != null && message.hasOwnProperty("error"))
+            object.error = message.error;
+        return object;
+    };
+
+    /**
+     * Converts this SendMailResponse to JSON.
+     * @function toJSON
+     * @memberof SendMailResponse
+     * @instance
+     * @returns {Object.<string,*>} JSON object
+     */
+    SendMailResponse.prototype.toJSON = function toJSON() {
+        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+    };
+
+    return SendMailResponse;
 })();
 
 $root.Iris = (function() {
@@ -1141,35 +1445,35 @@ $root.Iris = (function() {
     };
 
     /**
-     * Callback as used by {@link Iris#sendEmail}.
+     * Callback as used by {@link Iris#sendMail}.
      * @memberof Iris
-     * @typedef sendEmailCallback
+     * @typedef sendMailCallback
      * @type {function}
      * @param {Error|null} error Error, if any
-     * @param {SendEmailResponse} [response] SendEmailResponse
+     * @param {SendMailResponse} [response] SendMailResponse
      */
 
     /**
-     * Calls sendEmail.
-     * @function sendEmail
+     * Calls sendMail.
+     * @function sendMail
      * @memberof Iris
      * @instance
-     * @param {ISendEmailRequest} request SendEmailRequest message or plain object
-     * @param {Iris.sendEmailCallback} callback Node-style callback called with the error, if any, and SendEmailResponse
+     * @param {ISendMailRequest} request SendMailRequest message or plain object
+     * @param {Iris.sendMailCallback} callback Node-style callback called with the error, if any, and SendMailResponse
      * @returns {undefined}
      * @variation 1
      */
-    Object.defineProperty(Iris.prototype.sendEmail = function sendEmail(request, callback) {
-        return this.rpcCall(sendEmail, $root.SendEmailRequest, $root.SendEmailResponse, request, callback);
-    }, "name", { value: "sendEmail" });
+    Object.defineProperty(Iris.prototype.sendMail = function sendMail(request, callback) {
+        return this.rpcCall(sendMail, $root.SendMailRequest, $root.SendMailResponse, request, callback);
+    }, "name", { value: "sendMail" });
 
     /**
-     * Calls sendEmail.
-     * @function sendEmail
+     * Calls sendMail.
+     * @function sendMail
      * @memberof Iris
      * @instance
-     * @param {ISendEmailRequest} request SendEmailRequest message or plain object
-     * @returns {Promise<SendEmailResponse>} Promise
+     * @param {ISendMailRequest} request SendMailRequest message or plain object
+     * @returns {Promise<SendMailResponse>} Promise
      * @variation 2
      */
 

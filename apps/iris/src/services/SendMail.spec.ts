@@ -1,19 +1,16 @@
-import SendEmailService from "@iris/services/SendMail"
+import SendMailService from "@iris/services/SendMail"
 
 describe("Send email", () => {
-	beforeAll(() => {
-		
-	})
+  it("should send a test mail", async () => {
+    const isMailSent = await SendMailService.run({
+      to: "Test <test@gmail.com>",
+      subject: "Test Mail",
+      template: "test",
+      context: {
+        userName: "Mota"
+      }
+		})
 
-	beforeEach(async () => {
-		
-	})
-
-	afterAll(async () => {
-		
-	})
-
-  it("should send a email", async () => {
-		
+		expect(isMailSent).toBeTruthy()
 	})
 })

@@ -12,7 +12,9 @@ message IsAuthenticatedRequest {
 }
 
 message IsAuthenticatedResponse {
-  AuthTokenData tokenData = 1;
+  bool success = 1;
+  string error = 2;
+  AuthTokenData tokenData = 3;
 }
 
 service Asgardian {

@@ -2,6 +2,7 @@ import { Response,  } from "express"
 import { sendUnaryData } from "grpc"
 
 type ResponseError =
+"NoDataSupplied" |
 "InvalidDataSupplied" |
 "InvalidCredentials" |
 "ServiceFailed" |
