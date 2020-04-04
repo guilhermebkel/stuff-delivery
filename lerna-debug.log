@@ -1,0 +1,89 @@
+0 silly argv { _: [ 'version' ],
+0 silly argv   'force-publish': true,
+0 silly argv   forcePublish: true,
+0 silly argv   lernaVersion: '3.20.2',
+0 silly argv   '$0': 'node_modules/.bin/lerna' }
+1 notice cli v3.20.2
+2 verbose rootPath /home/guilhermebkel/Github/stuff-delivery
+3 info current version 0.0.0
+4 silly isAnythingCommitted
+5 verbose isAnythingCommitted 1
+6 silly currentBranch
+7 verbose currentBranch master
+8 silly remoteBranchExists
+9 silly isBehindUpstream
+10 silly isBehindUpstream master is behind origin/master by 0 commit(s) and ahead by 0
+11 silly hasTags
+12 verbose hasTags false
+13 warn force-publish all packages
+14 info Assuming all packages changed
+15 verbose updated asgardian
+16 verbose updated hermes
+17 verbose updated iris
+18 verbose updated cache
+19 verbose updated core
+20 verbose updated error
+21 verbose updated event
+22 verbose updated request
+23 verbose updated response
+24 verbose updated rpc
+25 info execute Skipping releases
+26 silly lifecycle No script for "preversion" in "root", continuing
+27 silly lifecycle No script for "preversion" in "asgardian", continuing
+28 silly lifecycle No script for "preversion" in "hermes", continuing
+29 silly lifecycle No script for "preversion" in "iris", continuing
+30 silly lifecycle No script for "preversion" in "cache", continuing
+31 silly lifecycle No script for "preversion" in "core", continuing
+32 silly lifecycle No script for "preversion" in "error", continuing
+33 silly lifecycle No script for "preversion" in "event", continuing
+34 silly lifecycle No script for "preversion" in "request", continuing
+35 silly lifecycle No script for "version" in "event", continuing
+36 silly lifecycle No script for "preversion" in "response", continuing
+37 silly lifecycle No script for "version" in "cache", continuing
+38 silly lifecycle No script for "preversion" in "rpc", continuing
+39 silly lifecycle No script for "version" in "error", continuing
+40 silly lifecycle No script for "version" in "request", continuing
+41 silly lifecycle No script for "version" in "core", continuing
+42 silly lifecycle No script for "version" in "response", continuing
+43 silly lifecycle No script for "version" in "rpc", continuing
+44 silly lifecycle No script for "version" in "iris", continuing
+45 silly lifecycle No script for "version" in "hermes", continuing
+46 silly lifecycle No script for "version" in "asgardian", continuing
+47 silly lifecycle No script for "version" in "root", continuing
+48 silly gitAdd [ '/home/guilhermebkel/Github/stuff-delivery/apps/shared/event/package.json',
+48 silly gitAdd   '/home/guilhermebkel/Github/stuff-delivery/apps/shared/event/package-lock.json',
+48 silly gitAdd   '/home/guilhermebkel/Github/stuff-delivery/apps/shared/cache/package.json',
+48 silly gitAdd   '/home/guilhermebkel/Github/stuff-delivery/apps/shared/cache/package-lock.json',
+48 silly gitAdd   '/home/guilhermebkel/Github/stuff-delivery/apps/shared/error/package.json',
+48 silly gitAdd   '/home/guilhermebkel/Github/stuff-delivery/apps/shared/error/package-lock.json',
+48 silly gitAdd   '/home/guilhermebkel/Github/stuff-delivery/apps/shared/request/package.json',
+48 silly gitAdd   '/home/guilhermebkel/Github/stuff-delivery/apps/shared/request/package-lock.json',
+48 silly gitAdd   '/home/guilhermebkel/Github/stuff-delivery/apps/shared/core/package.json',
+48 silly gitAdd   '/home/guilhermebkel/Github/stuff-delivery/apps/shared/core/package-lock.json',
+48 silly gitAdd   '/home/guilhermebkel/Github/stuff-delivery/apps/shared/response/package.json',
+48 silly gitAdd   '/home/guilhermebkel/Github/stuff-delivery/apps/shared/response/package-lock.json',
+48 silly gitAdd   '/home/guilhermebkel/Github/stuff-delivery/apps/shared/rpc/package.json',
+48 silly gitAdd   '/home/guilhermebkel/Github/stuff-delivery/apps/shared/rpc/package-lock.json',
+48 silly gitAdd   '/home/guilhermebkel/Github/stuff-delivery/apps/iris/package.json',
+48 silly gitAdd   '/home/guilhermebkel/Github/stuff-delivery/apps/iris/package-lock.json',
+48 silly gitAdd   '/home/guilhermebkel/Github/stuff-delivery/apps/hermes/package.json',
+48 silly gitAdd   '/home/guilhermebkel/Github/stuff-delivery/apps/hermes/package-lock.json',
+48 silly gitAdd   '/home/guilhermebkel/Github/stuff-delivery/apps/asgardian/package.json',
+48 silly gitAdd   '/home/guilhermebkel/Github/stuff-delivery/apps/asgardian/package-lock.json',
+48 silly gitAdd   '/home/guilhermebkel/Github/stuff-delivery/lerna.json' ]
+49 error Error: Command failed: git add -- apps/shared/event/package.json apps/shared/event/package-lock.json apps/shared/cache/package.json apps/shared/cache/package-lock.json apps/shared/error/package.json apps/shared/error/package-lock.json apps/shared/request/package.json apps/shared/request/package-lock.json apps/shared/core/package.json apps/shared/core/package-lock.json apps/shared/response/package.json apps/shared/response/package-lock.json apps/shared/rpc/package.json apps/shared/rpc/package-lock.json apps/iris/package.json apps/iris/package-lock.json apps/hermes/package.json apps/hermes/package-lock.json apps/asgardian/package.json apps/asgardian/package-lock.json lerna.json
+49 error The following paths are ignored by one of your .gitignore files:
+49 error apps/asgardian/package-lock.json
+49 error apps/hermes/package-lock.json
+49 error apps/iris/package-lock.json
+49 error apps/shared/cache/package-lock.json
+49 error apps/shared/core/package-lock.json
+49 error apps/shared/error/package-lock.json
+49 error apps/shared/event/package-lock.json
+49 error apps/shared/request/package-lock.json
+49 error apps/shared/response/package-lock.json
+49 error apps/shared/rpc/package-lock.json
+49 error Use -f if you really want to add them.
+49 error
+49 error     at makeError (/home/guilhermebkel/Github/stuff-delivery/node_modules/execa/index.js:174:9)
+49 error     at Promise.all.then.arr (/home/guilhermebkel/Github/stuff-delivery/node_modules/execa/index.js:278:16)
