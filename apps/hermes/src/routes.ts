@@ -69,7 +69,7 @@ const route: any = Router()
  *       "error": "InvalidDataSupplied"
  *     }
  */
-route.post("/payload", /*AuthMiddleware.isAdmin, */PayloadController.registerNewPayload)
+route.post("/payload", AuthMiddleware.isAdmin, PayloadController.registerNewPayload)
 
 /**
  * @api {post} /hermes/track Track
