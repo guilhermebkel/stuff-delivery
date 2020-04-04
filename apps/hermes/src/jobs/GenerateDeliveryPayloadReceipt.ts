@@ -135,7 +135,7 @@ class GenerateDeliveryPayloadReceiptJob implements Job {
 
 		const passThroughPdf = new stream.PassThrough()
 
-		const result = await StorageService.upload({
+		await StorageService.upload({
 			Body: doc.pipe(passThroughPdf),
 			ACL: "public-read",
 			Bucket: "gbkel-raw",
