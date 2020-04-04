@@ -26,8 +26,7 @@ class DeliveryPayload extends Model {
 				allowNull: false
 			},
 			tracking_code: {
-				type: DataTypes.STRING,
-				allowNull: false
+				type: DataTypes.STRING
 			},
 			sender: {
 				type: DataTypes.JSONB,
@@ -48,6 +47,21 @@ class DeliveryPayload extends Model {
 				{ unique: true, fields: ["tracking_code"] }
 			]
 		})
+
+		this.addHook("beforeCreate", (deliveryPayload: DeliveryPayload) => {
+			const prefix = "SS"
+			const suffix = "BR"
+		
+			const randomNumbers = Math.floor(Math.random() * 1000000000)
+		
+			const params = [prefix, randomNumbers, suffix]
+		
+			const trackingCode = params.join("")
+		
+			deliveryPayload.tracking_code = trackingCode
+		})
+
+		return this
 	}
 }
 

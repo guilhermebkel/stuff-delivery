@@ -1,7 +1,5 @@
 import MockUtil from "@hermes/utils/Mock"
 
-import DeliveryPayload from "@hermes/models/DeliveryPayload"
-
 import RetrieveDeliveryPayloadService from "@hermes/services/RetrieveDeliveryPayload"
 
 describe('Retrieve delivery payload', () => {
@@ -10,7 +8,7 @@ describe('Retrieve delivery payload', () => {
 	})
 
   it('should retrieve a existent delivery payload', async () => {
-		const { id } = await DeliveryPayload.create(MockUtil.deliveryPayload)
+		const { id } = await MockUtil.generateDeliveryPayload()
 
 		const payload = await RetrieveDeliveryPayloadService.run({ id })
 

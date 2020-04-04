@@ -28,7 +28,7 @@ class MockUtil {
 			})
 		}
 
-		await User.create({
+		return await User.create({
 			email: this._user.EMAIL,
 			password: this._user.PASSWORD,
 			name: this._user.NAME
