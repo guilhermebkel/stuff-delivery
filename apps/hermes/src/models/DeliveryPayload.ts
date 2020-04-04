@@ -5,6 +5,7 @@ import { Sender, Receiver, PayloadDimensions } from "@hermes/interfaces/Delivery
 class DeliveryPayload extends Model {
 	id: number
 	sender: Sender
+	name: string
 	receiver: Receiver
 	payload_dimensions: PayloadDimensions
 	tracking_code: string

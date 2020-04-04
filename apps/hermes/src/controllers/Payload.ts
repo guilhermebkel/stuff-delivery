@@ -18,7 +18,7 @@ class PayloadController {
 		const newPayload = await RegisterNewPayloadService.run(payloadData)
 
 		if (newPayload) {
-			EventService.triggerEvent("PayloadRegistered", { payload_id: newPayload.id })
+			EventService.triggerEvent("PayloadRegistered", { delivery_payload_id: newPayload.id })
 
 			return ResponseService.json(res, 200, { ...newPayload })
 		} else {
