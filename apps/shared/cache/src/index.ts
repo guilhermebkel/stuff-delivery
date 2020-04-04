@@ -2,6 +2,9 @@ import Redis, { Redis as RedisInterface } from "ioredis"
 
 import redisConfig from "./config"
 
+export type CacheKey =
+"deliveries"
+
 class CacheService {
 	redis: RedisInterface
 
@@ -9,7 +12,7 @@ class CacheService {
 		this.redis = new Redis(redisConfig)
 	}
 
-	async get(key: string) {
+	async get(key: CacheKey) {
 		const cached = await this.redis.get(key)
 
 		if (cached) {
@@ -23,7 +26,7 @@ class CacheService {
 	 * 
 	 * @param expiration Expiration due in seconds
 	 */
-	async set(key: string, value: any, expiration: number = 0) {
+	async set(key: CacheKey, value: any, expiration: number = 0) {
 		const payload = JSON.stringify(value)
 
 		if (expiration) {
@@ -33,7 +36,7 @@ class CacheService {
 		}
 	}
 
-	async invalidate(key: string) {
+	async invalidate(key: CacheKey) {
 		const isKeyInvalidated = await this.redis.del(key)
 
 		if (isKeyInvalidated) {

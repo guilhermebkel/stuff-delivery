@@ -24,6 +24,10 @@ module.exports = {
 			longitude: {
 				type: Sequelize.DataTypes.FLOAT,
 				allowNull: true
+			},
+			spotlight: {
+				type: Sequelize.DataTypes.BOOLEAN,
+				defaultValue: false
 			}
     }, {
       indexes: [

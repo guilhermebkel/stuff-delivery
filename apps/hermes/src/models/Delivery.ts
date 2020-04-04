@@ -4,6 +4,7 @@ class Delivery extends Model {
 	id: number
 	delivery_man_id: number
 	delivery_payload_ids: number[]
+	delivered: boolean
 	created_at: Date
 	updated_at: Date
 	deleted_at: Date
@@ -27,6 +28,10 @@ class Delivery extends Model {
 			delivery_payload_ids: {
 				type: DataTypes.ARRAY(DataTypes.INTEGER),
 				allowNull: true
+			},
+			delivered: {
+				type: DataTypes.BOOLEAN,
+				defaultValue: false
 			}
 		}, {
 			sequelize,

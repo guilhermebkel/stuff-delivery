@@ -20,6 +20,10 @@ module.exports = {
 			delivery_payload_ids: {
 				type: Sequelize.DataTypes.ARRAY(Sequelize.DataTypes.INTEGER),
 				allowNull: true
+			},
+			delivered: {
+				type: Sequelize.DataTypes.BOOLEAN,
+				defaultValue: false
 			}
     }, {
       indexes: [

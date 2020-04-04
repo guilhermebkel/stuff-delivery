@@ -1,5 +1,7 @@
 import { Consumer, Server, Database } from "@shared/core"
 
+import Tracker from "@hermes/core/Tracker"
+
 import routes from "@hermes/routes"
 import models from "@hermes/models"
 import jobs from "@hermes/jobs"
@@ -11,6 +13,7 @@ class App {
 		await Database.start(models)
 		Server.setup(routes)
 		await Consumer.process(jobs)
+		Tracker.init()
 	}
 }
 

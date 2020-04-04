@@ -6,11 +6,15 @@ import ErrorService from "@shared/error"
 
 export type Event = 
 "UserSignedUp" |
-"PayloadRegistered"
+"PayloadRegistered" |
+"DeliveryPositionChanged"
 
 export interface Payload {
 	user_id?: number
 	delivery_payload_id?: number
+	delivery_id?: number
+	latitude?: string
+	longitude?: string
 	[key: string]: any
 }
 
