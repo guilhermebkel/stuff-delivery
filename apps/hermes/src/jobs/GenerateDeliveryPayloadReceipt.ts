@@ -2,14 +2,13 @@ import stream from "stream"
 import path from "path"
 import PDFDocument from "pdfkit"
 import moment from "moment"
+import slugify from "slugify"
 
 import { Job, Event, Payload } from "@shared/event"
 
 import CreateDeliveryPayloadReceiptService from "@hermes/services/CreateDeliveryPayloadReceipt"
 import RetrieveDeliveryPayloadService from "@hermes/services/RetrieveDeliveryPayload"
 import StorageService from "@shared/storage"
-
-import FormatUtil from "@hermes/utils/Format"
 
 class GenerateDeliveryPayloadReceiptJob implements Job {
 	_event: Event = "PayloadRegistered"
@@ -36,7 +35,7 @@ class GenerateDeliveryPayloadReceiptJob implements Job {
 			return Promise.reject(new Error("Delivery payload was not found!"))
 		}
 
-		const fileName = FormatUtil.slugify(`${deliveryPayload.id}-${deliveryPayload.name}-${+new Date(deliveryPayload.created_at)}`)
+		const fileName = slugify(`${deliveryPayload.id}-${deliveryPayload.name}-${+new Date(deliveryPayload.created_at)}`)
 
 		const pdfPath = `delivery-payload/${deliveryPayload.id}/receipts/${fileName}.pdf`
 
