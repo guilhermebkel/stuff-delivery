@@ -5,10 +5,9 @@ import moment from "moment"
 
 import { Job, Event, Payload } from "@shared/event"
 
+import CreateDeliveryPayloadReceiptService from "@hermes/services/CreateDeliveryPayloadReceipt"
 import RetrieveDeliveryPayloadService from "@hermes/services/RetrieveDeliveryPayload"
 import StorageService from "@shared/storage"
-
-import DeliveryPayloadReceipt from "@hermes/models/DeliveryPayloadReceipt"
 
 import FormatUtil from "@hermes/utils/Format"
 
@@ -26,6 +25,10 @@ class GenerateDeliveryPayloadReceiptJob implements Job {
 
 	async handle(payload: Payload) {
 		const { delivery_payload_id } = payload
+
+		if (!delivery_payload_id) {
+			return Promise.reject(new Error("Delivery payload id was not supplied!"))
+		}
 
 		const deliveryPayload = await RetrieveDeliveryPayloadService.run({ id: delivery_payload_id as number })
 
@@ -143,7 +146,7 @@ class GenerateDeliveryPayloadReceiptJob implements Job {
 			Key: pdfPath
 		})
 
-		await DeliveryPayloadReceipt.create({
+		await CreateDeliveryPayloadReceiptService.run({
 			delivery_payload_id,
 			name: deliveryPayload.name,
 			path: pdfPath
