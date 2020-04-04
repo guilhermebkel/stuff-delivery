@@ -3,9 +3,10 @@
   "private": true,
   "scripts": {
     "bootstrap": "lerna exec npm install",
+    "test": "lerna exec npm run test",
     "list": "lerna ls",
     "build:api-docs": "apidoc -i apps/ -e node_modules/",
-    "deploy": "lerna version && git add . && git push"
+    "deploy": "lerna version"
   },
   "dependencies": {
     "dotenv": "^8.2.0"

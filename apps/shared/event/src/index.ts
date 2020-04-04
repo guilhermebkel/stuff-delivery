@@ -10,7 +10,7 @@ export type Event =
 
 export interface Payload {
 	user_id?: number
-	payload_id?: number
+	delivery_payload_id?: number
 	[key: string]: any
 }
 
@@ -24,6 +24,8 @@ class EventService {
 	private instance: Kafka
 	private producer: KafkaProducer
 	private isProducerReady: boolean = false
+	private triggerEventRetries: number = 0
+	private triggerEventMaxRetries: number = 5
 
 	constructor() {
 		this.instance = new Kafka({
@@ -39,6 +41,19 @@ class EventService {
 		this.producer = this.instance.producer()
 	}
 
+	retryTriggerEvent(event: Event, payload: Payload) {
+		if (this.triggerEventRetries >= this.triggerEventMaxRetries) {
+			return false
+		} else {
+			this.triggerEventRetries++
+			return this.triggerEvent(event, payload)
+		}
+	}
+
+	clearRetries() {
+		this.triggerEventRetries = 0
+	}
+
 	async triggerEvent(event: Event, payload: Payload): Promise<boolean> {
 		try {
 			if (!this.isProducerReady) {
@@ -46,7 +61,7 @@ class EventService {
 
 				await new Promise(resolve => setTimeout(resolve, 1000))
 
-				return this.triggerEvent(event, payload)
+				return this.retryTriggerEvent(event, payload)
 			}
 
 			await this.producer.send({
@@ -54,17 +69,23 @@ class EventService {
 				messages: [{ value: JSON.stringify(payload) }],
 				compression: CompressionTypes.GZIP
 			})
+
+			this.clearRetries()
 			
 			return true
 		} catch(error) {
 			ErrorService.handle(new Error(`Failed to trigger event (${event} - ${JSON.stringify(payload)}) on Kafka: ${error.message}`))
-			return false
+			return this.retryTriggerEvent(event, payload)
 		}
 	}
 
 	setupProducer() {
-		this.producer.connect().then(() => {
+		this.producer.connect()
+		.then(() => {
 			this.isProducerReady = true
+		})
+		.catch(() => {
+			this.isProducerReady = false
 		})
 	}
 }

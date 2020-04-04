@@ -1,12 +1,13 @@
 import { Kafka, Consumer as KafkaConsumer, logLevel } from "kafkajs"
 
-import { Job } from "@shared/event"
+import { Job, Payload } from "@shared/event"
+import ErrorService from "@shared/error"
 
 import kafkaConfig from "./config"
 
 class Consumer {
 	private instance: Kafka
-	private consumer: KafkaConsumer
+	private consumers: any = {}
 
 	constructor() {
 		this.instance = new Kafka({
@@ -14,45 +15,50 @@ class Consumer {
 			brokers: [kafkaConfig.url],
 			logLevel: logLevel.ERROR
 		})
-
-		this.consumer = this.instance.consumer({ groupId: `${kafkaConfig.clientId}-consumer` })
 	}
 
 	async process(jobs: Job[]): Promise<void> {
-		await this.connect()
 		this.run(jobs)
 	}
 
-	async connect(): Promise<void> {
-		return await this.consumer.connect()
-	}
-
 	async run(jobs: Job[]): Promise<void> {
-		// await Promise.all(
-		// 	jobs.map(async job => {
-		// 		this.consumers[job.event as any] = this.instance.consumer()
+		try {
+			await Promise.all(
+				jobs.map(async job => {
+					this.consumers[job.event as any] = this.instance.consumer({ groupId: `${kafkaConfig.clientId}-${job.name}-consumer` })
 
-		// 		await this.consumers[job.event as any].connect()
+					const consumer = this.consumers[job.event as any] as KafkaConsumer
 
-		// 		await this.consumers[job.event as any].subscribe({ topic: job.event })
+					await consumer.connect()
+	
+					await consumer.subscribe({ topic: job.event })
+	
+					await consumer.run({
+						eachMessage: async ({ message }) => {
+							const executionPrefix = `[EVENT][${job.event}][JOB][${job.name}]`
 
-		// 		await this.consumers[job.event as any].run({
-		// 			eachMessage: async ({ message }) => {
-		// 				try {
-		// 					console.log(`[${job.event}][${job.name}] Running...`)
-		// 					const payload = JSON.parse(message.value as any)
+							let payload: Payload = {}
 
-		// 					await job.handle(payload)
-		// 					console.log(`[${job.event}][${job.name}] DONE!`)
-		// 				} catch(error) {
-		// 					ErrorService.handle(new Error(`[${job.event}][${job.name}] FAILED! ${message}`))
-		// 				}
-		// 			}
-		// 		})
-		// 	})
-		// )
+							try {
+								console.log(`${executionPrefix} Running...`)
+								payload = JSON.parse(message.value as any) as Payload
+	
+								await job.handle(payload)
+								console.log(`${executionPrefix} DONE!`)
 
-		// console.log(`Consumer is running... [${jobs.length} jobs]`)
+							} catch(error) {
+								console.log(`${executionPrefix} FAILED!`)
+								ErrorService.handle(new Error(`${executionPrefix} FAILED! (${JSON.stringify(payload)}): ${error.message} `))
+							}
+						}
+					})
+				})
+			)
+	
+			console.log(`Consumer is running... [${jobs.length} jobs]`)
+		} catch(error) {
+			ErrorService.handle(error)
+		}
 	}
 }
 
