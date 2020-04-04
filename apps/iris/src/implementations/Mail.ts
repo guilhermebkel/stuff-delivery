@@ -1,4 +1,4 @@
-import { ServerUnaryCall, sendUnaryData } from "grpc"
+import { handleUnaryCall } from "grpc"
 
 import { ISendMailRequest, ISendMailResponse } from "@shared/protos"
 
@@ -7,8 +7,12 @@ import { SendMailSchema } from "@iris/interfaces/SendMail"
 import SendMailService from "@iris/services/SendMail"
 import ResponseService from "@shared/response"
 
-class MailImplementation {
-	async sendMail(call: ServerUnaryCall<ISendMailRequest>, callback: sendUnaryData<ISendMailResponse>) {
+interface IMailImplementation {
+	sendMail: handleUnaryCall<ISendMailRequest, ISendMailResponse>
+}
+
+const MailImplementation: IMailImplementation = {
+	async sendMail(call, callback) {
 		const { to, subject, template, context } = call.request as SendMailSchema
 
 		if (!to || !subject || !template) {
