@@ -1,12 +1,12 @@
-import { Iris } from "@shared/protos"
+// import { Iris } from "@shared/protos"
 
-import RpcService from "@shared/rpc"
+// import RpcService from "@shared/rpc"
 
-import irisConfig from "@asgardian/config/iris"
+// import irisConfig from "@asgardian/config/iris"
 
-const IrisMicroservice = RpcService.loadService<Iris>({
-	serviceName: "Iris",
-	address: irisConfig.address || "localhost:3051"
-})
+// const IrisMicroservice = RpcService.loadService<Iris>({
+// 	serviceName: "Iris",
+// 	address: irisConfig.address || "localhost:3051"
+// })
 
-export default IrisMicroservice
+// export default IrisMicroservice

@@ -1,4 +1,4 @@
-import GenerateUserAuthTokenService from "@asgardian/services/GenerateUserAuthToken"
+import AuthService from "@shared/auth"
 
 import User from "@asgardian/models/User"
 
@@ -20,11 +20,10 @@ class LoginService {
 			return null
 		}
 
-		const token = GenerateUserAuthTokenService.run({
+		const token = AuthService.generateUserAuthToken({
 			admin: user.admin,
 			email: user.email,
-			id: user.id,
-			name: user.name
+			id: user.id
 		})
 
 		if (!token) {

@@ -28,7 +28,11 @@ class SignupController {
 		if (user) {
 			const token = await LoginService.run({ id: user.id })
 
-			EventService.triggerEvent("UserSignedUp", { user_id: user.id })
+			EventService.triggerEvent("UserSignedUp", {
+				user_id: user.id,
+				user_email: user.email,
+				user_name: user.name
+			})
 
 			return ResponseService.json(res, 200, { ...user, token })
 		} else {

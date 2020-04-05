@@ -1,8 +1,6 @@
 import { Job, Event, Payload } from "@shared/event"
 
-import IrisMicroservice from "@asgardian/microservices/Iris"
-
-import RetrieveUserService from "@asgardian/services/RetrieveUser"
+import SendMailService from "@iris/services/SendMail"
 
 class SendSelfWelcomeMailJob implements Job {
 	_event: Event = "UserSignedUp"
@@ -17,22 +15,18 @@ class SendSelfWelcomeMailJob implements Job {
 	}
 
 	async handle(payload: Payload) {
-		const { user_id } = payload
+		const { user_email, user_name } = payload
 
-		const user = await RetrieveUserService.run({
-			id: user_id
-		})
-
-		if (!user) {
-			return Promise.reject(new Error("User not found!"))
+		if (!user_email || !user_name) {
+			return Promise.reject(new Error("User was not supplied!"))
 		}
 		
-		const isMailSent = await IrisMicroservice.sendMail({
+		const isMailSent = await SendMailService.run({
 			subject: "Welcome to StuffDelivery!",
 			template: "self-welcome",
-			to: user.email,
+			to: user_email,
 			context: {
-				userName: user.name
+				userName: user_name
 			}
 		})
 

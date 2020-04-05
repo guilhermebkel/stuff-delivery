@@ -10,6 +10,8 @@ export type Event =
 "DeliveryPositionChanged"
 
 export interface Payload {
+	user_name?: string
+	user_email?: string
 	user_id?: number
 	delivery_payload_id?: number
 	delivery_id?: number

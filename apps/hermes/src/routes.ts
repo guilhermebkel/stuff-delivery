@@ -3,7 +3,7 @@ import { Router } from "express"
 import PayloadController from "@hermes/controllers/Payload"
 import TrackController from "@hermes/controllers/Track"
 
-import AuthMiddleware from "@hermes/middlewares/Auth"
+import { AuthMiddleware } from "@shared/auth"
 
 const route: any = Router()
 

@@ -1,46 +1,46 @@
-import { handleUnaryCall } from "grpc"
+// import { handleUnaryCall } from "grpc"
 
-import {
-	IIsAuthenticatedRequest,
-	IIsAuthenticatedResponse,
-} from "@shared/protos"
+// import {
+// 	IIsAuthenticatedRequest,
+// 	IIsAuthenticatedResponse,
+// } from "@shared/protos"
 
-import DecodeUserAuthTokenService from "@asgardian/services/DecodeUserAuthToken"
-import ResponseService from "@shared/response"
+// import DecodeUserAuthTokenService from "@asgardian/services/DecodeUserAuthToken"
+// import ResponseService from "@shared/response"
 
-interface IAuthImplementation {
-	isAuthenticated: handleUnaryCall<IIsAuthenticatedRequest, IIsAuthenticatedResponse>
-}
+// interface IAuthImplementation {
+// 	isAuthenticated: handleUnaryCall<IIsAuthenticatedRequest, IIsAuthenticatedResponse>
+// }
 
-const AuthImplementation: IAuthImplementation = {
-	isAuthenticated(call, callback) {
-		const { token, authType } = call.request
+// const AuthImplementation: IAuthImplementation = {
+// 	isAuthenticated(call, callback) {
+// 		const { token, authType } = call.request
 
-		if (!token) {
-			return ResponseService.rpc<IIsAuthenticatedResponse>(callback, {
-				error: "NoAuthTokenProvided",
-				tokenData: null
-			})
-		}
+// 		if (!token) {
+// 			return ResponseService.rpc<IIsAuthenticatedResponse>(callback, {
+// 				error: "NoAuthTokenProvided",
+// 				tokenData: null
+// 			})
+// 		}
 
-		const decoded = DecodeUserAuthTokenService.run(token)
+// 		const decoded = DecodeUserAuthTokenService.run(token)
 
-		if (!decoded) {
-			return ResponseService.rpc<IIsAuthenticatedResponse>(callback, {
-				error: "NotAuthenticated",
-				tokenData: null
-			})
-		}
+// 		if (!decoded) {
+// 			return ResponseService.rpc<IIsAuthenticatedResponse>(callback, {
+// 				error: "NotAuthenticated",
+// 				tokenData: null
+// 			})
+// 		}
 
-		if (authType === "admin" && decoded.admin === false) {
-			return ResponseService.rpc<IIsAuthenticatedResponse>(callback, {
-				error: "NotAuthenticatedAdmin",
-				tokenData: null
-			})
-		} else {
-			return ResponseService.rpc<IIsAuthenticatedResponse>(callback, { tokenData: decoded })
-		}
-	}
-}
+// 		if (authType === "admin" && decoded.admin === false) {
+// 			return ResponseService.rpc<IIsAuthenticatedResponse>(callback, {
+// 				error: "NotAuthenticatedAdmin",
+// 				tokenData: null
+// 			})
+// 		} else {
+// 			return ResponseService.rpc<IIsAuthenticatedResponse>(callback, { tokenData: decoded })
+// 		}
+// 	}
+// }
 
-export default AuthImplementation
+// export default AuthImplementation
