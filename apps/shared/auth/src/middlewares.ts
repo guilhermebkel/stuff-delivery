@@ -9,8 +9,10 @@ export interface AuthRequest extends Request {
 	authData: UserAuthTokenData
 }
 
+export interface AuthResponse extends Response {}
+
 class AuthMiddleware {
-	async isAuthenticated(req: AuthRequest, res: Response, next: NextFunction) {
+	async isAuthenticated(req: AuthRequest, res: AuthResponse, next: NextFunction) {
 		const token = this.retrieveTokenFromHeaders(req.headers)
 
 		if (!token) {
@@ -32,7 +34,7 @@ class AuthMiddleware {
 		next()
 	}
 
-	async isAdmin(req: AuthRequest, res: Response, next: NextFunction) {
+	async isAdmin(req: AuthRequest, res: AuthResponse, next: NextFunction) {
 		const token = this.retrieveTokenFromHeaders(req.headers)
 
 		if (!token) {

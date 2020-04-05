@@ -1,4 +1,4 @@
-import { Request, Response } from "express"
+import { AuthRequest, AuthResponse } from "@shared/auth"
 
 import ResponseService from "@shared/response"
 import ValidatePayloadSchemaService from "@hermes/services/ValidatePayloadSchema"
@@ -6,7 +6,7 @@ import RegisterNewPayloadService from "@hermes/services/RegisterNewPayload"
 import EventService from "@shared/event"
 
 class PayloadController {
-	async registerNewPayload(req: Request, res: Response) {
+	async registerNewPayload(req: AuthRequest, res: AuthResponse) {
 		const payloadData = req.body
 
 		const isPayloadSchemaValid = ValidatePayloadSchemaService.run(payloadData)

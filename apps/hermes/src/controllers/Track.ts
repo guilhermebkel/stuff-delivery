@@ -1,12 +1,11 @@
-import { Response } from "express"
-import { AuthRequest } from "@shared/request"
+import { AuthRequest, AuthResponse } from "@shared/auth"
 
 import ResponseService from "@shared/response"
 import MakeNewTrackSubscriptionService from "@hermes/services/MakeNewTrackSubscription"
 import ValidateNewTrackSubscriptionService from "@hermes/services/ValidateNewTrackSubscriptionSchema"
 
 class TrackController {
-	async makeSubscription(req: AuthRequest, res: Response) {
+	async makeSubscription(req: AuthRequest, res: AuthResponse) {
 		const newSubscriptionData = req.body
 
 		const isNewSubscriptionSchemaValid = ValidateNewTrackSubscriptionService.run(newSubscriptionData)

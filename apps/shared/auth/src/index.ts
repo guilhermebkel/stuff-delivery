@@ -1,4 +1,4 @@
-export { default as AuthMiddleware } from "./middlewares"
+export { default as AuthMiddleware, AuthRequest, AuthResponse } from "./middlewares"
 
 import * as jwt from "jsonwebtoken"
 
