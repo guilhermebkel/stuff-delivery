@@ -9,13 +9,19 @@ import {
 	TextField,
 	FormControlLabel,
 	Checkbox,
-	Button
+	Button,
+	CircularProgress
 } from "@material-ui/core"
 
 import { Divider } from "../../components"
 
+import ApiService from "../../services/Api"
+import AuthService from "../../services/Auth"
+
 import deliveryPicture from "../../assets/delivery.png"
 import fullLogo from "../../assets/full-logo.png"
+
+const isMobile = window.innerWidth < 962
 
 const useStyle = makeStyles({
 	asidePictureContainer: {
@@ -34,7 +40,7 @@ const useStyle = makeStyles({
 		width: "150px"
 	},
 	formContainer: {
-		padding: "0 80px"
+		padding: isMobile ? "0 40px" : "0 60px"
 	}
 })
 
@@ -42,6 +48,9 @@ const Login = () => {
 	const classes = useStyle()
 	const history = useHistory()
 	const [saveToken, setSaveToken] = useState(false)
+
+	const [loginData, setLoginData] = useState({ email: "", password: "" })
+	const [loadingLogin, setLoadingLogin] = useState(false)
 
 	const handleSaveTokenChange = () => {
 		setSaveToken(!saveToken)
@@ -51,9 +60,32 @@ const Login = () => {
 		history.push("/signup")
 	}
 
+	const handleInputChange = (key: string, value: string) => {
+		setLoginData({
+			...loginData,
+			[key]: value
+		})
+	}
+
+	const handleLogin = async () => {
+		setLoadingLogin(true)
+	
+		try {
+			const response = await ApiService("asgardian").post("/login", { ...loginData })
+
+			const { token } = response.data
+
+			AuthService.login(token)
+		} catch(error) {
+			console.error(error)
+		}
+	
+		setLoadingLogin(false)
+	}
+
 	return (
 		<Grid container>
-			<Grid container xs={12} sm={12} md={4} lg={4} xl={4} justify="center" alignItems="center">
+			<Grid container xs={12} sm={12} md={6} lg={4} xl={3} justify="center" alignItems="center">
 				<Container className={classes.formContainer} style={{ display: "flex", flexDirection: "column" }}>
 					<img src={fullLogo} alt="Delivery stuff" className={classes.logo} />
 
@@ -74,6 +106,8 @@ const Login = () => {
 						label="Email"
 						variant="outlined"
 						size="small"
+						value={loginData.email}
+						onChange={({ target }) => handleInputChange("email", target.value)}
 					/>
 
 					<Divider size={1} />
@@ -84,6 +118,8 @@ const Login = () => {
 						type="password"
 						variant="outlined"
 						size="small"
+						value={loginData.password}
+						onChange={({ target }) => handleInputChange("password", target.value)}
 					/>
 
 					<Divider size={1} />
@@ -98,7 +134,6 @@ const Login = () => {
 								/>
 							}
 							label="Remember me"
-							
 						/>
 
 						<Button color="primary">Forgot password?</Button>
@@ -106,7 +141,13 @@ const Login = () => {
 					
 					<Divider size={1} />
 
-					<Button variant="contained" color="primary">
+					<Button
+						variant="contained"
+						color="primary"
+						onClick={handleLogin}
+						endIcon={loadingLogin && <CircularProgress size={20} />}
+						disabled={loadingLogin}
+					>
 						Login
 					</Button>
 
@@ -120,9 +161,11 @@ const Login = () => {
 					</Container>
 				</Container>
 			</Grid>
-			<Grid container xs={12} sm={12} md={8} lg={8} xl={8} className={classes.asidePictureContainer} justify="center" alignItems="center">
-				<img src={deliveryPicture} alt="People delivery package to each other" className={classes.asidePicture} />
-			</Grid>
+			{!isMobile && (
+				<Grid container xs={12} sm={12} md={6} lg={8} xl={9} className={classes.asidePictureContainer} justify="center" alignItems="center">
+					<img src={deliveryPicture} alt="People delivery package to each other" className={classes.asidePicture} />
+				</Grid>
+			)}
 		</Grid>
 	)
 }
