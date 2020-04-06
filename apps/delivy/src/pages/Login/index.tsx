@@ -13,7 +13,7 @@ import {
 	CircularProgress
 } from "@material-ui/core"
 
-import { Divider } from "../../components"
+import { Divider, Form } from "../../components"
 
 import ApiService from "../../services/Api"
 import AuthService from "../../services/Auth"
@@ -101,55 +101,58 @@ const Login = () => {
 
 					<Divider size={2} />
 
-					<TextField
-						required
-						label="Email"
-						variant="outlined"
-						size="small"
-						value={loginData.email}
-						onChange={({ target }) => handleInputChange("email", target.value)}
-					/>
-
-					<Divider size={1} />
-
-					<TextField
-						required
-						label="Password"
-						type="password"
-						variant="outlined"
-						size="small"
-						value={loginData.password}
-						onChange={({ target }) => handleInputChange("password", target.value)}
-					/>
-
-					<Divider size={1} />
-
-					<Container style={{ display: "flex", justifyContent: "space-between" }} disableGutters>
-						<FormControlLabel
-							control={
-								<Checkbox
-									checked={saveToken}
-									onChange={handleSaveTokenChange}
-									color="primary"
-								/>
-							}
-							label="Remember me"
+					<Form>
+						<TextField
+							required
+							label="Email"
+							variant="outlined"
+							size="small"
+							value={loginData.email}
+							onChange={({ target }) => handleInputChange("email", target.value)}
 						/>
 
-						<Button color="primary">Forgot password?</Button>
-					</Container>
-					
-					<Divider size={1} />
+						<Divider size={1} />
 
-					<Button
-						variant="contained"
-						color="primary"
-						onClick={handleLogin}
-						endIcon={loadingLogin && <CircularProgress size={20} />}
-						disabled={loadingLogin}
-					>
-						Login
-					</Button>
+						<TextField
+							required
+							label="Password"
+							type="password"
+							variant="outlined"
+							size="small"
+							value={loginData.password}
+							onChange={({ target }) => handleInputChange("password", target.value)}
+						/>
+
+						<Divider size={1} />
+
+						<Container style={{ display: "flex", justifyContent: "space-between" }} disableGutters>
+							<FormControlLabel
+								control={
+									<Checkbox
+										checked={saveToken}
+										onChange={handleSaveTokenChange}
+										color="primary"
+									/>
+								}
+								label="Remember me"
+							/>
+
+							<Button color="primary">Forgot password?</Button>
+						</Container>
+						
+						<Divider size={1} />
+
+						<Button
+							variant="contained"
+							color="primary"
+							onClick={handleLogin}
+							endIcon={loadingLogin && <CircularProgress size={20} />}
+							disabled={loadingLogin}
+							type="submit"
+						>
+							Login
+						</Button>
+					</Form>
 
 					<Divider size={1} />
 

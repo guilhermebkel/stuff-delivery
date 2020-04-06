@@ -11,7 +11,7 @@ import {
 	CircularProgress
 } from "@material-ui/core"
 
-import { Divider } from "../../components"
+import { Divider, Form } from "../../components"
 
 import ApiService from "../../services/Api"
 import AuthService from "../../services/Auth"
@@ -94,49 +94,52 @@ const Signup = () => {
 
 					<Divider size={2} />
 
-					<TextField
-						required
-						label="Name"
-						variant="outlined"
-						size="small"
-						value={signupData.name}
-						onChange={({ target }) => handleInputChange("name", target.value)}
-					/>
+					<Form>
+						<TextField
+							required
+							label="Name"
+							variant="outlined"
+							size="small"
+							value={signupData.name}
+							onChange={({ target }) => handleInputChange("name", target.value)}
+						/>
 
-					<Divider size={1} />
+						<Divider size={1} />
 
-					<TextField
-						required
-						label="Email"
-						variant="outlined"
-						size="small"
-						value={signupData.email}
-						onChange={({ target }) => handleInputChange("email", target.value)}
-					/>
+						<TextField
+							required
+							label="Email"
+							variant="outlined"
+							size="small"
+							value={signupData.email}
+							onChange={({ target }) => handleInputChange("email", target.value)}
+						/>
 
-					<Divider size={1} />
+						<Divider size={1} />
 
-					<TextField
-						required
-						label="Password"
-						type="password"
-						variant="outlined"
-						size="small"
-						value={signupData.password}
-						onChange={({ target }) => handleInputChange("password", target.value)}
-					/>
+						<TextField
+							required
+							label="Password"
+							type="password"
+							variant="outlined"
+							size="small"
+							value={signupData.password}
+							onChange={({ target }) => handleInputChange("password", target.value)}
+						/>
 
-					<Divider size={1} />
+						<Divider size={1} />
 
-					<Button
-						variant="contained"
-						color="primary"
-						onClick={handleSignup}
-						endIcon={loadingSignup && <CircularProgress size={20} />}
-						disabled={loadingSignup}
-					>
-						Create account
-					</Button>
+						<Button
+							variant="contained"
+							color="primary"
+							onClick={handleSignup}
+							endIcon={loadingSignup && <CircularProgress size={20} />}
+							disabled={loadingSignup}
+							type="submit"
+						>
+							Create account
+						</Button>
+					</Form>
 
 					<Divider size={1} />
 

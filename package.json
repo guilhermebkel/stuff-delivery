@@ -21,7 +21,7 @@
     "version": "1.0.0",
     "description": "Stuff delivery api documentation",
     "title": "Stuff Delivery API",
-    "url" : "http://127.0.0.1"
+    "url": "http://127.0.0.1"
   },
   "workspaces": [
     "apps/*",
