@@ -29,7 +29,7 @@ Stuff Delivery is a simple study of a microservice architecture using the most f
 - Kubernetes
 - Docker
 - React.js
-- RPC
+- gRPC
 - Kibana
 - ElasticSearch
 - Fluentd
@@ -42,23 +42,35 @@ Stuff Delivery is a simple study of a microservice architecture using the most f
 
 We have currently 3 main microservices:
 
-<img src="./assets/asgardian.png" align="left" width="70">
+<!-- <img src="./assets/asgardian.png" align="left" width="70"> -->
 
 ### Asgardian
 
 Responsible for making all related User business rules, per example: User Authentication, Profile Update, Authentication Token Verification and so on.
 
-<img src="./assets/hermes.png" align="left" width="70">
+<!-- <img src="./assets/hermes.png" align="left" width="70"> -->
 
 ### Hermes
 
 Owns the responsability of Tracking Packages and Delivery Mans.
 
-<img src="./assets/iris.png" align="left" width="70">
+<!-- <img src="./assets/iris.png" align="left" width="70"> -->
 
 ### Iris
 
 Controls all notification that needs to be sent, per example: Emails and Push Notifications.
+
+## 🍭 Clients
+
+We have currently 2 main clients:
+
+### Delivy
+
+Client used by users in order to track the deliveries they want to. It is built focused on the offline first approach (with a great help of RxDB)
+
+### Admin
+
+Client used by the people responsible for managing all the delivery system, such as error reports and track updates.
 
 ## 🌆 Architecture
 
@@ -114,6 +126,10 @@ That's a monorepo managed by [**Lerna**](https://github.com/lerna/lerna), the mi
 
 The API Documentation is powered by [**ApiDoc**](https://github.com/apidoc/apidoc).
 
+##  🌉 Design
+
+All the the app design was made with help of [**Figma**](https://figma.com) and [**Dribbble**](https://dribbble.com). Besides, the stylesheet can be found [**here**](https://www.figma.com/file/GP50ElrpjKNogmVpbcHYqx/Stuff-Delivery?node-id=0%3A1).
+
 ## 🚀 Getting started (Currently not available)
 
 1. Clone this repository
@@ -135,6 +151,7 @@ Now the resources will be available at:
 - http://127.0.0.1/asgardian (Asgardian Microservice)
 - http://127.0.0.1/hermes (Hermes Microservice)
 - http://127.0.0.1/api-docs (REST API Documentation)
+- http://127.0.0.1/delivy (User Client)
 
 If you have **Insomnia** installed on your computer, you can download the API routes by clicking in the button below:
 
