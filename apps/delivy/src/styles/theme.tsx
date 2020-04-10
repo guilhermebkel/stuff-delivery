@@ -27,6 +27,15 @@ export default createMuiTheme({
 		text: {
 			primary: palette[SELECTED_PALETTE].text
 		},
+		success: {
+			main: "#07C50E"
+		},
+		warning: {
+			main: "#F3CA12"
+		},
+		error: {
+			main: "#ff361c"
+		}
 	},
 	overrides: {
 		MuiTypography: {
