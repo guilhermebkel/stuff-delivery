@@ -1,6 +1,7 @@
 import React, { useEffect } from "react"
 import { Grid, makeStyles, useTheme } from "@material-ui/core"
 import lottie from "lottie-web"
+import { JackInTheBox, Pulse, Fade } from "react-awesome-reveal"
 
 import deliveryManAnimation from "../../assets/animations/delivery-man.json"
 import fullLogo from "../../assets/full-logo.png"
@@ -45,29 +46,32 @@ const Loading = (props: LoadingProps) => {
 
 	useEffect(() => {
 		initAnimation()
-	})
+	}, [])
 
-	if (loading) {
-		return (
-			<Grid
-				container
-				justify="center"
-				alignItems="center"
-				className={classes.container}
-				direction="column"
-				style={{ backgroundColor: theme.palette.background.default }}
-			>
-				<img src={fullLogo} className={classes.logo} alt="StuffDelivery" />
-				<div id={LOADING_TAG_ID} className={classes.loadingAnimation} />
-			</Grid>
-		)
-	} else {
-		return (
-			<>
-				{children}
-			</>
-		)
-	}
+	return (
+		<>
+			<div style={{ height: "100vh", width: "100vw", overflow: "hidden", position: "absolute" }}>
+				<Fade reverse={!loading}>
+					<JackInTheBox>
+						<Pulse>
+							<Grid
+								container
+								justify="center"
+								alignItems="center"
+								className={classes.container}
+								direction="column"
+								style={{ backgroundColor: theme.palette.background.default }}
+							>
+								<img src={fullLogo} className={classes.logo} alt="StuffDelivery" />
+								<div id={LOADING_TAG_ID} className={classes.loadingAnimation} />
+							</Grid>
+						</Pulse>
+					</JackInTheBox>
+				</Fade>
+			</div>
+			{!loading && children}
+		</>
+	)
 }
 
 Loading.defaultProps = {

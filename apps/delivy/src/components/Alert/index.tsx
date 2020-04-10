@@ -15,7 +15,6 @@ import NodeUtil from "../../utils/Node"
 import theme from "../../styles/theme"
 
 import "./icons.scss"
-import classes from "*.module.css"
 
 interface AlertProps {
 	type: "success" | "warning" | "error"
