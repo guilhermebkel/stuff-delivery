@@ -27,7 +27,8 @@
       "@shared/event": ["apps/shared/event/src"],
       "@shared/core": ["apps/shared/core/src"],
       "@shared/storage": ["apps/shared/storage/src"],
-      "@shared/auth": ["apps/shared/auth/src"]
+      "@shared/auth": ["apps/shared/auth/src"],
+      "@shared/validation": ["apps/shared/validation/src"]
     }
   },
   "exclude": ["node_modules", "migrations/*"]

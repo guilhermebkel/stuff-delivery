@@ -12,14 +12,9 @@ type ResponseError =
 "NotAuthenticatedAdmin" |
 "MalformedTokenHeaders"
 
-interface ResponseErrorMessage {
-	id: string
-	message: string
-}
-
 interface ResponseJsonData {
 	error?: ResponseError
-	messages?: ResponseErrorMessage
+	messages?: {}
 	message?: string
 	[key: string]: any
 }

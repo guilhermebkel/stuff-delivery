@@ -2,23 +2,27 @@ import User from "@asgardian/models/User"
 
 import { LoginSchema } from "@asgardian/interfaces/Login"
 
+import ValidationService, { DefaultMessages } from "@shared/validation"
+
 class ValidateUserCredentialsService {
 	async run({ email, password }: LoginSchema) {
+		const Validator = new ValidationService()
+
 		const user = await User.findOne({
 			where: { email }
 		})
 
-		if (!user) {
-			return false
+		if (user) {
+			const isPasswordValid = user.checkPassword(password)
+
+			if (!isPasswordValid) {
+				Validator.pushValidationMessage({ email: DefaultMessages.InvalidCredentials })
+			}
+		} else {
+			Validator.pushValidationMessage({ email: DefaultMessages.InvalidCredentials })
 		}
 
-		const isPasswordValid = user.checkPassword(password)
-
-		if (!isPasswordValid) {
-			return false
-		}
-
-		return true
+		return Validator.resolve()
 	}
 }
 

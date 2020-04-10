@@ -9,16 +9,22 @@ class LoginController {
 	async login(req: Request, res: Response) {
 		const loginData = req.body
 
-		const isLoginDataValid = ValidateLoginSchemaService.run(loginData)
+		const loginSchemaValidation = ValidateLoginSchemaService.run(loginData)
 
-		if (!isLoginDataValid) {
-			return ResponseService.json(res, 400, { error: "InvalidDataSupplied" })
+		if (!loginSchemaValidation.valid) {
+			return ResponseService.json(res, 400, {
+				error: "InvalidDataSupplied",
+				messages: loginSchemaValidation.messages
+			})
 		}
 
-		const areUserCredentialsValid = await ValidateUserCredentialsService.run(loginData)
+		const userCredentialsValidation = await ValidateUserCredentialsService.run(loginData)
 
-		if (!areUserCredentialsValid) {
-			return ResponseService.json(res, 400, { error: "InvalidCredentials" })
+		if (!userCredentialsValidation.valid) {
+			return ResponseService.json(res, 400, {
+				error: "InvalidCredentials",
+				messages: userCredentialsValidation.messages
+			})
 		}
 
 		const token = await LoginService.run({ email: loginData.email })

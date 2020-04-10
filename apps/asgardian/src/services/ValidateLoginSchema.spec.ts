@@ -2,38 +2,38 @@ import ValidateLoginSchema from "@asgardian/services/ValidateLoginSchema"
 
 describe("Validate Login Schema", () => {
   it("should invalidate missing email", async () => {
-		const isValid = ValidateLoginSchema.run({
+		const result = ValidateLoginSchema.run({
 			email: "",
 			password: "123"
 		})
 
-		expect(isValid).toBeFalsy()
+		expect(result.valid).toBeFalsy()
 	})
 
 	it("should invalidate missing password", async () => {
-		const isValid = ValidateLoginSchema.run({
+		const result = ValidateLoginSchema.run({
 			email: "mota@guilherr.me",
 			password: ""
 		})
 
-		expect(isValid).toBeFalsy()
+		expect(result.valid).toBeFalsy()
 	})
 
 	it("should invalidate missing all params", async () => {
-		const isValid = ValidateLoginSchema.run({
+		const result = ValidateLoginSchema.run({
 			email: "",
 			password: ""
 		})
 
-		expect(isValid).toBeFalsy()
+		expect(result.valid).toBeFalsy()
 	})
 
 	it("should validate complete and correct data", async () => {
-		const isValid = ValidateLoginSchema.run({
+		const result = ValidateLoginSchema.run({
 			email: "mota@guilherr.me",
 			password: "123"
 		})
 
-		expect(isValid).toBeTruthy()
+		expect(result.valid).toBeTruthy()
 	})
 })

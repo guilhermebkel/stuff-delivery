@@ -18,29 +18,29 @@ describe("Validate User Credentials", () => {
   it("should invalidate inexistent user", async () => {
 		await MockUtil.removeUser()
 
-		const areCredentialsValid = await ValidateUserCredentials.run({
+		const result = await ValidateUserCredentials.run({
 			email: "test-inexistent@test.com",
 			password: MockUtil.user.PASSWORD
 		})
 
-		expect(areCredentialsValid).toBeFalsy()
+		expect(result.valid).toBeFalsy()
 	})
 
 	it("should invalidate incorrect password", async () => {
-		const areCredentialsValid = await ValidateUserCredentials.run({
+		const result = await ValidateUserCredentials.run({
 			email: MockUtil.user.EMAIL,
 			password: "wrong-password"
 		})
 
-		expect(areCredentialsValid).toBeFalsy()
+		expect(result.valid).toBeFalsy()
 	})
 
 	it("should validate existent user", async () => {
-		const areCredentialsValid = await ValidateUserCredentials.run({
+		const result = await ValidateUserCredentials.run({
 			email: MockUtil.user.EMAIL,
 			password: MockUtil.user.PASSWORD
 		})
 
-		expect(areCredentialsValid).toBeTruthy()
+		expect(result.valid).toBeTruthy()
 	})
 })
