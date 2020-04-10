@@ -11,16 +11,22 @@ class SignupController {
 	async signup(req: Request, res: Response) {
 		const signupData = req.body
 
-		const isSignupDataValid = ValidateSignUpSchemaService.run(signupData)
+		const signupDataValidation = ValidateSignUpSchemaService.run(signupData)
 
-		if (!isSignupDataValid) {
-			return ResponseService.json(res, 400, { error: "InvalidDataSupplied" })
+		if (!signupDataValidation.valid) {
+			return ResponseService.json(res, 400, {
+				error: "InvalidDataSupplied",
+				messages: signupDataValidation.messages
+			})
 		}
 
-		const userExists = await ValidateUserExistenceService.run(signupData.email)
+		const userExistenceValidation = await ValidateUserExistenceService.run(signupData.email, false)
 
-		if (userExists) {
-			return ResponseService.json(res, 400, { error: "UserAlreadyExists" })
+		if (!userExistenceValidation.valid) {
+			return ResponseService.json(res, 400, {
+				error: "UserAlreadyExists",
+				messages: userExistenceValidation.messages
+			})
 		}
 		
 		const user = await SignupService.run(signupData)

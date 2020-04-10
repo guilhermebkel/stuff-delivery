@@ -19,6 +19,8 @@ import { Divider, Form } from "../../components"
 import ApiService from "../../services/Api"
 import AuthService from "../../services/Auth"
 
+import useValidation from "../../hooks/useValidation"
+
 import deliveryPicture from "../../assets/delivery.png"
 import fullLogo from "../../assets/full-logo.png"
 
@@ -54,6 +56,8 @@ const Login = () => {
 	const [loginData, setLoginData] = useState({ email: "", password: "" })
 	const [loadingLogin, setLoadingLogin] = useState(false)
 
+	const { validation, clearValidation, triggerValidation } = useValidation()
+
 	const handleSaveTokenChange = () => {
 		setSaveToken(!saveToken)
 	}
@@ -67,6 +71,8 @@ const Login = () => {
 			...loginData,
 			[key]: value
 		})
+
+		clearValidation(key)
 	}
 
 	const handleLogin = async () => {
@@ -79,7 +85,7 @@ const Login = () => {
 
 			AuthService.login(token)
 		} catch(error) {
-			console.error(error)
+			triggerValidation(error)
 		}
 	
 		setLoadingLogin(false)
@@ -111,6 +117,8 @@ const Login = () => {
 							size="small"
 							value={loginData.email}
 							onChange={({ target }) => handleInputChange("email", target.value)}
+							error={!!validation.email}
+							helperText={validation.email}
 						/>
 
 						<Divider size={1} />
@@ -123,6 +131,8 @@ const Login = () => {
 							size="small"
 							value={loginData.password}
 							onChange={({ target }) => handleInputChange("password", target.value)}
+							error={!!validation.password}
+							helperText={validation.password}
 						/>
 
 						<Divider size={1} />

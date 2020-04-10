@@ -16,14 +16,14 @@ describe("Make Login", () => {
 	})
 
   it("should recognize existent user", async () => {
-		const userExists = await ValidateUserExistenceService.run(MockUtil.user.EMAIL)
+		const result = await ValidateUserExistenceService.run(MockUtil.user.EMAIL, true)
 
-		expect(userExists).toBeTruthy()
+		expect(result.valid).toBeTruthy()
 	})
 
 	it("should recognize not existent user", async () => {
-		const userExists = await ValidateUserExistenceService.run("hello@hello.com")
+		const result = await ValidateUserExistenceService.run("hello@hello.com", true)
 
-		expect(userExists).toBeFalsy()
+		expect(result.valid).toBeFalsy()
 	})
 })

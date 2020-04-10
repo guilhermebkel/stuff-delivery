@@ -17,6 +17,8 @@ import { Divider, Form } from "../../components"
 import ApiService from "../../services/Api"
 import AuthService from "../../services/Auth"
 
+import useValidation from "../../hooks/useValidation"
+
 import deliveryPicture from "../../assets/delivery.png"
 import fullLogo from "../../assets/full-logo.png"
 
@@ -51,6 +53,8 @@ const Signup = () => {
 	const [signupData, setSignupData] = useState({ name: "", email: "", password: "" })
 	const [loadingSignup, setLoadingSignup] = useState(false)
 
+	const { validation, clearValidation, triggerValidation } = useValidation()
+
 	const handleOpenLoginPage = () => {
 		history.push("/login")
 	}
@@ -60,6 +64,8 @@ const Signup = () => {
 			...signupData,
 			[key]: value
 		})
+
+		clearValidation(key)
 	}
 
 	const handleSignup = async () => {
@@ -72,7 +78,7 @@ const Signup = () => {
 
 			AuthService.login(token)
 		} catch(error) {
-			console.error(error)
+			triggerValidation(error)
 		}
 	
 		setLoadingSignup(false)
@@ -104,6 +110,8 @@ const Signup = () => {
 							size="small"
 							value={signupData.name}
 							onChange={({ target }) => handleInputChange("name", target.value)}
+							error={!!validation.name}
+							helperText={validation.name}
 						/>
 
 						<Divider size={1} />
@@ -115,6 +123,8 @@ const Signup = () => {
 							size="small"
 							value={signupData.email}
 							onChange={({ target }) => handleInputChange("email", target.value)}
+							error={!!validation.email}
+							helperText={validation.email}
 						/>
 
 						<Divider size={1} />
@@ -127,6 +137,8 @@ const Signup = () => {
 							size="small"
 							value={signupData.password}
 							onChange={({ target }) => handleInputChange("password", target.value)}
+							error={!!validation.password}
+							helperText={validation.password}
 						/>
 
 						<Divider size={1} />

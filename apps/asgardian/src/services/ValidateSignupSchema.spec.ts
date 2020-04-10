@@ -2,52 +2,52 @@ import ValidateSignupSchemaService from "@asgardian/services/ValidateSignupSchem
 
 describe("Validate Login Schema", () => {
   it("should invalidate missing email", async () => {
-		const isValid = ValidateSignupSchemaService.run({
+		const result = ValidateSignupSchemaService.run({
 			email: "",
 			password: "123",
 			name: "mota"
 		})
 
-		expect(isValid).toBeFalsy()
+		expect(result.valid).toBeFalsy()
 	})
 
 	it("should invalidate missing password", async () => {
-		const isValid = ValidateSignupSchemaService.run({
+		const result = ValidateSignupSchemaService.run({
 			email: "mota@guilherr.me",
 			password: "",
 			name: "mota"
 		})
 
-		expect(isValid).toBeFalsy()
+		expect(result.valid).toBeFalsy()
 	})
 
 	it("should invalidate missing name", async () => {
-		const isValid = ValidateSignupSchemaService.run({
+		const result = ValidateSignupSchemaService.run({
 			email: "mota@guilherr.me",
 			password: "",
 			name: ""
 		})
 
-		expect(isValid).toBeFalsy()
+		expect(result.valid).toBeFalsy()
 	})
 
 	it("should invalidate missing all params", async () => {
-		const isValid = ValidateSignupSchemaService.run({
+		const result = ValidateSignupSchemaService.run({
 			email: "",
 			password: "",
 			name: ""
 		})
 
-		expect(isValid).toBeFalsy()
+		expect(result.valid).toBeFalsy()
 	})
 
 	it("should validate complete and correct data", async () => {
-		const isValid = ValidateSignupSchemaService.run({
+		const result = ValidateSignupSchemaService.run({
 			email: "mota@guilherr.me",
 			password: "123",
 			name: "mota"
 		})
 
-		expect(isValid).toBeTruthy()
+		expect(result.valid).toBeTruthy()
 	})
 })
