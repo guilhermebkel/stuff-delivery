@@ -7,16 +7,19 @@ import theme from "../../styles/theme"
 
 import NodeUtil from "../../utils/Node"
 
-interface NotificationProps {
+interface NotificationType {
 	type: "success" | "info" | "warning" | "error"
-	message: string
+}
+
+interface NotificationProps {
+	message: string | React.ReactNode
 }
 
 const Alert = (props: AlertProps) => (
 	<MuiAlert {...props} />
 )
 
-const Notification = (props: NotificationProps) => {
+const Notification = (props: NotificationProps & NotificationType) => {
 	const { type, message } = props
 
 	const [visible, setVisible] = useState(true)
@@ -56,21 +59,21 @@ const Notification = (props: NotificationProps) => {
 	)
 }
 
-Notification.success = (message: string) => {
+Notification.success = ({ message }: NotificationProps) => {
 	return NodeUtil.renderComponent(
 		"notification",
 		<Notification type="success" message={message} />
 	)
 }
 
-Notification.error = (message: string) => {
+Notification.error = ({ message }: NotificationProps) => {
 	return NodeUtil.renderComponent(
 		"notification",
 		<Notification type="error" message={message} />
 	)
 }
 
-Notification.warning = (message: string) => {
+Notification.warning = ({ message }: NotificationProps) => {
 	return NodeUtil.renderComponent(
 		"notification",
 		<Notification type="warning" message={message} />

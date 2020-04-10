@@ -16,10 +16,13 @@ import theme from "../../styles/theme"
 
 import "./icons.scss"
 
-interface AlertProps {
+interface AlertType {
 	type: "success" | "warning" | "error"
+}
+
+interface AlertProps {
 	title: string
-	message: string
+	message: string | React.ReactNode
 }
 
 const icons = {
@@ -71,7 +74,7 @@ const useStyle = makeStyles({
 	}
 })
 
-const Alert = (props: AlertProps) => {
+const Alert = (props: AlertProps & AlertType) => {
 	const { type, message, title } = props
 
 	const [visible, setVisible] = useState(true)
@@ -97,7 +100,7 @@ const Alert = (props: AlertProps) => {
 					</DialogContentText>
 				</DialogContent>
 				<DialogActions className={classes.footer}>
-					<Button onClick={handleClose}>
+					<Button onClick={handleClose} fullWidth={true}>
 						OK
 					</Button>
 				</DialogActions>
@@ -106,21 +109,21 @@ const Alert = (props: AlertProps) => {
 	)
 }
 
-Alert.success = ({ title, message }: { title: string, message: string }) => {
+Alert.success = ({ title, message }: AlertProps) => {
 	return NodeUtil.renderComponent(
 		"alert",
 		<Alert type="success" message={message} title={title} />
 	)
 }
 
-Alert.error = ({ title, message }: { title: string, message: string }) => {
+Alert.error = ({ title, message }: AlertProps) => {
 	return NodeUtil.renderComponent(
 		"alert",
 		<Alert type="error" message={message} title={title} />
 	)
 }
 
-Alert.warning = ({ title, message }: { title: string, message: string }) => {
+Alert.warning = ({ title, message }: AlertProps) => {
 	return NodeUtil.renderComponent(
 		"alert",
 		<Alert type="warning" message={message} title={title} />

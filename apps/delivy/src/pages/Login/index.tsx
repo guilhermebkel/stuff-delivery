@@ -49,17 +49,12 @@ const useStyle = makeStyles({
 const Login = () => {
 	const classes = useStyle()
 	const history = useHistory()
-	const [saveToken, setSaveToken] = useState(false)
 	const theme = useTheme()
 
 	const [loginData, setLoginData] = useState({ email: "", password: "" })
 	const [loadingLogin, setLoadingLogin] = useState(false)
 
 	const { validation, clearValidation, triggerValidation } = useValidation()
-
-	const handleSaveTokenChange = () => {
-		setSaveToken(!saveToken)
-	}
 
 	const handleOpenSignUpPage = () => {
 		history.push("/signup")
