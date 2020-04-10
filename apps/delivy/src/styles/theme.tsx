@@ -35,7 +35,10 @@ export default createMuiTheme({
 		},
 		error: {
 			main: "#ff361c"
-		}
+		},
+		info: {
+			main: "#262444"
+		}		
 	},
 	overrides: {
 		MuiTypography: {
