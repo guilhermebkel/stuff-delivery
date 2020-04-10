@@ -7,11 +7,10 @@ import {
 	Container,
 	Typography,
 	TextField,
-	FormControlLabel,
-	Checkbox,
 	Button,
 	CircularProgress,
-	useTheme
+	useTheme,
+	Box
 } from "@material-ui/core"
 
 import { Divider, Form } from "../../components"
@@ -135,19 +134,8 @@ const Login = () => {
 							helperText={validation.password}
 						/>
 
-						<Divider size={1} />
-
 						<Container style={{ display: "flex", justifyContent: "space-between" }} disableGutters>
-							<FormControlLabel
-								control={
-									<Checkbox
-										checked={saveToken}
-										onChange={handleSaveTokenChange}
-										color="primary"
-									/>
-								}
-								label="Remember me"
-							/>
+							<Box />
 
 							<Button color="primary">Forgot password?</Button>
 						</Container>
