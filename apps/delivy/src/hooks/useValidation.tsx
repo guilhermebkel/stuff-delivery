@@ -43,10 +43,12 @@ const useValidation = () => {
 	}
 
 	const clearValidation = (key: string) => {
-		setValidation(lastValidation => ({
-			...lastValidation,
-			[key]: undefined
-		}))
+		if (key in validation) {
+			setValidation(lastValidation => ({
+				...lastValidation,
+				[key]: undefined
+			}))
+		}
 	}
 
 	return {
