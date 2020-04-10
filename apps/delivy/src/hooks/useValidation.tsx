@@ -3,6 +3,10 @@ import { AxiosError } from "axios"
 
 import { Notification, Alert } from "../components"
 
+interface Validation {
+	[key: string]: any
+}
+
 const parseError = (error: AxiosError) => {
 	const validationMessages = error?.response?.data?.messages
 	const errorMessage = error?.message
@@ -14,7 +18,7 @@ const parseError = (error: AxiosError) => {
 }
 
 const useValidation = () => {
-	const [validation, setValidation] = useState({})
+	const [validation, setValidation] = useState({} as Validation)
 
 	const triggerValidation = (error: AxiosError) => {
 		const data = parseError(error)
@@ -44,17 +48,20 @@ const useValidation = () => {
 
 	const clearValidation = (key: string) => {
 		if (key in validation) {
-			setValidation(lastValidation => ({
-				...lastValidation,
-				[key]: undefined
-			}))
+			setValidation(lastValidation => {
+				const updatedData = { ...lastValidation }
+
+				delete updatedData[key]
+
+				return updatedData
+			})
 		}
 	}
 
 	return {
 		triggerValidation,
 		clearValidation,
-		validation: validation as any
+		validation
 	}
 }
 
