@@ -30,8 +30,8 @@ class Consumer {
 					const consumer = this.consumers[job.event as any] as KafkaConsumer
 
 					await consumer.connect()
-	
-					await consumer.subscribe({ topic: job.event })
+
+					await consumer.subscribe({ topic: job.event, fromBeginning: true })
 	
 					await consumer.run({
 						eachMessage: async ({ message }) => {
