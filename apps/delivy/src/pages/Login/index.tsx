@@ -10,7 +10,8 @@ import {
 	FormControlLabel,
 	Checkbox,
 	Button,
-	CircularProgress
+	CircularProgress,
+	useTheme
 } from "@material-ui/core"
 
 import { Divider, Form } from "../../components"
@@ -48,6 +49,7 @@ const Login = () => {
 	const classes = useStyle()
 	const history = useHistory()
 	const [saveToken, setSaveToken] = useState(false)
+	const theme = useTheme()
 
 	const [loginData, setLoginData] = useState({ email: "", password: "" })
 	const [loadingLogin, setLoadingLogin] = useState(false)
@@ -85,7 +87,7 @@ const Login = () => {
 
 	return (
 		<Grid container>
-			<Grid container xs={12} sm={12} md={6} lg={4} xl={3} justify="center" alignItems="center">
+			<Grid container xs={12} sm={12} md={6} lg={4} xl={3} justify="center" alignItems="center" style={{ backgroundColor: theme.palette.background.default }}>
 				<Container className={classes.formContainer} style={{ display: "flex", flexDirection: "column" }}>
 					<img src={fullLogo} alt="Delivery stuff" className={classes.logo} />
 

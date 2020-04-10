@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { Grid, makeStyles } from "@material-ui/core"
+import { Grid, makeStyles, useTheme } from "@material-ui/core"
 import lottie from "lottie-web"
 
 import deliveryManAnimation from "../../assets/animations/delivery-man.json"
@@ -31,6 +31,8 @@ const Loading = (props: LoadingProps) => {
 
 	const classes = useStyle()
 
+	const theme = useTheme()
+
 	const initAnimation = () => {
 		lottie.loadAnimation({
 			container: document.getElementById(LOADING_TAG_ID) as any,
@@ -53,6 +55,7 @@ const Loading = (props: LoadingProps) => {
 				alignItems="center"
 				className={classes.container}
 				direction="column"
+				style={{ backgroundColor: theme.palette.background.default }}
 			>
 				<img src={fullLogo} className={classes.logo} alt="StuffDelivery" />
 				<div id={LOADING_TAG_ID} className={classes.loadingAnimation} />

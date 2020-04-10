@@ -8,7 +8,8 @@ import {
 	Typography,
 	TextField,
 	Button,
-	CircularProgress
+	CircularProgress,
+	useTheme
 } from "@material-ui/core"
 
 import { Divider, Form } from "../../components"
@@ -45,6 +46,7 @@ const useStyle = makeStyles({
 const Signup = () => {
 	const classes = useStyle()
 	const history = useHistory()
+	const theme = useTheme()
 
 	const [signupData, setSignupData] = useState({ name: "", email: "", password: "" })
 	const [loadingSignup, setLoadingSignup] = useState(false)
@@ -78,7 +80,7 @@ const Signup = () => {
 
 	return (
 		<Grid container>
-			<Grid container xs={12} sm={12} md={6} lg={4} xl={3} justify="center" alignItems="center">
+			<Grid container xs={12} sm={12} md={6} lg={4} xl={3} justify="center" alignItems="center" style={{ backgroundColor: theme.palette.background.default }}>
 				<Container className={classes.formContainer} style={{ display: "flex", flexDirection: "column" }}>
 					<img src={fullLogo} alt="Delivery stuff" className={classes.logo} />
 
