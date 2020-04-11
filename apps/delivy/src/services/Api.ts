@@ -2,7 +2,7 @@ import axios from "axios"
 
 import AuthService from "./Auth"
 
-export type MicroserviceName = "hermes" | "asgardian"
+import { MicroserviceName } from "../interfaces/Microservice"
 
 function ApiService(microserviceName: MicroserviceName) {
 	const client = axios.create({
