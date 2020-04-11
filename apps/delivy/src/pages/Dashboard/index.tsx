@@ -107,7 +107,7 @@ const Dashboard = () => {
 		<Loading loading={loading}>
 			<Grid container style={{ backgroundColor: theme.palette.info.main, userSelect: "none" }}>
 				<Grid item xs={12} sm={12} md={4} lg={3} xl={3}>
-					<Divider size={1} />
+					<Divider size={2} />
 
 					<Grid container item className={classes.asideHeader}>
 						<img src={fullLogo} className={classes.logo} alt="logo" />
