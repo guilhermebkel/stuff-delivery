@@ -1,14 +1,16 @@
 import React from "react"
 
+interface Package {
+	id: number
+	last_place_consolidated: string
+	last_place: string
+	tracking_code: string
+	last_update: Date
+	status: string
+}
+
 interface PackageListProps {
-	packages: Array<{
-		id: number
-		last_place_consolidated: string
-		last_place: string
-		tracking_code: string
-		last_update: Date
-		status: string
-	}>
+	packages: Array<Package>
 }
 
 const PackageList = (props: PackageListProps) => {
