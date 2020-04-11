@@ -75,6 +75,11 @@ export default createMuiTheme({
 			root: {
 				color: palette[SELECTED_PALETTE].text,
 			}
+		},
+		MuiIconButton: {
+			root: {
+				color: "rgba(255, 255, 255, 1)"
+			}
 		}
 	},
 	typography: {

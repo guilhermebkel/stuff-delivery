@@ -15,8 +15,10 @@ import fullLogo from "../../assets/full-logo.png"
 
 const useStyle = makeStyles({
 	routesContainer: {
-		borderTopLeftRadius: "30px",
-		borderBottomLeftRadius: "30px"
+		borderRadius: "20px",
+		margin: "10px 10px 10px 0",
+		padding: "20px",
+		flex: 1
 	},
 	logo: {
 		width: "auto",
@@ -25,9 +27,6 @@ const useStyle = makeStyles({
 	asideHeader: {
 		justifyContent: "space-between",
 		padding: "0 25px"
-	},
-	menuItem: {
-
 	},
 	selectedBar: {
 		height: "55px",
@@ -56,7 +55,7 @@ interface CustomMenuItemProps {
 const Dashboard = () => {
 	const [loading, setLoading] = useState(true)
 
-	setTimeout(() => setLoading(false), 1500)
+	setTimeout(() => setLoading(false), 1000)
 
 	const theme = useTheme()
 
@@ -106,9 +105,9 @@ const Dashboard = () => {
 
 	return (
 		<Loading loading={loading}>
-			<Grid container style={{ backgroundColor: theme.palette.info.main }}>
+			<Grid container style={{ backgroundColor: theme.palette.info.main, userSelect: "none" }}>
 				<Grid item xs={12} sm={12} md={4} lg={3} xl={3}>
-					<Divider size={2} />
+					<Divider size={1} />
 
 					<Grid container item className={classes.asideHeader}>
 						<img src={fullLogo} className={classes.logo} alt="logo" />
@@ -116,12 +115,12 @@ const Dashboard = () => {
 						<Grid>
 							<IconButton>
 								<Badge badgeContent={4} color="primary">
-									<FontAwesomeIcon icon={faBell} color={theme.palette.background.default} />
+									<FontAwesomeIcon icon={faBell} color={theme.palette.background.default} size="sm" />
 								</Badge>
 							</IconButton>
 
 							<IconButton onClick={() => AuthService.logout()}>
-								<FontAwesomeIcon icon={faSignOutAlt} color={theme.palette.background.default} />
+								<FontAwesomeIcon icon={faSignOutAlt} color={theme.palette.background.default} size="sm" />
 							</IconButton>
 						</Grid>
 					</Grid>
@@ -159,13 +158,17 @@ const Dashboard = () => {
 					</MenuList>
 				</Grid>
 				<Grid
-					container
-					item 
+					item
 					xs={12} sm={12} md={8} lg={9} xl={9}
-					className={classes.routesContainer}
-					style={{ backgroundColor: theme.palette.background.default }}
+					style={{ height: "100%", display: "flex", flexDirection: "column" }}
 				>
-					<DashboardRoutes />
+					<Grid
+						item
+						className={classes.routesContainer}
+						style={{ backgroundColor: theme.palette.background.default }}
+					>
+						<DashboardRoutes />
+					</Grid>
 				</Grid>
 			</Grid>
 		</Loading>
