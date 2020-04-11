@@ -17,7 +17,7 @@ const useStyle = makeStyles({
 	routesContainer: {
 		borderRadius: "20px",
 		margin: "10px 10px 10px 0",
-		padding: "20px",
+		padding: "30px 40px",
 		flex: 1
 	},
 	logo: {

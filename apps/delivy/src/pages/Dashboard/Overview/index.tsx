@@ -8,7 +8,7 @@ import PackageList from "./PackageList"
 const Overview = () => {
 	const [loading, setLoading] = useState(true)
 
-	setTimeout(() => setLoading(false), 2500)
+	setTimeout(() => setLoading(false), 500)
 
 	return (
 		<Grid>
@@ -20,7 +20,40 @@ const Overview = () => {
 
 			<PackageList
 				loading={loading}
-				packages={[]}
+				packages={[
+					{
+						id: 1,
+						last_place: "Fundão, Espírito Santo",
+						last_place_consolidated: "Your house",
+						last_update: "30 Mar 2020",
+						status: "Delivered",
+						tracking_code: "SS123456789BR"
+					},
+					{
+						id: 2,
+						last_place: "Belo Horizonte, MG",
+						last_place_consolidated: "Courier",
+						last_update: "02 April 2020",
+						status: "New",
+						tracking_code: "SS123456789BR"
+					},
+					{
+						id: 3,
+						last_place: "No track",
+						last_place_consolidated: "Finding",
+						last_update: "No update",
+						status: "Waiting",
+						tracking_code: "SS123456789BR"
+					},
+					{
+						id: 4,
+						last_place: "Vitória, Espírito Santo",
+						last_place_consolidated: "Lost",
+						last_update: "20 Jan 2020",
+						status: "Lost",
+						tracking_code: "SS123456789BR"
+					}
+				]}
 			/>
 		</Grid>
 	)

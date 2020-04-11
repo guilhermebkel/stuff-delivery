@@ -13,6 +13,10 @@ html, body, #root {
 	font-family: "Lato", sans-serif;
 }
 
+ul {
+	outline: none;
+}
+
 body{
 	text-rendering: optimizeLegibility !important;
 	-webkit-font-smoothing: antialiased !important;
