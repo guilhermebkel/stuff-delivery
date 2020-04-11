@@ -9,12 +9,12 @@ import defaultMiddlewares from "./middlewares"
 class Server {
 	private server: HttpServer
 	private app: Express
-	private socket: SocketServer
+	private _socket: SocketServer
 
 	constructor() {
 		this.app = express()
 		this.server = Http.createServer(this.app)
-		this.socket = Socket(this.server)
+		this._socket = Socket(this.server)
 	}
 
 	setup(routes: any[], middlewares: RequestHandler[] = defaultMiddlewares): void {
@@ -35,6 +35,10 @@ class Server {
 		this.server.listen(serverConfig.port, () => {
 			console.log(`Server is running... [PORT ${serverConfig.port}]`)
 		})
+	}
+
+	get socket() {
+		return this._socket
 	}
 }
 
