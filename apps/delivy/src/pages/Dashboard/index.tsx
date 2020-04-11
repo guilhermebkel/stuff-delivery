@@ -55,7 +55,7 @@ interface CustomMenuItemProps {
 const Dashboard = () => {
 	const [loading, setLoading] = useState(true)
 
-	setTimeout(() => setLoading(false), 1000)
+	setTimeout(() => setLoading(false), 1500)
 
 	const theme = useTheme()
 
