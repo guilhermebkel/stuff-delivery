@@ -12,7 +12,7 @@ function ApiService(microserviceName: MicroserviceName) {
 	client.interceptors.request.use(config => {
 		config.headers = {
 			...config.headers,
-			...(AuthService.token ? { Authorization: `Bearer ${AuthService.token}`} : {})
+			...(AuthService.token ? { Authorization: `Bearer ${AuthService.token}` } : {})
 		}
 
 		return config
