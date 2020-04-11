@@ -3,7 +3,7 @@ import { useLocation, Link, useHistory } from "react-router-dom"
 import { makeStyles, Grid, useTheme, IconButton, MenuItem, MenuList, Typography, Badge } from "@material-ui/core"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBell, faCalendarAlt, faUserCircle } from "@fortawesome/free-regular-svg-icons"
-import { faHome, faCalculator, faSignOutAlt } from "@fortawesome/free-solid-svg-icons"
+import { faHome, faCalculator, faPowerOff } from "@fortawesome/free-solid-svg-icons"
 
 import { Loading, Divider } from "../../components"
 
@@ -120,7 +120,7 @@ const Dashboard = () => {
 							</IconButton>
 
 							<IconButton onClick={() => AuthService.logout()}>
-								<FontAwesomeIcon icon={faSignOutAlt} color={theme.palette.background.default} size="sm" />
+								<FontAwesomeIcon icon={faPowerOff} color={theme.palette.background.default} size="sm" />
 							</IconButton>
 						</Grid>
 					</Grid>
