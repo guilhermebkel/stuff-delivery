@@ -4,6 +4,7 @@ import { Typography, Grid } from "@material-ui/core"
 import { Divider } from "@delivy/components"
 
 import PackageList from "@delivy/pages/Dashboard/Overview/PackageList"
+import NewPackageBanner from "@delivy/pages/Dashboard/Overview/NewPackageBanner"
 
 const Overview = () => {
 	const [loading, setLoading] = useState(true)
@@ -12,6 +13,10 @@ const Overview = () => {
 
 	return (
 		<Grid>
+			<NewPackageBanner />
+
+			<Divider size={2} />
+
 			<Typography variant="h6">
 				Your packages
 			</Typography>
