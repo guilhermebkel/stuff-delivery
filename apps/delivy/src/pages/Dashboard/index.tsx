@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { useLocation, Link, useHistory } from "react-router-dom"
-import { makeStyles, Grid, useTheme, IconButton, MenuItem, MenuList, Typography, Badge } from "@material-ui/core"
+import { makeStyles, Grid, useTheme, IconButton, MenuItem, MenuList, Typography, Badge, Tooltip } from "@material-ui/core"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBell, faCalendarAlt, faUserCircle } from "@fortawesome/free-regular-svg-icons"
 import { faHome, faCalculator, faPowerOff } from "@fortawesome/free-solid-svg-icons"
@@ -113,15 +113,19 @@ const Dashboard = () => {
 						<img src={fullLogo} className={classes.logo} alt="logo" />
 						
 						<Grid>
-							<IconButton>
-								<Badge badgeContent={4} color="primary">
-									<FontAwesomeIcon icon={faBell} color={theme.palette.background.default} size="sm" />
-								</Badge>
-							</IconButton>
+							<Tooltip title="Notifications">
+								<IconButton>
+									<Badge badgeContent={4} color="primary">
+										<FontAwesomeIcon icon={faBell} color={theme.palette.background.default} size="sm" />
+									</Badge>
+								</IconButton>
+							</Tooltip>
 
-							<IconButton onClick={() => AuthService.logout()}>
-								<FontAwesomeIcon icon={faPowerOff} color={theme.palette.background.default} size="sm" />
-							</IconButton>
+							<Tooltip title="Logout">
+								<IconButton onClick={() => AuthService.logout()}>
+									<FontAwesomeIcon icon={faPowerOff} color={theme.palette.background.default} size="sm" />
+								</IconButton>
+							</Tooltip>
 						</Grid>
 					</Grid>
 
