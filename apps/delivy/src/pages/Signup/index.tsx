@@ -12,15 +12,15 @@ import {
 	useTheme
 } from "@material-ui/core"
 
-import { Divider, Form } from "../../components"
+import { Divider, Form } from "@delivy/components"
 
-import ApiService from "../../services/Api"
-import AuthService from "../../services/Auth"
+import ApiService from "@delivy/services/Api"
+import AuthService from "@delivy/services/Auth"
 
-import useValidation from "../../hooks/useValidation"
+import useValidation from "@delivy/hooks/useValidation"
 
-import deliveryPicture from "../../assets/delivery.png"
-import fullLogo from "../../assets/full-logo.png"
+import deliveryPicture from "@delivy/assets/delivery.png"
+import fullLogo from "@delivy/assets/full-logo.png"
 
 const isMobile = window.innerWidth < 962
 

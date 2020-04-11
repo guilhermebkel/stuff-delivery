@@ -1,7 +1,7 @@
 import React from "react"
 import { Switch, Route } from "react-router-dom"
 
-import Overview from "../pages/Dashboard/Overview"
+import Overview from "@delivy/pages/Dashboard/Overview"
 
 const Routes = () => (
 	<Switch>

@@ -1,10 +1,10 @@
 import React from "react"
 import { BrowserRouter, Switch, Route } from "react-router-dom"
 
-import Login from "./pages/Login"
-import Signup from "./pages/Signup"
+import Login from "@delivy/pages/Login"
+import Signup from "@delivy/pages/Signup"
 
-import Routes from "./routes"
+import Routes from "@delivy/routes"
 
 const App = () => {
   return (

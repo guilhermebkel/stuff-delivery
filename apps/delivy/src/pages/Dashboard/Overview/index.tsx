@@ -1,9 +1,9 @@
 import React, { useState } from "react"
 import { Typography, Grid } from "@material-ui/core"
 
-import { Divider } from "../../../components"
+import { Divider } from "@delivy/components"
 
-import PackageList from "./PackageList"
+import PackageList from "@delivy/pages/Dashboard/Overview/PackageList"
 
 const Overview = () => {
 	const [loading, setLoading] = useState(true)

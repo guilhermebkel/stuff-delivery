@@ -5,13 +5,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBell, faCalendarAlt, faUserCircle } from "@fortawesome/free-regular-svg-icons"
 import { faHome, faCalculator, faPowerOff } from "@fortawesome/free-solid-svg-icons"
 
-import { Loading, Divider } from "../../components"
+import { Loading, Divider } from "@delivy/components"
 
-import DashboardRoutes from "../../routes/dashboard"
+import DashboardRoutes from "@delivy/routes/dashboard"
 
-import AuthService from "../../services/Auth"
+import AuthService from "@delivy/services/Auth"
 
-import fullLogo from "../../assets/full-logo.png"
+import fullLogo from "@delivy/assets/full-logo.png"
 
 const useStyle = makeStyles({
 	routesContainer: {

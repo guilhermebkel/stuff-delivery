@@ -3,8 +3,8 @@ import { Grid, makeStyles, Zoom, Fade } from "@material-ui/core"
 import lottie from "lottie-web"
 import { JackInTheBox, Pulse } from "react-awesome-reveal"
 
-import deliveryManAnimation from "../../assets/animations/delivery-man.json"
-import fullLogo from "../../assets/full-logo.png"
+import deliveryManAnimation from "@delivy/assets/animations/delivery-man.json"
+import fullLogo from "@delivy/assets/full-logo.png"
 
 const LOADING_TAG_ID = "loading"
 

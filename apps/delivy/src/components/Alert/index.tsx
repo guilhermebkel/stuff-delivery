@@ -10,9 +10,9 @@ import {
 	makeStyles
 } from "@material-ui/core"
 
-import NodeUtil from "../../utils/Node"
+import NodeUtil from "@delivy/utils/Node"
 
-import theme from "../../styles/theme"
+import theme from "@delivy/styles/theme"
 
 import "./icons.scss"
 

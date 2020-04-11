@@ -1,8 +1,8 @@
 import axios from "axios"
 
-import AuthService from "./Auth"
+import AuthService from "@delivy/services/Auth"
 
-import { MicroserviceName } from "../interfaces/Microservice"
+import { MicroserviceName } from "@delivy/interfaces/Microservice"
 
 function ApiService(microserviceName: MicroserviceName) {
 	const client = axios.create({

@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { AxiosError } from "axios"
 
-import { Notification, Alert } from "../components"
+import { Notification, Alert } from "@delivy/components"
 
 interface Validation {
 	[key: string]: any

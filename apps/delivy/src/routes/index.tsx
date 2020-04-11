@@ -1,7 +1,7 @@
 import React from "react"
 import { Switch, Route, Redirect } from "react-router-dom"
 
-import Dashboard from "../pages/Dashboard"
+import Dashboard from "@delivy/pages/Dashboard"
 
 const Routes = () => (
 	<Switch>

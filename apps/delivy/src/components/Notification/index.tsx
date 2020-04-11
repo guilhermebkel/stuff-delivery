@@ -3,9 +3,9 @@ import Snackbar, { SnackbarProps } from "@material-ui/core/Snackbar"
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert"
 import { ThemeProvider } from "@material-ui/core"
 
-import theme from "../../styles/theme"
+import theme from "@delivy/styles/theme"
 
-import NodeUtil from "../../utils/Node"
+import NodeUtil from "@delivy/utils/Node"
 
 interface NotificationType {
 	type: "success" | "info" | "warning" | "error"
