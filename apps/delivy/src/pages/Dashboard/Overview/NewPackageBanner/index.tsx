@@ -67,7 +67,13 @@ const useStyle = makeStyles(theme => ({
 	}
 }))
 
-const NewPackageBanner = () => {
+interface NewPackageBannerProps {
+	onSubmit: () => void
+}
+
+const NewPackageBanner = (props: NewPackageBannerProps) => {
+	const { onSubmit } = props
+
 	const classes = useStyle()
 
 	const theme = useTheme()
@@ -99,6 +105,7 @@ const NewPackageBanner = () => {
 						variant="contained"
 						color="secondary"
 						style={{ fontWeight: "bold" }}
+						onClick={onSubmit}
 					>
 						ADD PACKAGE
 					</Button>

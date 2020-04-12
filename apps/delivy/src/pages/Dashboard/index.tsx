@@ -1,9 +1,20 @@
 import React, { useState, useEffect } from "react"
 import { useLocation, Link, useHistory } from "react-router-dom"
-import { makeStyles, Grid, useTheme, IconButton, MenuItem, MenuList, Typography, Badge, Tooltip } from "@material-ui/core"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBell, faCalendarAlt, faUserCircle } from "@fortawesome/free-regular-svg-icons"
 import { faHome, faCalculator, faPowerOff } from "@fortawesome/free-solid-svg-icons"
+import {
+	makeStyles,
+	Grid,
+	useTheme,
+	IconButton,
+	MenuItem,
+	MenuList,
+	Typography,
+	Badge,
+	Tooltip,
+	Drawer
+} from "@material-ui/core"
 
 import { Loading, Divider } from "@delivy/components"
 
@@ -107,59 +118,66 @@ const Dashboard = () => {
 		<Loading loading={loading}>
 			<Grid container style={{ backgroundColor: theme.palette.info.main, userSelect: "none" }}>
 				<Grid item xs={12} sm={12} md={4} lg={3} xl={3}>
-					<Divider size={2} />
+					<Drawer
+						variant="permanent"
+						open
+						anchor="left"
+						PaperProps={{ style: { backgroundColor: "transparent", position: "relative", borderRight: "0 solid transparent" }}}
+					>
+						<Divider size={2} />
 
-					<Grid container item className={classes.asideHeader}>
-						<img src={fullLogo} className={classes.logo} alt="logo" />
-						
-						<Grid>
-							<Tooltip title="Notifications">
-								<IconButton>
-									<Badge badgeContent={4} color="primary">
-										<FontAwesomeIcon icon={faBell} color={theme.palette.background.default} size="sm" />
-									</Badge>
-								</IconButton>
-							</Tooltip>
+						<Grid container item className={classes.asideHeader}>
+							<img src={fullLogo} className={classes.logo} alt="logo" />
+							
+							<Grid>
+								<Tooltip title="Notifications">
+									<IconButton>
+										<Badge badgeContent={4} color="primary">
+											<FontAwesomeIcon icon={faBell} color={theme.palette.background.default} size="sm" />
+										</Badge>
+									</IconButton>
+								</Tooltip>
 
-							<Tooltip title="Logout">
-								<IconButton onClick={() => AuthService.logout()}>
-									<FontAwesomeIcon icon={faPowerOff} color={theme.palette.background.default} size="sm" />
-								</IconButton>
-							</Tooltip>
+								<Tooltip title="Logout">
+									<IconButton onClick={() => AuthService.logout()}>
+										<FontAwesomeIcon icon={faPowerOff} color={theme.palette.background.default} size="sm" />
+									</IconButton>
+								</Tooltip>
+							</Grid>
 						</Grid>
-					</Grid>
 
-					<Divider size={2} />
+						<Divider size={2} />
 
-					<MenuList>
-						<CustomMenuItem
-							icon={faHome}
-							name="Overview"
-							selected={isSelected(["overview"])}
-							path="/dashboard/overview"
-						/>
+						<MenuList>
+							<CustomMenuItem
+								icon={faHome}
+								name="Overview"
+								selected={isSelected(["overview"])}
+								path="/dashboard/overview"
+							/>
 
-						<CustomMenuItem
-							icon={faCalendarAlt}
-							name="History"
-							selected={isSelected(["history"])}
-							path="/dashboard/history"
-						/>
+							<CustomMenuItem
+								icon={faCalendarAlt}
+								name="History"
+								selected={isSelected(["history"])}
+								path="/dashboard/history"
+							/>
 
-						<CustomMenuItem
-							icon={faCalculator}
-							name="Calculator"
-							selected={isSelected(["calculator"])}
-							path="/dashboard/calculator"
-						/>
+							<CustomMenuItem
+								icon={faCalculator}
+								name="Calculator"
+								selected={isSelected(["calculator"])}
+								path="/dashboard/calculator"
+							/>
 
-						<CustomMenuItem
-							icon={faUserCircle}
-							name="Account"
-							selected={isSelected(["account"])}
-							path="/dashboard/account"
-						/>
-					</MenuList>
+							<CustomMenuItem
+								icon={faUserCircle}
+								name="Account"
+								selected={isSelected(["account"])}
+								path="/dashboard/account"
+							/>
+						</MenuList>
+					</Drawer>
 				</Grid>
 				<Grid
 					item

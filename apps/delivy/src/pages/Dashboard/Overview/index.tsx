@@ -1,19 +1,28 @@
 import React, { useState } from "react"
-import { Typography, Grid } from "@material-ui/core"
+import { Typography, Grid,  } from "@material-ui/core"
 
 import { Divider } from "@delivy/components"
 
 import PackageList from "@delivy/pages/Dashboard/Overview/PackageList"
 import NewPackageBanner from "@delivy/pages/Dashboard/Overview/NewPackageBanner"
+import NewSubscriptionModal from "@delivy/pages/Dashboard/Overview/NewSubscriptionModal"
 
 const Overview = () => {
 	const [loading, setLoading] = useState(true)
+	const [newSubscriptionModalVisibility, setNewSubscriptionModalVisibility] = useState(false)
 
 	setTimeout(() => setLoading(false), 500)
 
 	return (
 		<Grid>
-			<NewPackageBanner />
+			<NewSubscriptionModal
+				onClose={() => setNewSubscriptionModalVisibility(false)}
+				visible={newSubscriptionModalVisibility}
+			/>
+			
+			<NewPackageBanner
+				onSubmit={() => setNewSubscriptionModalVisibility(true)}
+			/>
 
 			<Divider size={2} />
 
