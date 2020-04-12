@@ -7,16 +7,7 @@ import { faIgloo, faTruckLoading } from "@fortawesome/free-solid-svg-icons"
 
 import { Divider } from "@delivy/components"
 
-type PackageStatus = "Delivered" | "New" | "Lost" | "Waiting"
-
-interface Package {
-	id: number
-	last_place_consolidated: string
-	last_place: string
-	tracking_code: string
-	last_update: Date | string
-	status: PackageStatus
-}
+import { Package } from "@delivy/pages/Dashboard/Overview"
 
 interface PackageListProps {
 	packages: Array<Package>

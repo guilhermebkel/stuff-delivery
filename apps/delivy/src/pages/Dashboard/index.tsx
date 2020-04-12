@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import moment from "moment"
 import { useLocation, Link, useHistory } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBell, faCalendarAlt, faUserCircle } from "@fortawesome/free-regular-svg-icons"
@@ -13,7 +14,9 @@ import {
 	Typography,
 	Badge,
 	Tooltip,
-	Drawer
+	Drawer,
+	Menu,
+	Fade
 } from "@material-ui/core"
 
 import { Loading, Divider } from "@delivy/components"
@@ -21,6 +24,9 @@ import { Loading, Divider } from "@delivy/components"
 import DashboardRoutes from "@delivy/routes/dashboard"
 
 import AuthService from "@delivy/services/Auth"
+// import ApiService from "@delivy/services/Api"
+
+import useValidation from "@delivy/hooks/useValidation"
 
 import fullLogo from "@delivy/assets/full-logo.png"
 
@@ -53,8 +59,14 @@ const useStyle = makeStyles({
 		paddingLeft: "25px",
 		width: "100%",
 		height: "55px"
+	},
+	notificationTime: {
+		opacity: 0.7,
+		marginBottom: "10px"
 	}
 })
+
+const isMobile = window.innerWidth < 500
 
 interface CustomMenuItemProps {
 	path: string
@@ -63,10 +75,20 @@ interface CustomMenuItemProps {
 	name: string
 }
 
+interface Notification {
+	date: Date
+	title: string
+	description: string
+	seen: boolean
+}
+
 const Dashboard = () => {
 	const [loading, setLoading] = useState(true)
 
-	setTimeout(() => setLoading(false), 1500)
+	const [menu, setMenu] = useState<null | HTMLElement>(null)
+	const [notifications, setNotifications] = useState<Notification[]>([])
+
+	const { triggerValidation } = useValidation()
 
 	const theme = useTheme()
 
@@ -74,6 +96,14 @@ const Dashboard = () => {
 
 	const location = useLocation()
 	const history = useHistory()
+
+	const handleOpenNotificationMenu = (event: React.MouseEvent<HTMLElement>) => {
+		setMenu(event.currentTarget)
+	}
+
+	const handleCloseNotificationMenu = () => {
+		setMenu(null)
+	}
 
 	const isSelected = (name: string[]) => {
 		const { pathname } = location
@@ -84,6 +114,28 @@ const Dashboard = () => {
 			return true
 		} else {
 			return false
+		}
+	}
+
+	const handleRedirect = () => {
+		const { pathname } = location
+
+		if (pathname === "/dashboard") {
+			history.push("/dashboard/overview")
+		}
+	}
+
+	const getData = async () => {
+		try {
+			// await ApiService("asgardian").get("/data")
+
+			await new Promise(resolve => setTimeout(resolve, 2000))
+
+			setNotifications([])
+
+			setLoading(false)
+		} catch(error) {
+			triggerValidation(error)
 		}
 	}
 
@@ -104,39 +156,71 @@ const Dashboard = () => {
 	}
 
 	useEffect(() => {
-		const handleRedirect = () => {
-			const { pathname } = location
-
-			if (pathname === "/dashboard") {
-				history.push("/dashboard/overview")
-			}
-		}
 		handleRedirect()
-	}, [history, location])
+		getData()
+	}, [])
 
 	return (
 		<Loading loading={loading}>
 			<Grid container style={{ backgroundColor: theme.palette.info.main, userSelect: "none" }}>
 				<Grid item xs={12} sm={12} md={4} lg={3} xl={3}>
 					<Drawer
-						variant="permanent"
+						variant={isMobile ? "temporary" : "permanent"}
 						open
 						anchor="left"
-						PaperProps={{ style: { backgroundColor: "transparent", position: "relative", borderRight: "0 solid transparent" }}}
+						PaperProps={{
+							style: isMobile ? ({
+								backgroundColor: theme.palette.info.main
+							}) : ({
+								backgroundColor: "transparent", position: "relative", borderRight: "0 solid transparent"
+							})
+						}}
 					>
 						<Divider size={2} />
 
 						<Grid container item className={classes.asideHeader}>
-							<img src={fullLogo} className={classes.logo} alt="logo" />
+							<img src={fullLogo} className={classes.logo} style={isMobile ? { height: "45px" } : {}} alt="logo" />
 							
 							<Grid>
 								<Tooltip title="Notifications">
-									<IconButton>
-										<Badge badgeContent={4} color="primary">
+									<IconButton onClick={handleOpenNotificationMenu}>
+										<Badge badgeContent={notifications.filter(notification => !notification.seen).length} color="primary">
 											<FontAwesomeIcon icon={faBell} color={theme.palette.background.default} size="sm" />
 										</Badge>
 									</IconButton>
 								</Tooltip>
+
+								<Menu
+									anchorEl={menu}
+									keepMounted
+									open={!!menu}
+									onClose={handleCloseNotificationMenu}
+									TransitionComponent={Fade}
+									transformOrigin={{ vertical: "top", horizontal: "center" }}
+									style={{ marginTop: "70px", maxHeight: "370px" }}
+								>
+									{notifications.length ? (
+										<>
+											{notifications.map(notification => (
+												<MenuItem divider>
+													<Grid container direction="column" style={{ width: "300px" }}>
+														<Typography variant="caption" className={classes.notificationTime}>{moment(notification.date)}</Typography>
+
+														<Typography variant="body1">{notification.title}</Typography>
+														
+														<Typography variant="body2">{notification.description}</Typography>
+													</Grid>
+												</MenuItem>
+											))}
+										</>
+									) : (
+										<MenuItem>
+											<Grid container style={{ width: "300px" }}>
+												<Typography variant="body2">It looks you have no new notifications...</Typography>
+											</Grid>
+										</MenuItem>
+									)}
+								</Menu>
 
 								<Tooltip title="Logout">
 									<IconButton onClick={() => AuthService.logout()}>
