@@ -4,6 +4,7 @@ import { Grid, Fade, Avatar, Typography, useTheme, MenuList, MenuItem, Grow } fr
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faHourglass, faTimesCircle } from "@fortawesome/free-regular-svg-icons"
 import { faIgloo, faTruckLoading } from "@fortawesome/free-solid-svg-icons"
+import moment from "moment"
 
 import { Divider } from "@delivy/components"
 
@@ -111,7 +112,7 @@ const PackageList = (props: PackageListProps) => {
 								
 									<Grid container alignItems="center" item xs={2} sm={2} md={2} lg={2} xl={2}>
 										<Typography>
-											{deliveryPackage.last_update}
+											{deliveryPackage.last_update ? moment(deliveryPackage.last_update).format("ll") : "No update"}
 										</Typography>
 									</Grid>
 

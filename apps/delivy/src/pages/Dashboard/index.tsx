@@ -204,7 +204,7 @@ const Dashboard = () => {
 											{notifications.map(notification => (
 												<MenuItem divider>
 													<Grid container direction="column" style={{ width: "300px" }}>
-														<Typography variant="caption" className={classes.notificationTime}>{moment(notification.date)}</Typography>
+														<Typography variant="caption" className={classes.notificationTime}>{moment(notification.date).format("ll")}</Typography>
 
 														<Typography variant="body1">{notification.title}</Typography>
 														

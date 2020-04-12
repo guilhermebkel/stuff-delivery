@@ -18,7 +18,7 @@ export interface Package {
 	last_place_consolidated: string
 	last_place: string
 	tracking_code: string
-	last_update: Date | string
+	last_update?: Date
 	status: PackageStatus
 }
 
@@ -40,32 +40,31 @@ const Overview = () => {
 					id: 1,
 					last_place: "Fundão, Espírito Santo",
 					last_place_consolidated: "Your house",
-					last_update: "30 Mar 2020",
-					status: "Delivered",
+					last_update: new Date("30/03/2020"),
+					status: "Delivered" as PackageStatus,
 					tracking_code: "SS123456789BR"
 				},
 				{
 					id: 2,
 					last_place: "Belo Horizonte, MG",
 					last_place_consolidated: "Courier",
-					last_update: "02 April 2020",
-					status: "New",
+					last_update: new Date("02/04/2020"),
+					status: "New" as PackageStatus,
 					tracking_code: "SS123456789BR"
 				},
 				{
 					id: 3,
 					last_place: "No track",
 					last_place_consolidated: "Finding",
-					last_update: "No update",
-					status: "Waiting",
+					status: "Waiting" as PackageStatus,
 					tracking_code: "SS123456789BR"
 				},
 				{
 					id: 4,
 					last_place: "Vitória, Espírito Santo",
 					last_place_consolidated: "Lost",
-					last_update: "20 Jan 2020",
-					status: "Lost",
+					last_update: new Date("20/01/2020"),
+					status: "Lost" as PackageStatus,
 					tracking_code: "SS123456789BR"
 				}
 			])
