@@ -8,10 +8,13 @@ class TrackController {
 	async makeSubscription(req: AuthRequest, res: AuthResponse) {
 		const newSubscriptionData = req.body
 
-		const isNewSubscriptionSchemaValid = ValidateNewTrackSubscriptionService.run(newSubscriptionData)
+		const newSubscriptionSchemaValidation = ValidateNewTrackSubscriptionService.run(newSubscriptionData)
 
-		if (!isNewSubscriptionSchemaValid) {
-			return ResponseService.json(res, 400, { error: "InvalidDataSupplied" })
+		if (!newSubscriptionSchemaValidation.valid) {
+			return ResponseService.json(res, 400, {
+				error: "InvalidDataSupplied",
+				messages: newSubscriptionSchemaValidation.messages
+			})
 		}
 
 		const newTrackSubscription = await MakeNewTrackSubscriptionService.run(

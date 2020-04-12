@@ -3,7 +3,7 @@ import { Router } from "express"
 import PayloadController from "@hermes/controllers/Payload"
 import TrackController from "@hermes/controllers/Track"
 
-import { AuthMiddleware } from "@shared/auth"
+import AuthService from "@shared/auth"
 
 const route: any = Router()
 
@@ -69,7 +69,7 @@ const route: any = Router()
  *       "error": "InvalidDataSupplied"
  *     }
  */
-route.post("/payload", AuthMiddleware.isAdmin, PayloadController.registerNewPayload)
+route.post("/payload", AuthService.isAdminMiddleware, PayloadController.registerNewPayload)
 
 /**
  * @api {post} /hermes/track Track
@@ -109,6 +109,6 @@ route.post("/payload", AuthMiddleware.isAdmin, PayloadController.registerNewPayl
  *       "error": "InvalidDataSupplied"
  *     }
  */
-route.post("/track", AuthMiddleware.isAuthenticated, TrackController.makeSubscription)
+route.post("/track", AuthService.isAuthenticatedMiddleware, TrackController.makeSubscription)
 
 export default route
