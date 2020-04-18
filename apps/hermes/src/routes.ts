@@ -3,7 +3,7 @@ import { Router } from "express"
 import PayloadController from "@hermes/controllers/Payload"
 import TrackController from "@hermes/controllers/Track"
 
-import AuthService from "@shared/auth"
+import { AuthMiddleware } from "@shared/auth"
 
 const route: any = Router()
 
@@ -69,7 +69,7 @@ const route: any = Router()
  *       "error": "InvalidDataSupplied"
  *     }
  */
-route.post("/payload", AuthService.isAdminMiddleware, PayloadController.registerNewPayload)
+route.post("/payload", AuthMiddleware.isAdmin, PayloadController.registerNewPayload)
 
 /**
  * @api {post} /hermes/track Create track subscription
@@ -109,7 +109,7 @@ route.post("/payload", AuthService.isAdminMiddleware, PayloadController.register
  *       "error": "InvalidDataSupplied"
  *     }
  */
-route.post("/track", AuthService.isAuthenticatedMiddleware, TrackController.makeSubscription)
+route.post("/track", AuthMiddleware.isAuthenticated, TrackController.makeSubscription)
 
 /**
  * @api {get} /hermes/track Get track subscriptions
@@ -150,6 +150,6 @@ route.post("/track", AuthService.isAuthenticatedMiddleware, TrackController.make
  *       "error": "ResourceNotFound"
  *     }
  */
-route.get("/track", AuthService.isAuthenticatedMiddleware, TrackController.getCurrentTrackSubscriptions)
+route.get("/track", AuthMiddleware.isAuthenticated, TrackController.getCurrentTrackSubscriptions)
 
 export default route
