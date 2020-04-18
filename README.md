@@ -37,6 +37,8 @@ Stuff Delivery is a simple study of a microservice architecture using the most f
 - Redis
 - Postgres
 - Nginx
+- AWS S3
+- LocalStack
 
 ## 🛸 Microservices
 
