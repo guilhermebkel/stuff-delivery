@@ -24,3 +24,7 @@ export interface PayloadSchema {
 	receiver: Receiver
 	payloadDimensions: PayloadDimensions
 }
+
+export type PayloadStatus = "Delivered" | "New" | "Lost" | "Waiting"
+
+export type ConsolidatedPlace = "Courier" | "Finding" | "Lost" | "Your house"

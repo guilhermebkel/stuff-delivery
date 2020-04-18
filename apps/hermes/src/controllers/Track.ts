@@ -3,6 +3,7 @@ import { AuthRequest, AuthResponse } from "@shared/auth"
 import ResponseService from "@shared/response"
 import MakeNewTrackSubscriptionService from "@hermes/services/MakeNewTrackSubscription"
 import ValidateNewTrackSubscriptionService from "@hermes/services/ValidateNewTrackSubscriptionSchema"
+import RetrieveCurrentTrackSubscriptionsService from "@hermes/services/RetrieveCurrentTrackSubscriptions"
 
 class TrackController {
 	async makeSubscription(req: AuthRequest, res: AuthResponse) {
@@ -26,6 +27,16 @@ class TrackController {
 			return ResponseService.json(res, 201, { ...newTrackSubscription })
 		} else {
 			return ResponseService.json(res, 500, { error: "ServiceFailed" })
+		}
+	}
+
+	async getCurrentTrackSubscriptions(req: AuthRequest, res: AuthResponse) {
+		const tracks = await RetrieveCurrentTrackSubscriptionsService.run(req.authData.id)
+
+		if (tracks) {
+			return ResponseService.json(res, 200, { tracks })
+		} else {
+			return ResponseService.json(res, 404, { error: "ResourceNotFound" })
 		}
 	}
 }

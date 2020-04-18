@@ -4,7 +4,7 @@ class DeliveryTrack extends Model {
 	id: number
 	name: string
 	user_id: number
-	tracking_code: number
+	tracking_code: string
 	created_at: Date
 	updated_at: Date
 	deleted_at: Date

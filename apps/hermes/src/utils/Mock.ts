@@ -54,6 +54,14 @@ class MockUtil {
 		})
 	}
 
+	async generateDeliveryTrack(user_id: number) {
+		return await DeliveryTrack.create({
+			name: this.deliveryTrack.name,
+			tracking_code: this.deliveryTrack.trackingCode,
+			user_id
+		})
+	}
+
 	setupDatabase() {
 		Database.setupConnection()
 		Database.setupModels(models)

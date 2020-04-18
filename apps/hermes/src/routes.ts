@@ -8,7 +8,7 @@ import AuthService from "@shared/auth"
 const route: any = Router()
 
 /**
- * @api {post} /hermes/payload Payload
+ * @api {post} /hermes/payload Create payload
  * @apiName payload
  * @apiGroup Hermes
  * 
@@ -72,7 +72,7 @@ const route: any = Router()
 route.post("/payload", AuthService.isAdminMiddleware, PayloadController.registerNewPayload)
 
 /**
- * @api {post} /hermes/track Track
+ * @api {post} /hermes/track Create track subscription
  * @apiName track
  * @apiGroup Hermes
  * 
@@ -110,5 +110,45 @@ route.post("/payload", AuthService.isAdminMiddleware, PayloadController.register
  *     }
  */
 route.post("/track", AuthService.isAuthenticatedMiddleware, TrackController.makeSubscription)
+
+/**
+ * @api {get} /hermes/track Get track subscriptions
+ * @apiName track
+ * @apiGroup Hermes
+ * 
+ * @apiHeader {String} Authorization Auth user token.
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *       "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MS"
+ *     }
+ * 
+ * @apiPermission user
+ * 
+ * @apiSuccess {Object} tracks A list of current track.
+ * 
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "tracks": [
+ *          {
+ *            "id": 2,
+ *            "last_place": "Belo Horizonte, MG",
+ *            "last_place_consolidated": "Courier",
+ *            "last_update": "02/04/2020",
+ *            "status": "New",
+ *            "tracking_code": "SS123456789BR"
+ *          }
+ *       ]
+ *     }
+ * 
+ * @apiError ResourceNotFound There are no subscriptions being tracked by the logged user.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 404 Bad Request
+ *     {
+ *       "error": "ResourceNotFound"
+ *     }
+ */
+route.get("/track", AuthService.isAuthenticatedMiddleware, TrackController.getCurrentTrackSubscriptions)
 
 export default route

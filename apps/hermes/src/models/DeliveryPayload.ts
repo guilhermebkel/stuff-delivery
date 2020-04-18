@@ -1,6 +1,6 @@
 import { Model, Sequelize, DataTypes } from "sequelize"
 
-import { Sender, Receiver, PayloadDimensions } from "@hermes/interfaces/DeliveryPayload"
+import { Sender, Receiver, PayloadDimensions, PayloadStatus } from "@hermes/interfaces/DeliveryPayload"
 
 class DeliveryPayload extends Model {
 	id: number
@@ -9,6 +9,7 @@ class DeliveryPayload extends Model {
 	receiver: Receiver
 	payload_dimensions: PayloadDimensions
 	tracking_code: string
+	status: PayloadStatus
 	created_at: Date
 	updated_at: Date
 	deleted_at: Date
@@ -38,6 +39,11 @@ class DeliveryPayload extends Model {
 			},
 			payload_dimensions: {
 				type: DataTypes.JSONB,
+				allowNull: false
+			},
+			status: {
+				type: DataTypes.STRING,
+				defaultValue: "New",
 				allowNull: false
 			}
 		}, {
