@@ -9,7 +9,7 @@ const route: any = Router()
 
 /**
  * @api {post} /hermes/payload Create payload
- * @apiName payload
+ * @apiName CreatePayload
  * @apiGroup Hermes
  * 
  * @apiParam {String} name Payload name.
@@ -73,7 +73,7 @@ route.post("/payload", AuthService.isAdminMiddleware, PayloadController.register
 
 /**
  * @api {post} /hermes/track Create track subscription
- * @apiName track
+ * @apiName CreateTrackSubscription
  * @apiGroup Hermes
  * 
  * @apiParam {String} name Payload name.
@@ -113,7 +113,7 @@ route.post("/track", AuthService.isAuthenticatedMiddleware, TrackController.make
 
 /**
  * @api {get} /hermes/track Get track subscriptions
- * @apiName track
+ * @apiName GetCurrentTrackSubscriptions
  * @apiGroup Hermes
  * 
  * @apiHeader {String} Authorization Auth user token.
@@ -132,6 +132,7 @@ route.post("/track", AuthService.isAuthenticatedMiddleware, TrackController.make
  *       "tracks": [
  *          {
  *            "id": 2,
+ *            "name": "Xiaomi A1",
  *            "last_place": "Belo Horizonte, MG",
  *            "last_place_consolidated": "Courier",
  *            "last_update": "02/04/2020",
@@ -144,7 +145,7 @@ route.post("/track", AuthService.isAuthenticatedMiddleware, TrackController.make
  * @apiError ResourceNotFound There are no subscriptions being tracked by the logged user.
  *
  * @apiErrorExample Error-Response:
- *     HTTP/1.1 404 Bad Request
+ *     HTTP/1.1 404 Not Found
  *     {
  *       "error": "ResourceNotFound"
  *     }

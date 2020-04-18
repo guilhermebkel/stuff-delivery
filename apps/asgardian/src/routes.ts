@@ -7,7 +7,7 @@ const route: any = Router()
 
 /**
  * @api {post} /asgardian/login Login
- * @apiName login
+ * @apiName Login
  * @apiGroup Asgardian
  * 
  * @apiParam {String} email User email.
@@ -47,7 +47,7 @@ route.post("/login", LoginController.login)
 
 /**
  * @api {post} /asgardian/signup Signup
- * @apiName signup
+ * @apiName Signup
  * @apiGroup Asgardian
  * 
  * @apiParam {String} email email.

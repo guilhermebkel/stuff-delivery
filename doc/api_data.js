@@ -3,7 +3,7 @@ define({ "api": [
     "type": "post",
     "url": "/asgardian/login",
     "title": "Login",
-    "name": "login",
+    "name": "Login",
     "group": "Asgardian",
     "parameter": {
       "fields": {
@@ -90,7 +90,7 @@ define({ "api": [
     "type": "post",
     "url": "/asgardian/signup",
     "title": "Signup",
-    "name": "signup",
+    "name": "Signup",
     "group": "Asgardian",
     "parameter": {
       "fields": {
@@ -194,7 +194,7 @@ define({ "api": [
     "type": "post",
     "url": "/hermes/payload",
     "title": "Create payload",
-    "name": "payload",
+    "name": "CreatePayload",
     "group": "Hermes",
     "parameter": {
       "fields": {
@@ -309,7 +309,7 @@ define({ "api": [
     "type": "post",
     "url": "/hermes/track",
     "title": "Create track subscription",
-    "name": "track",
+    "name": "CreateTrackSubscription",
     "group": "Hermes",
     "parameter": {
       "fields": {
@@ -410,7 +410,7 @@ define({ "api": [
     "type": "get",
     "url": "/hermes/track",
     "title": "Get track subscriptions",
-    "name": "track",
+    "name": "GetCurrentTrackSubscriptions",
     "group": "Hermes",
     "header": {
       "fields": {
@@ -452,7 +452,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"tracks\": [\n     {\n       \"id\": 2,\n       \"last_place\": \"Belo Horizonte, MG\",\n       \"last_place_consolidated\": \"Courier\",\n       \"last_update\": \"02/04/2020\",\n       \"status\": \"New\",\n       \"tracking_code\": \"SS123456789BR\"\n     }\n  ]\n}",
+          "content": "HTTP/1.1 200 OK\n{\n  \"tracks\": [\n     {\n       \"id\": 2,\n       \"name\": \"Xiaomi A1\",\n       \"last_place\": \"Belo Horizonte, MG\",\n       \"last_place_consolidated\": \"Courier\",\n       \"last_update\": \"02/04/2020\",\n       \"status\": \"New\",\n       \"tracking_code\": \"SS123456789BR\"\n     }\n  ]\n}",
           "type": "json"
         }
       ]
@@ -471,7 +471,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Error-Response:",
-          "content": "HTTP/1.1 404 Bad Request\n{\n  \"error\": \"ResourceNotFound\"\n}",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"error\": \"ResourceNotFound\"\n}",
           "type": "json"
         }
       ]
