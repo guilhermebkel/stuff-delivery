@@ -1,6 +1,7 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import { ThemeProvider } from "@material-ui/core"
+import { ConfirmProvider } from "material-ui-confirm"
 
 import App from "@delivy/App"
 
@@ -10,7 +11,9 @@ import "@delivy/styles/global.scss"
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <App />
+      <ConfirmProvider>
+        <App />
+      </ConfirmProvider>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById("root")

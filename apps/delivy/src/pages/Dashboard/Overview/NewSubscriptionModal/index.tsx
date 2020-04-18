@@ -21,6 +21,7 @@ import theme from "@delivy/styles/theme"
 
 interface NewSubscriptionModalProps {
 	onClose: () => void
+	onSubmit: () => Promise<void> | void
 	visible: boolean
 }
 
@@ -30,7 +31,7 @@ const SUBSCRIPTION_DATA = {
 }
 
 const NewSubscriptionModal = (props: NewSubscriptionModalProps) => {
-	const { onClose, visible } = props
+	const { onClose, visible, onSubmit } = props
 
 	const [loading, setLoading] = useState(false)
 
@@ -48,6 +49,7 @@ const NewSubscriptionModal = (props: NewSubscriptionModalProps) => {
 		try {
 			await ApiService("hermes").post("/track", { ...subscriptionData })
 			onClose()
+			onSubmit()
 			setSubscriptionData(SUBSCRIPTION_DATA)
 			Notification.success({ message: "Your package was added with success!" })
 		} catch(error) {

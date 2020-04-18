@@ -7,7 +7,7 @@ import PackageList from "@delivy/pages/Dashboard/Overview/PackageList"
 import NewPackageBanner from "@delivy/pages/Dashboard/Overview/NewPackageBanner"
 import NewSubscriptionModal from "@delivy/pages/Dashboard/Overview/NewSubscriptionModal"
 
-// import ApiService from "@delivy/services/Api"
+import ApiService from "@delivy/services/Api"
 
 import useValidation from "@delivy/hooks/useValidation"
 
@@ -15,11 +15,18 @@ type PackageStatus = "Delivered" | "New" | "Lost" | "Waiting"
 
 export interface Package {
 	id: number
+	name: string
 	last_place_consolidated: string
 	last_place: string
 	tracking_code: string
 	last_update?: Date
 	status: PackageStatus
+}
+
+export interface EditPackageData {
+	id: number
+	name: string
+	tracking_code: string
 }
 
 const Overview = () => {
@@ -31,48 +38,32 @@ const Overview = () => {
 
 	const getPackages = async () => {
 		try {
-			// await ApiService("hermes").get("/track")
+			const response = await ApiService("hermes").get("/track")
 
-			await new Promise(resolve => setTimeout(resolve, 500))
+			const { tracks } = response.data
 
-			setPackages([
-				{
-					id: 1,
-					last_place: "Fundão, Espírito Santo",
-					last_place_consolidated: "Your house",
-					last_update: new Date("30/03/2020"),
-					status: "Delivered" as PackageStatus,
-					tracking_code: "SS123456789BR"
-				},
-				{
-					id: 2,
-					last_place: "Belo Horizonte, MG",
-					last_place_consolidated: "Courier",
-					last_update: new Date("02/04/2020"),
-					status: "New" as PackageStatus,
-					tracking_code: "SS123456789BR"
-				},
-				{
-					id: 3,
-					last_place: "No track",
-					last_place_consolidated: "Finding",
-					status: "Waiting" as PackageStatus,
-					tracking_code: "SS123456789BR"
-				},
-				{
-					id: 4,
-					last_place: "Vitória, Espírito Santo",
-					last_place_consolidated: "Lost",
-					last_update: new Date("20/01/2020"),
-					status: "Lost" as PackageStatus,
-					tracking_code: "SS123456789BR"
-				}
-			])
+			setPackages(tracks)
 
 			setLoading(false)
 		} catch(error) {
-			triggerValidation(error)
+
+			const statusCode = +error?.response?.status
+
+			if (statusCode === 404) {
+				setPackages([])
+				setLoading(false)
+			} else {
+				triggerValidation(error)
+			}
 		}
+	}
+
+	const handleEditPackage = async (data: EditPackageData) => {
+		console.log(data)
+	}
+
+	const handleDeletePackage = async (deliveryPackageId: number) => {
+		console.log(deliveryPackageId)
 	}
 
 	useEffect(() => {
@@ -83,6 +74,7 @@ const Overview = () => {
 		<Grid>
 			<NewSubscriptionModal
 				onClose={() => setNewSubscriptionModalVisibility(false)}
+				onSubmit={getPackages}
 				visible={newSubscriptionModalVisibility}
 			/>
 			
@@ -101,6 +93,8 @@ const Overview = () => {
 			<PackageList
 				loading={loading}
 				packages={packages}
+				onDelete={handleDeletePackage}
+				onEdit={handleEditPackage}
 			/>
 		</Grid>
 	)
