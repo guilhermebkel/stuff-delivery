@@ -33,7 +33,7 @@ const PackageListSkeleton = (props: PackageListSkeletonProps) => {
 				<Grid item>
 					<Skeleton animation="wave" variant="rect" width={60} height={60} style={{ borderRadius: 5 }} />
 				</Grid>
-				<Grid item style={{ flex: 1, maxWidth: "80%" }}>
+				<Grid item style={{ flex: 1, maxWidth: "100%" }}>
 					<Skeleton animation="wave" variant="text" height={20} />
 
 					<Skeleton animation="wave" variant="text" height={20} />
