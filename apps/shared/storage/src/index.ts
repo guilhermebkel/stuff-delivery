@@ -1,4 +1,4 @@
-import { S3 } from "aws-sdk"
+import { S3, Endpoint } from "aws-sdk"
 
 import storageConfig from "./config"
 
@@ -14,9 +14,16 @@ class StorageService {
 	storage: S3
 
 	constructor() {
-		this.storage = new S3({
-			credentials: storageConfig as any
-		})
+		if (process.env.NODE_ENV === "development") {
+			this.storage = new S3({
+				// Localstack S3 URL
+				endpoint: new Endpoint(`http://localhost:4572`) as any
+			})
+		} else {
+			this.storage = new S3({
+				credentials: storageConfig as any
+			})
+		}
 	}
 
 	async upload(params: UploadParams) {

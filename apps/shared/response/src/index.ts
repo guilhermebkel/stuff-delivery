@@ -10,7 +10,8 @@ type ResponseError =
 "NoAuthTokenProvided" |
 "NotAuthenticated" |
 "NotAuthenticatedAdmin" |
-"MalformedTokenHeaders"
+"MalformedTokenHeaders" |
+"ResourceNotFound"
 
 interface ResponseJsonData {
 	error?: ResponseError

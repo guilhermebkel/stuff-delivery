@@ -193,7 +193,7 @@ define({ "api": [
   {
     "type": "post",
     "url": "/hermes/payload",
-    "title": "Payload",
+    "title": "Create payload",
     "name": "payload",
     "group": "Hermes",
     "parameter": {
@@ -308,7 +308,7 @@ define({ "api": [
   {
     "type": "post",
     "url": "/hermes/track",
-    "title": "Track",
+    "title": "Create track subscription",
     "name": "track",
     "group": "Hermes",
     "parameter": {
@@ -398,6 +398,80 @@ define({ "api": [
         {
           "title": "Error-Response:",
           "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"InvalidDataSupplied\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "apps/hermes/src/routes.ts",
+    "groupTitle": "Hermes"
+  },
+  {
+    "type": "get",
+    "url": "/hermes/track",
+    "title": "Get track subscriptions",
+    "name": "track",
+    "group": "Hermes",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>Auth user token.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MS\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "permission": [
+      {
+        "name": "user"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "tracks",
+            "description": "<p>A list of current track.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"tracks\": [\n     {\n       \"id\": 2,\n       \"last_place\": \"Belo Horizonte, MG\",\n       \"last_place_consolidated\": \"Courier\",\n       \"last_update\": \"02/04/2020\",\n       \"status\": \"New\",\n       \"tracking_code\": \"SS123456789BR\"\n     }\n  ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "ResourceNotFound",
+            "description": "<p>There are no subscriptions being tracked by the logged user.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Bad Request\n{\n  \"error\": \"ResourceNotFound\"\n}",
           "type": "json"
         }
       ]
