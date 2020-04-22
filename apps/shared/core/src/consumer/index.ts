@@ -27,14 +27,19 @@ class Consumer {
 				jobs.map(async job => {
 					this.consumers[job.event as any] = this.instance.consumer({ groupId: `${kafkaConfig.clientId}-${job.name}-consumer` })
 
+					const MAX_CONCURRENCY = 10
+					let currentConcurrency = 0
+
 					const consumer = this.consumers[job.event as any] as KafkaConsumer
 
 					await consumer.connect()
 
 					await consumer.subscribe({ topic: job.event, fromBeginning: true })
-	
-					await consumer.run({
+
+					consumer.run({
 						eachMessage: async ({ message }) => {
+							currentConcurrency++
+
 							const executionPrefix = `[EVENT][${job.event}][JOB][${job.name}]`
 
 							let payload: Payload = {}
@@ -50,8 +55,18 @@ class Consumer {
 								console.log(`${executionPrefix} FAILED!`)
 								ErrorService.handle(new Error(`${executionPrefix} FAILED! (${JSON.stringify(payload)}): ${error.message} `))
 							}
+
+							currentConcurrency--
 						}
 					})
+
+					while(true) {
+						if (currentConcurrency >= MAX_CONCURRENCY) {
+							consumer.pause([{ topic: job.event }])
+						} else {
+							consumer.resume([{ topic: job.event }])
+						}
+					}
 				})
 			)
 	
