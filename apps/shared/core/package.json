@@ -15,8 +15,10 @@
     "grpc": "^1.24.2",
     "kafkajs": "^1.12.0",
     "pg": "^7.18.2",
+    "reflect-metadata": "^0.1.13",
     "sequelize": "^5.21.5",
     "socket.io": "^2.3.0",
+    "typeorm": "^0.2.24",
     "umzug": "^2.3.0"
   },
   "devDependencies": {

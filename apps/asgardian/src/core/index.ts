@@ -1,4 +1,4 @@
-import { Server, Database, Rpc } from "@shared/core"
+import { Server, Database, Database2, Rpc } from "@shared/core"
 
 import routes from "@asgardian/routes"
 import models from "@asgardian/models"
@@ -8,7 +8,8 @@ class App {
 	static async start(): Promise<void> {
 		console.log("- Asgardian started!\n")
 
-		await Database.start(models)
+		// await Database.start(models)
+		await Database2.start("Asgardian")
 		Server.setup(routes)
 		Rpc.setup("Asgardian", implementations)
 	}
