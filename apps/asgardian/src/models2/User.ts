@@ -1,7 +1,15 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from "typeorm"
+import {
+	Entity,
+	Column,
+	PrimaryGeneratedColumn,
+	CreateDateColumn,
+	UpdateDateColumn,
+	DeleteDateColumn,
+	BaseEntity
+} from "typeorm"
 
 @Entity("users")
-class User {
+class User extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id: string
 

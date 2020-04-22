@@ -15,8 +15,8 @@ class Database {
 	async start(appName: Service) {
 		const formattedPaths = this.getFormattedPaths(appName)
 
-		const options = {
-			type: databaseConfig.type,
+		const options: ConnectionOptions = {
+			type: databaseConfig.type as any,
 			host: databaseConfig.host,
 			port: databaseConfig.port,
 			username: databaseConfig.username,
@@ -24,8 +24,11 @@ class Database {
 			database: databaseConfig.database,
 			entities: formattedPaths.entities,
 			migrations: formattedPaths.migrations,
-			cli: formattedPaths.cli
-		} as ConnectionOptions
+			cli: formattedPaths.cli,
+			migrationsRun: true,
+			logging: false,
+			// synchronize: true
+		}
 
 		return await createConnection(options)
 	}
