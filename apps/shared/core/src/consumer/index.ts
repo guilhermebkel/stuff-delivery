@@ -18,7 +18,7 @@ class Consumer {
 	}
 
 	async process(jobs: Job[]): Promise<void> {
-		this.run(jobs)
+		return await this.run(jobs)
 	}
 
 	async run(jobs: Job[]): Promise<void> {
@@ -60,13 +60,13 @@ class Consumer {
 						}
 					})
 
-					while(true) {
+					setInterval(() => {
 						if (currentConcurrency >= MAX_CONCURRENCY) {
 							consumer.pause([{ topic: job.event }])
 						} else {
 							consumer.resume([{ topic: job.event }])
 						}
-					}
+					}, 0)
 				})
 			)
 	

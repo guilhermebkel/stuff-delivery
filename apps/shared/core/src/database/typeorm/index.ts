@@ -3,7 +3,7 @@ import { createConnection, ConnectionOptions } from "typeorm"
 
 import { Service } from "@shared/rpc"
 
-import databaseConfig from "./config2"
+import databaseConfig from "./config"
 
 const PATH = {
 	entities: "src/models2/*.ts",
